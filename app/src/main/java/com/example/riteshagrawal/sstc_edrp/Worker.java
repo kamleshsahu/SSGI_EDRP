@@ -44,19 +44,6 @@ public class Worker implements Runnable {
         this.handler=handlermain;
     }
 
-
-
-
-
-
-
-
-//    public  Worker Input_Details(SharedPreferences sd, Handler handler) {
-//        this.handler = handler;
-//        this.sd = sd;
-//        return null;
-//    }
-
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public void run() {
@@ -72,10 +59,32 @@ public class Worker implements Runnable {
                 if(data.getResult().equals("error")){
                     System.out.println("here is error msg :"+data.getErrorMsg());
                 }else{
+//                    System.out.println("yeh got the data :"+data.getResult());
+//                    Message message = Message.obtain();
+//                    message.obj = new customObject(task_name, data.getResult());
+//                    handler.sendMessage(message);
+
+                   new attendence_extractor(data.getResult(),handler);
+
+                }
+            }
+        };
+
+
+        info_ext_handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                //System.out.println("under pre dnld handler");
+                customObject data = (customObject) msg.obj;
+                System.out.println(data.getResult());
+                if(data.getResult().equals("error")){
+                    System.out.println("here is error msg :"+data.getErrorMsg());
+                }else{
                     System.out.println("yeh got the data :"+data.getResult());
-                    Message message = Message.obtain();
-                    message.obj = new customObject(task_name, data.getResult());
-                    handler.sendMessage(message);
+
+                     finalCall_via_POST(dnld_handler_3,"",final_call,data.getResult());
+
                 }
             }
         };
@@ -92,8 +101,8 @@ public class Worker implements Runnable {
                 }else{
                     System.out.println("yeh got the data :"+data.getResult());
 
-                     finalCall_via_POST(dnld_handler_3,"",final_call);
-
+                    // finalCall_via_POST(dnld_handler_3,"",final_call);
+                       new info_extractor(data.getResult(),info_ext_handler);
                 }
             }
         };
@@ -127,7 +136,8 @@ public class Worker implements Runnable {
         String result = "";
         String sendTaskName = task_name;
         URL url;
-        String urlParameters  = "uname=BE20160467&password=9644790733&cmbsession=JUL-17";
+    //    String urlParameters  = "uname=0201160139&password=9981140217&cmbsession=JUL-17";
+        String urlParameters  = sd.getString("loginParams","");
         byte[] postData = urlParameters.getBytes( StandardCharsets.UTF_8 );
         int postDataLength = postData.length;
         try {
@@ -273,11 +283,11 @@ public class Worker implements Runnable {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    private void finalCall_via_POST(Handler dnld_handler2, String task_name, String urls) {
+    private void finalCall_via_POST(Handler dnld_handler2, String task_name, String urls,String urlParameters) {
         String result = "";
         String sendTaskName = task_name;
         URL url;
-        String urlParameters  = "sub_mit=&holdme=0&txtrollinfo=90&txtbatchinfo=2&cmbcollegename=FET&BranchF=CSE&SemesterF=3&SectionF=B&extsec='B','.'&reporttype=Attendance Report&dc1=17-JUL-2017&dc2=14-AUG-2017&apercent=ALL";
+      //  String urlParameters  = "sub_mit=&holdme=0&txtrollinfo=90&txtbatchinfo=2&cmbcollegename=FET&BranchF=CSE&SemesterF=3&SectionF=B&extsec='B','.'&reporttype=Attendance Report&dc1=17-JUL-2017&dc2=14-AUG-2017&apercent=ALL";
         byte[] postData = urlParameters.getBytes( StandardCharsets.UTF_8 );
         int postDataLength = postData.length;
         try {

@@ -15,7 +15,11 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
+        <activity android:name=".attend_shower"
+            android:label="Attendence"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

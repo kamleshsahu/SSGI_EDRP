@@ -1,21 +1,29 @@
 package com.example.riteshagrawal.sstc_edrp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 Handler handler,handler2;
-    SharedPreferences sd;
+   static SharedPreferences sd;
+    String LoginParams="";
+    EditText id;
+    EditText pass;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        id = (EditText) findViewById(R.id.id);
+        pass = (EditText) findViewById(R.id.pass);
 
 
         sd = this.getSharedPreferences("com.example.riteshagrawal.sstc_edrp", Context.MODE_APPEND);
@@ -24,45 +32,34 @@ Handler handler,handler2;
         //System.out.println("sd lastcall is empty!!!");
         sd.edit().putString("lastcall", "0").apply();
 
-        handler2 = new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                super.handleMessage(msg);
-                //System.out.println("under pre dnld handler");
-                customObject data = (customObject) msg.obj;
-                System.out.println(data.getResult());
-                if(data.getResult().equals("error")){
-                    System.out.println("here is error msg :"+data.getErrorMsg());
-                }else{
-                    Toast.makeText(MainActivity.this,"Yehh 80 % Attendence",Toast.LENGTH_LONG).show();
-                }
-            }
-        };
+
 
 
         System.out.println("hii by");
-        handler = new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                super.handleMessage(msg);
-                //System.out.println("under pre dnld handler");
-                customObject data = (customObject) msg.obj;
-                System.out.println(data.getResult());
-                if(data.getResult().equals("error")){
-                    System.out.println("here is error msg :"+data.getErrorMsg());
-                }else{
-                    System.out.println("yeh got the cookie :"+sd.getString("cookie",""));
 
-                  new Thread( new Worker(MainActivity.this,"hey baby",sd,handler2)).start();
+
+        if(sd.getString("loginParams","").equals("")) {
+            sd.edit().putString("loginParams", "").apply();
+
+        }else {
+        //  LoginParams = sd.getString("loginParams","");
+//            key_pass_generator key_pass_generator= new key_pass_generator(handler,sd);
+//            key_pass_generator.start();
+        }
+       // sd.edit().putString("uname=0201160139&password=9981140217&cmbsession=JUL-17")
 
 
 
-                }
-            }
-        };
+    }
 
-        key_pass_generator key_pass_generator= new key_pass_generator(handler,sd);
-        key_pass_generator.start();
-
+    public void LoginOnClick(View view) {
+        if(!id.getText().equals("") && !pass.getText().equals("")){
+            LoginParams="uname="+id.getText()+"&"+"password="+pass.getText()+"&cmbsession=JUL-17";
+            sd.edit().putString("loginParams", LoginParams).apply();
+            Intent i = new Intent(MainActivity.this, attend_shower.class);
+            startActivity(i);
+        }else{
+            Toast.makeText(MainActivity.this,"please fill id and pass ",Toast.LENGTH_LONG).show();
+        }
     }
 }
