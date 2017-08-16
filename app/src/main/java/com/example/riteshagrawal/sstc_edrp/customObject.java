@@ -20,6 +20,7 @@ public class customObject {
     private String TrnStartDate;
     private int TrainCurrPos;
 
+    private ArrayList<key_val> infoList;
 
     public int getTrainCurrPos() {
         return TrainCurrPos;
@@ -33,6 +34,13 @@ public class customObject {
         return TrnStartDate;
     }
 
+    public void setInfoList(ArrayList<key_val> infoList) {
+        this.infoList = infoList;
+    }
+
+    public ArrayList<key_val> getInfoList() {
+        return infoList;
+    }
 
     public String getTrainName() {
         return TrainName;

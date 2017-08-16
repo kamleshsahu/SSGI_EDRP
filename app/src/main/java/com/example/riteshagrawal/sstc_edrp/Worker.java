@@ -85,6 +85,9 @@ public class Worker implements Runnable {
 
                      finalCall_via_POST(dnld_handler_3,"",final_call,data.getResult());
 
+
+
+
                 }
             }
         };
@@ -155,9 +158,7 @@ public class Worker implements Runnable {
                     E.setRequestProperty("Method", "POST");
                     E.setRequestProperty("Content-Length", Integer.toString(postDataLength ));
                     E.setUseCaches(false);
-//                    E.setRequestProperty("uname","BE20160467");
-//                    E.setRequestProperty("password","9644790733");
-//                    E.setRequestProperty("cmbsession","JUL-17");
+
                     E.setConnectTimeout(5000);
                     E.setReadTimeout(5000);
                     E.setDoInput(true);

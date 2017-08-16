@@ -58,6 +58,8 @@ String dnld_data;
             urlParams += "reporttype=Attendance Report";
             System.out.println("here is url params : " + urlParams);
 
+
+            attend_shower.list=list;
             Message message = Message.obtain();
             message.obj = new customObject("", urlParams);
             handler.sendMessage(message);

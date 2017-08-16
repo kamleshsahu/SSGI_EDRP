@@ -1,5 +1,6 @@
 package com.example.riteshagrawal.sstc_edrp;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -8,11 +9,16 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.Collections;
 
 
 public class attend_shower extends AppCompatActivity {
@@ -24,17 +30,42 @@ public class attend_shower extends AppCompatActivity {
     static TabLayout.Tab secondTab;
     PagerAdapter adapter;
     ViewPager simpleViewPager;
+    static String StudentName ="";
+    static ArrayList<key_val> list = new ArrayList<>();
+    static ArrayList<attend_info_class> datalist = new ArrayList<>();
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater=getMenuInflater();
+        inflater.inflate(R.menu.back,menu);
+        MenuItem item =menu.findItem(R.id.logout);
+
+         item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+             @Override
+             public boolean onMenuItemClick(MenuItem menuItem) {
+                 sd.edit().putString("loginParams", "").apply();
+                 Intent i = new Intent( attend_shower.this,MainActivity.class);
+                 startActivity(i);
+                 attend_shower.this.finish();
+                 return false;
+             }
+         });
+
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.attend_shower);
 
-        TextView name =(TextView)findViewById(R.id.name);
-        TextView branch=(TextView)findViewById(R.id.branch);
-        TextView sem=(TextView)findViewById(R.id.roll_no);
-        TextView sec =(TextView)findViewById(R.id.sec);
-        TextView fromDate=(TextView)findViewById(R.id.fromDate);
-        TextView toDate=(TextView)findViewById(R.id.toDate);
+        final TextView name =(TextView)findViewById(R.id.name);
+        final TextView branch=(TextView)findViewById(R.id.branch);
+        final TextView sem=(TextView)findViewById(R.id.roll_no);
+        final  TextView sec =(TextView)findViewById(R.id.sec);
+
+        final TextView rollno=(TextView)findViewById(R.id.roll_no);
         final LinearLayout maindisplay=(LinearLayout) findViewById(R.id.maindisplay);
          final LinearLayout loading=(LinearLayout) findViewById(R.id.loading);
         tabLayout = (TabLayout) findViewById(R.id.sTabLayout);
@@ -53,6 +84,20 @@ public class attend_shower extends AppCompatActivity {
                 }else{
                     loading.setVisibility(View.GONE);
                     maindisplay.setVisibility(View.VISIBLE);
+
+                    if(list != null){
+                        try {
+                            rollno.setText(list.get(2).getValue());
+                            branch.setText(list.get(6).getValue());
+                            sem.setText(list.get(7).getValue());
+                            sec.setText(list.get(8).getValue());
+                            name.setText(StudentName);
+                        }catch (Exception e){
+                            e.fillInStackTrace();
+                            System.out.println("here is the error :"+e.toString());
+                        }
+                    }
+
 
 
                     Toast.makeText(attend_shower.this,"Yehh "+data.getResult()+" % Attendence",Toast.LENGTH_LONG).show();
@@ -124,5 +169,13 @@ public class attend_shower extends AppCompatActivity {
 
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent startMain = new Intent(Intent.ACTION_MAIN);
+        startMain.addCategory(Intent.CATEGORY_HOME);
+        startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(startMain);
     }
 }

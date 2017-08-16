@@ -42,8 +42,8 @@ Handler handler,handler2;
             sd.edit().putString("loginParams", "").apply();
 
         }else {
-            LoginParams="uname="+"BE20160467"+"&"+"password="+"9644790733"+"&cmbsession=JUL-17";
-            sd.edit().putString("loginParams", LoginParams).apply();
+           // LoginParams="uname="+"BE20160467"+"&"+"password="+"9644790733"+"&cmbsession=JUL-17";
+            //sd.edit().putString("loginParams", LoginParams).apply();
             Intent i = new Intent(MainActivity.this, attend_shower.class);
             startActivity(i);
         }
@@ -62,5 +62,13 @@ Handler handler,handler2;
         }else{
             Toast.makeText(MainActivity.this,"please fill id and pass ",Toast.LENGTH_LONG).show();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent startMain = new Intent(Intent.ACTION_MAIN);
+        startMain.addCategory(Intent.CATEGORY_HOME);
+        startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(startMain);
     }
 }
