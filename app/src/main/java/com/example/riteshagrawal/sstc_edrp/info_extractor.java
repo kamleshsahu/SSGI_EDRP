@@ -10,7 +10,7 @@ import org.w3c.dom.Document;
 
 import java.io.File;
 import java.io.IOException;
-
+import java.util.ArrayList;
 
 
 public class info_extractor {
@@ -25,6 +25,7 @@ String dnld_data;
 
     public void extractor(String dnld_data){
         org.jsoup.nodes.Document doc = null;
+        ArrayList<key_val> list =new ArrayList<>();
         try {
             doc = Jsoup.parse(dnld_data, "utf-8");
 
@@ -34,6 +35,7 @@ String dnld_data;
             for (k = 0; k < m.size(); k++) {
                 if (m.get(k).attr("type").equals("hidden")) {
                     System.out.println(m.get(k).attr("name") + "=" + m.get(k).attr("value"));
+                    list.add(new key_val(m.get(k).attr("name"),m.get(k).attr("value")));
                     urlParams += m.get(k).attr("name") + "=" + m.get(k).attr("value") + "&";
                 }
             }
@@ -44,9 +46,12 @@ String dnld_data;
                 System.out.print("=");
                 Element option = select.get(l).getElementsByTag("option").get(0);
                 System.out.println(option.attr("value"));
+                list.add(new key_val(select.get(l).attr("name"),option.attr("value")));
                 urlParams += select.get(l).attr("name") + "=" + option.attr("value") + "&";
             }
 
+            list.add(new key_val("fromDate","01-AUG-2017"));
+            list.add(new key_val("toDate","14-AUG-2017"));
             urlParams += "dc1=01-AUG-2017&";
             urlParams += "dc2=14-AUG-2017&";
             urlParams += "apercent=ALL&";

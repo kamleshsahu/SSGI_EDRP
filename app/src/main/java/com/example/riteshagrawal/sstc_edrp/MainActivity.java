@@ -42,9 +42,10 @@ Handler handler,handler2;
             sd.edit().putString("loginParams", "").apply();
 
         }else {
-        //  LoginParams = sd.getString("loginParams","");
-//            key_pass_generator key_pass_generator= new key_pass_generator(handler,sd);
-//            key_pass_generator.start();
+            LoginParams="uname="+"BE20160467"+"&"+"password="+"9644790733"+"&cmbsession=JUL-17";
+            sd.edit().putString("loginParams", LoginParams).apply();
+            Intent i = new Intent(MainActivity.this, attend_shower.class);
+            startActivity(i);
         }
        // sd.edit().putString("uname=0201160139&password=9981140217&cmbsession=JUL-17")
 
