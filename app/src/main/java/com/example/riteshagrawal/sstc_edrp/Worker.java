@@ -139,10 +139,10 @@ public class Worker implements Runnable {
         String result = "";
         String sendTaskName = task_name;
         URL url;
-    //    String urlParameters  = "uname=0201160139&password=9981140217&cmbsession=JUL-17";
+     //   String urlParameters  = "uname=0201160139&password=9981140217&cmbsession=JUL-17";
         String urlParameters  = sd.getString("loginParams","");
         byte[] postData = urlParameters.getBytes( StandardCharsets.UTF_8 );
-        int postDataLength = postData.length;
+    //    int postDataLength = postData.length;
         try {
                     HttpURLConnection E = null;
                     url = new URL(urls);
@@ -156,7 +156,7 @@ public class Worker implements Runnable {
                     E.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36");
                     E.setRequestProperty("Host", "182.71.130.11");
                     E.setRequestProperty("Method", "POST");
-                    E.setRequestProperty("Content-Length", Integer.toString(postDataLength ));
+         //           E.setRequestProperty("Content-Length", Integer.toString(postDataLength));
                     E.setUseCaches(false);
 
                     E.setConnectTimeout(5000);
