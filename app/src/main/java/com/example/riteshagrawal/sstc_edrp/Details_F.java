@@ -31,34 +31,16 @@ import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
 public class Details_F extends Fragment {
 
-    LinearLayout disp_content,loading;
-    Handler OnCreateHandler;
-    String dnlddata=null;
-    ProgressBar progressbar;
-    TextView disp_msg;
-    Button retryButton;
-    Thread thread0 = null;
+
     View rootView;
-    Handler handler;
-    private boolean isViewShown = false;
-    String data1;
-    TabLayout tabLayout;
+    ListView listView;
+    detailsAdaptor adaptor =null;
+    ArrayList<attend_info_class> datalist=attend_shower.datalist;
 
-    private Context mContext;
-    private PopupWindow mPopupWindow;
-
-    public void setTabLayout(TabLayout tabLayout) {
-        this.tabLayout = tabLayout;
-    }
-
-
-       Boolean oncreateCreated0=false;
 
     public Details_F() {
         // Required empty public constructor
     }
- String filter ="all";
-
 
 
     @Override
@@ -71,11 +53,12 @@ public class Details_F extends Fragment {
                              Bundle savedInstanceState) {
 
         rootView = inflater.inflate(R.layout.details, container, false);
+        listView = (ListView) rootView.findViewById(R.id.listview);
 
-
-
-
-
+        if(datalist != null) {
+            adaptor = new detailsAdaptor(getActivity(), datalist);
+            listView.setAdapter(adaptor);
+        }
         return rootView;
     }
 }

@@ -61,10 +61,6 @@ public class Dashboard_F extends Fragment {
 
 
        attendence.setText(attend_shower.attend_val);
-
-
-
-        
         return rootView;
     }
 }
