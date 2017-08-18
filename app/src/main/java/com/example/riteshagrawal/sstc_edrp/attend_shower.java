@@ -87,10 +87,10 @@ public class attend_shower extends AppCompatActivity {
 
                     if(list != null){
                         try {
-                            rollno.setText(list.get(2).getValue());
-                            branch.setText(list.get(6).getValue());
-                            sem.setText(list.get(7).getValue());
-                            sec.setText(list.get(8).getValue());
+                            rollno.setText("Roll No:"+list.get(2).getValue()+"");
+                            branch.setText("Branch :"+list.get(6).getValue()+"");
+                            sem.setText("Sem :"+list.get(7).getValue()+"");
+                            sec.setText("Sec :"+list.get(8).getValue()+"");
                             name.setText(StudentName);
                         }catch (Exception e){
                             e.fillInStackTrace();

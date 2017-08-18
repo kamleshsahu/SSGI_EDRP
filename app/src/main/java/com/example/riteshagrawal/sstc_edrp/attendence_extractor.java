@@ -44,9 +44,9 @@ String dnld_data;
             if (kk.length == 4) {
                 datalist.add(new attend_info_class(kk[0],kk[1],kk[2],kk[3],value.text()));
             }else if(kk.length ==2){
-                datalist.add(new attend_info_class("","",kk[0],kk[1],value.text()));
+              // datalist.add(new attend_info_class("","",kk[0],kk[1],value.text()));
             }else{
-                datalist.add(new attend_info_class("","",kk[0],"",value.text()));
+              // datalist.add(new attend_info_class("","",kk[0],"",value.text()));
                 if(kk[0].startsWith("studentname")){
                     attend_shower.StudentName=value.text();
                 }else if(kk[0].startsWith("%")){
