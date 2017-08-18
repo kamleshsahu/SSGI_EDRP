@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 class detailsAdaptor extends BaseAdapter  {
 
@@ -64,7 +63,7 @@ TextView value;
        final ViewHolder holder;
        if (view == null) {
            holder = new ViewHolder();
-           view = inflater.inflate(R.layout.details_adapter, null);
+           view = inflater.inflate(R.layout.list_details, null);
 
            holder.teacher= (TextView) view.findViewById(R.id.teacher);
            holder.subject= (TextView) view.findViewById(R.id.subject);

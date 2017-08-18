@@ -62,7 +62,7 @@ public class attend_shower extends AppCompatActivity {
 
         final TextView name =(TextView)findViewById(R.id.name);
         final TextView branch=(TextView)findViewById(R.id.branch);
-        final TextView sem=(TextView)findViewById(R.id.roll_no);
+        final TextView sem=(TextView)findViewById(R.id.sem);
         final  TextView sec =(TextView)findViewById(R.id.sec);
 
         final TextView rollno=(TextView)findViewById(R.id.roll_no);

@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
@@ -33,7 +34,7 @@ public class Details_F extends Fragment {
 
 
     View rootView;
-    ListView listView;
+    GridView listView;
     detailsAdaptor adaptor =null;
     ArrayList<attend_info_class> datalist=attend_shower.datalist;
 
@@ -53,7 +54,7 @@ public class Details_F extends Fragment {
                              Bundle savedInstanceState) {
 
         rootView = inflater.inflate(R.layout.details, container, false);
-        listView = (ListView) rootView.findViewById(R.id.listview);
+        listView = (GridView) rootView.findViewById(R.id.listview);
 
         if(datalist != null) {
             adaptor = new detailsAdaptor(getActivity(), datalist);

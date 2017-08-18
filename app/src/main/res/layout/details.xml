@@ -5,13 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ListView
+    <GridView
         android:divider="#fff"
         android:id="@+id/listview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:numColumns="2"
         tools:context="com.example.riteshagrawal.sstc_edrp.attend_shower">
-    </ListView>
+    </GridView>
 
 
 </LinearLayout>
