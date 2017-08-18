@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/SSGI_EDRP.iml" filepath="$PROJECT_DIR$/SSGI_EDRP.iml" />
       <module fileurl="file://$PROJECT_DIR$/Sstc_edrp.iml" filepath="$PROJECT_DIR$/Sstc_edrp.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>

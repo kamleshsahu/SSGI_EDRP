@@ -1,37 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
      android:layout_width="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/grad1">
 
     <EditText
+        android:fontFamily="sans-serif-condensed"
+        android:textColorHint="#d1d1d1"
+        android:textColor="@color/colorPrimary"
+        android:gravity="center_horizontal"
+        android:background="@drawable/button1"
         android:id="@+id/id"
+        android:textAllCaps="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="7"
-        android:layout_marginTop="50dp"
         android:textSize="25dp"
         android:layout_gravity="center_horizontal"
         android:inputType="textPersonName"
-        android:hint="Student Id" />
+        android:hint="STUDENT ID"
+        android:layout_marginBottom="16dp"
+        android:layout_above="@+id/pass"
+        android:layout_centerHorizontal="true" />
 
     <EditText
+        android:fontFamily="sans-serif-thin"
+        android:textColorHint="#d1d1d1"
+        android:textColor="@color/colorAccent"
+        android:gravity="center_horizontal"
+        android:textAllCaps="true"
+        android:background="@drawable/button1"
         android:id="@+id/pass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:ems="7"
-        android:hint="Password"
+        android:hint="PASSWORD"
         android:textSize="25dp"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:layout_above="@+id/Login"
+        android:layout_alignLeft="@+id/id"
+        android:layout_alignStart="@+id/id"
+        android:layout_marginBottom="28dp" />
 
     <Button
-        android:layout_marginTop="40dp"
+        android:textSize="20sp"
+        android:textColor="@color/colorPrimary"
+        android:fontFamily="sans-serif-thin"
+        android:background="@drawable/button1"
         android:id="@+id/Login"
         android:layout_width="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_height="wrap_content"
-        android:text="Login"
-        android:onClick="LoginOnClick"/>
-</LinearLayout>
+        android:text="LOGIN"
+        android:onClick="LoginOnClick"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>
