@@ -1,7 +1,9 @@
 package com.example.riteshagrawal.sstc_edrp;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -13,15 +15,26 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
+import java.util.Locale;
 
 
 public class attend_shower extends AppCompatActivity {
+     Date date =null;
     Handler handler,handler2;
     SharedPreferences sd=MainActivity.sd;
     static int tabindex=-1;
@@ -33,7 +46,13 @@ public class attend_shower extends AppCompatActivity {
     static String StudentName ="";
     static ArrayList<key_val> list = new ArrayList<>();
     static ArrayList<attend_info_class> datalist = new ArrayList<>();
+    DatePickerDialog datePickerDialog;
+    TextView fromdate,todate;
 
+
+    String months[] = {"JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"};
+    String monthsD[] = {"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
+    static String fromDate="",toDate="";
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater=getMenuInflater();
@@ -70,6 +89,77 @@ public class attend_shower extends AppCompatActivity {
          final LinearLayout loading=(LinearLayout) findViewById(R.id.loading);
         tabLayout = (TabLayout) findViewById(R.id.sTabLayout);
         tabLayout.setupWithViewPager(simpleViewPager);
+
+
+        DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy ");
+        Date date = new Date();
+        System.out.println("here is todays date :"+dateFormat.format(date));
+
+
+
+        fromdate = (TextView) findViewById(R.id .fromDate);
+        // perform click event on edit text
+        fromdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                // calender class's instance and get current date , month and year from calender
+//                final Calendar c = Calendar.getInstance();
+//                int mYear = c.get(Calendar.YEAR); // current year
+//                int mMonth = c.get(Calendar.MONTH); // current month
+//                int mDay = c.get(Calendar.DAY_OF_MONTH); // current day
+//                // date picker dialog
+//                datePickerDialog = new DatePickerDialog(attend_shower.this,
+//                        new DatePickerDialog.OnDateSetListener() {
+//
+//                            @Override
+//                            public void onDateSet(DatePicker view, int year,
+//                                                  int monthOfYear, int dayOfMonth) {
+//                                // set day of month , month and year value in the edit text
+//                                fromdate.setText(dayOfMonth+ " "+monthsD[(monthOfYear)]);
+//                                System.out.println("to date : "+dayOfMonth + "-" + months[(monthOfYear)] + "-" + year);
+//                                fromDate=dayOfMonth + "-" + months[(monthOfYear)] + "-" + year;
+//
+//                            }
+//                        }, mYear, mMonth, mDay);
+//                datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
+//                datePickerDialog.show();
+                datePicker(1);
+            }
+        });
+
+        todate = (TextView) findViewById(R.id .toDate);
+        // perform click event on edit text
+        todate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // calender class's instance and get current date , month and year from calender
+//                final Calendar c = Calendar.getInstance();
+//                int mYear = c.get(Calendar.YEAR); // current year
+//                int mMonth = c.get(Calendar.MONTH); // current month
+//                int mDay = c.get(Calendar.DAY_OF_MONTH); // current day
+//                // date picker dialog
+//                datePickerDialog = new DatePickerDialog(attend_shower.this,
+//                        new DatePickerDialog.OnDateSetListener() {
+//
+//                            @Override
+//                            public void onDateSet(DatePicker view, int year,
+//                                                  int monthOfYear, int dayOfMonth) {
+//                                // set day of month , month and year value in the edit text
+//                                todate.setText(dayOfMonth+ " "+monthsD[(monthOfYear)]);
+//
+//                                 toDate=dayOfMonth + "-" + months[(monthOfYear)] + "-" + year;
+//                                System.out.println("to date : "+dayOfMonth + "-" + months[(monthOfYear)] + "-" + year);
+//
+//                                key_pass_generator key_pass_generator= new key_pass_generator(handler,sd);
+//                                key_pass_generator.start();
+//
+//                            }
+//                        }, mYear, mMonth, mDay);
+//                datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
+//                datePickerDialog.show();
+                datePicker(2);
+            }
+        });
 
 
         handler2 = new Handler() {
@@ -164,12 +254,13 @@ public class attend_shower extends AppCompatActivity {
             }
         };
 
-        key_pass_generator key_pass_generator= new key_pass_generator(handler,sd);
-        key_pass_generator.start();
+
 
 
 
     }
+
+
 
     @Override
     public void onBackPressed() {
@@ -177,5 +268,67 @@ public class attend_shower extends AppCompatActivity {
         startMain.addCategory(Intent.CATEGORY_HOME);
         startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(startMain);
+    }
+
+    public void datePicker(final int tag) {
+
+
+        System.out.println("hello its working :");
+        Toast.makeText(getApplicationContext(),"tag :"+tag,Toast.LENGTH_LONG).show();
+
+        final Calendar c = Calendar.getInstance();
+        int mYear = c.get(Calendar.YEAR); // current year
+        int mMonth = c.get(Calendar.MONTH); // current month
+        int mDay = c.get(Calendar.DAY_OF_MONTH); // current day
+        // date picker dialog
+        datePickerDialog = new DatePickerDialog(attend_shower.this,
+                new DatePickerDialog.OnDateSetListener() {
+
+                    @Override
+                    public void onDateSet(DatePicker view, int year,
+                                          int monthOfYear, int dayOfMonth) {
+                        // set day of month , month and year value in the edit text
+
+                        if(tag==1) {
+                            fromdate.setText(dayOfMonth+ " "+monthsD[(monthOfYear)]);
+                            System.out.println("to date : "+dayOfMonth + "-" + months[(monthOfYear)] + "-" + year);
+                            fromDate=dayOfMonth + "-" + months[(monthOfYear)] + "-" + year;
+
+                        }else if(tag==2){
+                            String strDate = "11/08/2017";
+                            System.out.println("date in old format - " + strDate);
+                            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+
+                            try {
+
+                                date = formatter.parse(strDate);
+                                System.out.println("Parsed date - " + date);
+
+//                                formatter = new SimpleDateFormat("yyyy-MM-dd");
+//                                System.out.println("date in new format - " + formatter.format(date));
+                            } catch (ParseException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                                System.out.println("error in data ");
+                            }
+                            todate.setText(dayOfMonth + " " + monthsD[(monthOfYear)]);
+                            System.out.println("here is millis "+ date.getTime());
+
+                            toDate = dayOfMonth + "-" + months[(monthOfYear)] + "-" + year;
+                            System.out.println("to date : " + dayOfMonth + "-" + months[(monthOfYear)] + "-" + year);
+                            key_pass_generator key_pass_generator= new key_pass_generator(handler,sd);
+                            key_pass_generator.start();
+                        }else{
+                            Toast.makeText(getApplicationContext(),"unkwown tag",Toast.LENGTH_LONG).show();
+                        }
+
+
+                    }
+                }, mYear, mMonth, mDay);
+        datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
+        if(tag==2) {
+            datePickerDialog.getDatePicker().setMinDate(date.getTime());
+        }
+        datePickerDialog.show();
     }
 }

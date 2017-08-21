@@ -65,6 +65,34 @@
                 android:text="sec"
                 android:textSize="20sp" />
 
+            <TextView
+                android:id="@+id/fromDate"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:background="#d4d4d4"
+                android:hint="From Date"
+                android:padding="15dp"
+                android:textColor="#897"
+                android:textColorHint="#090"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:onClick="datePicker"/>
+            <TextView
+                android:id="@+id/toDate"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/fromDate"
+                android:background="#d4d4d4"
+                android:hint="To Date"
+                android:padding="15dp"
+                android:textColor="#897"
+                android:textColorHint="#090"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:onClick="datePicker"/>
+
         </RelativeLayout>
 
         <LinearLayout
@@ -91,7 +119,9 @@
             android:id="@+id/sTabLayout"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:backgroundTint="@color/primary_color"
+            app:tabBackground="@color/primary_color"
+            app:tabIndicatorColor="@color/white"
+            app:tabSelectedTextColor="@color/white"
             android:visibility="visible" />
 
         <android.support.v4.view.ViewPager

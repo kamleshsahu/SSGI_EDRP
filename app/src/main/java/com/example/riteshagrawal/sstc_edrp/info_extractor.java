@@ -50,10 +50,14 @@ String dnld_data;
                 urlParams += select.get(l).attr("name") + "=" + option.attr("value") + "&";
             }
 
+
+
             list.add(new key_val("fromDate","01-AUG-2017"));
             list.add(new key_val("toDate","14-AUG-2017"));
-            urlParams += "dc1=01-AUG-2017&";
-            urlParams += "dc2=14-AUG-2017&";
+//            urlParams += "dc1=01-AUG-2017&";
+//            urlParams += "dc2=14-AUG-2017&";
+            urlParams += "dc1="+attend_shower.fromDate+"&";
+            urlParams += "dc2="+attend_shower.toDate+"&";
             urlParams += "apercent=ALL&";
             urlParams += "reporttype=Attendance Report";
             System.out.println("here is url params : " + urlParams);
