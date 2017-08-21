@@ -47,7 +47,7 @@ public class attend_shower extends AppCompatActivity {
     static ArrayList<key_val> list = new ArrayList<>();
     static ArrayList<attend_info_class> datalist = new ArrayList<>();
     DatePickerDialog datePickerDialog;
-    TextView fromdate,todate;
+    TextView fromdate=null,todate=null;
 
 
     String months[] = {"JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"};
@@ -255,9 +255,12 @@ public class attend_shower extends AppCompatActivity {
         };
 
 
-
-
-
+     //   if(fromdate== null) {
+          fromDate="01-AUG-2017";
+            toDate="21-AUG-2017";
+            key_pass_generator key_pass_generator = new key_pass_generator(handler, sd);
+            key_pass_generator.start();
+     //   }
     }
 
 
@@ -312,7 +315,7 @@ public class attend_shower extends AppCompatActivity {
                                 System.out.println("error in data ");
                             }
                             todate.setText(dayOfMonth + " " + monthsD[(monthOfYear)]);
-                            System.out.println("here is millis "+ date.getTime());
+                          //  System.out.println("here is millis "+ date.getTime());
 
                             toDate = dayOfMonth + "-" + months[(monthOfYear)] + "-" + year;
                             System.out.println("to date : " + dayOfMonth + "-" + months[(monthOfYear)] + "-" + year);
@@ -326,9 +329,9 @@ public class attend_shower extends AppCompatActivity {
                     }
                 }, mYear, mMonth, mDay);
         datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
-        if(tag==2) {
-            datePickerDialog.getDatePicker().setMinDate(date.getTime());
-        }
+//        if(tag==2) {
+//            datePickerDialog.getDatePicker().setMinDate(date.getTime());
+//        }
         datePickerDialog.show();
     }
 }
