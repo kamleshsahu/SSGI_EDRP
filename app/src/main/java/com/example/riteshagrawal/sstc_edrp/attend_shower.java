@@ -34,7 +34,8 @@ import java.util.Locale;
 
 
 public class attend_shower extends AppCompatActivity {
-     Date date =null;
+
+    long millis= (long) 1501732200000f;
     Handler handler,handler2;
     SharedPreferences sd=MainActivity.sd;
     static int tabindex=-1;
@@ -90,10 +91,10 @@ public class attend_shower extends AppCompatActivity {
         tabLayout = (TabLayout) findViewById(R.id.sTabLayout);
         tabLayout.setupWithViewPager(simpleViewPager);
 
-
-        DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy ");
-        Date date = new Date();
-        System.out.println("here is todays date :"+dateFormat.format(date));
+//
+//        DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy ");
+//        Date date = new Date();
+//        System.out.println("here is todays date :"+dateFormat.format(date));
 
 
 
@@ -102,27 +103,6 @@ public class attend_shower extends AppCompatActivity {
         fromdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                // calender class's instance and get current date , month and year from calender
-//                final Calendar c = Calendar.getInstance();
-//                int mYear = c.get(Calendar.YEAR); // current year
-//                int mMonth = c.get(Calendar.MONTH); // current month
-//                int mDay = c.get(Calendar.DAY_OF_MONTH); // current day
-//                // date picker dialog
-//                datePickerDialog = new DatePickerDialog(attend_shower.this,
-//                        new DatePickerDialog.OnDateSetListener() {
-//
-//                            @Override
-//                            public void onDateSet(DatePicker view, int year,
-//                                                  int monthOfYear, int dayOfMonth) {
-//                                // set day of month , month and year value in the edit text
-//                                fromdate.setText(dayOfMonth+ " "+monthsD[(monthOfYear)]);
-//                                System.out.println("to date : "+dayOfMonth + "-" + months[(monthOfYear)] + "-" + year);
-//                                fromDate=dayOfMonth + "-" + months[(monthOfYear)] + "-" + year;
-//
-//                            }
-//                        }, mYear, mMonth, mDay);
-//                datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
-//                datePickerDialog.show();
                 datePicker(1);
             }
         });
@@ -132,31 +112,7 @@ public class attend_shower extends AppCompatActivity {
         todate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // calender class's instance and get current date , month and year from calender
-//                final Calendar c = Calendar.getInstance();
-//                int mYear = c.get(Calendar.YEAR); // current year
-//                int mMonth = c.get(Calendar.MONTH); // current month
-//                int mDay = c.get(Calendar.DAY_OF_MONTH); // current day
-//                // date picker dialog
-//                datePickerDialog = new DatePickerDialog(attend_shower.this,
-//                        new DatePickerDialog.OnDateSetListener() {
-//
-//                            @Override
-//                            public void onDateSet(DatePicker view, int year,
-//                                                  int monthOfYear, int dayOfMonth) {
-//                                // set day of month , month and year value in the edit text
-//                                todate.setText(dayOfMonth+ " "+monthsD[(monthOfYear)]);
-//
-//                                 toDate=dayOfMonth + "-" + months[(monthOfYear)] + "-" + year;
-//                                System.out.println("to date : "+dayOfMonth + "-" + months[(monthOfYear)] + "-" + year);
-//
-//                                key_pass_generator key_pass_generator= new key_pass_generator(handler,sd);
-//                                key_pass_generator.start();
-//
-//                            }
-//                        }, mYear, mMonth, mDay);
-//                datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
-//                datePickerDialog.show();
+
                 datePicker(2);
             }
         });
@@ -255,12 +211,7 @@ public class attend_shower extends AppCompatActivity {
         };
 
 
-     //   if(fromdate== null) {
-          fromDate="01-AUG-2017";
-            toDate="21-AUG-2017";
-            key_pass_generator key_pass_generator = new key_pass_generator(handler, sd);
-            key_pass_generator.start();
-     //   }
+
     }
 
 
@@ -276,8 +227,8 @@ public class attend_shower extends AppCompatActivity {
     public void datePicker(final int tag) {
 
 
-        System.out.println("hello its working :");
-        Toast.makeText(getApplicationContext(),"tag :"+tag,Toast.LENGTH_LONG).show();
+     //   System.out.println("hello its working :");
+    //    Toast.makeText(getApplicationContext(),"tag :"+tag,Toast.LENGTH_LONG).show();
 
         final Calendar c = Calendar.getInstance();
         int mYear = c.get(Calendar.YEAR); // current year
@@ -297,28 +248,25 @@ public class attend_shower extends AppCompatActivity {
                             System.out.println("to date : "+dayOfMonth + "-" + months[(monthOfYear)] + "-" + year);
                             fromDate=dayOfMonth + "-" + months[(monthOfYear)] + "-" + year;
 
-                        }else if(tag==2){
-                            String strDate = "11/08/2017";
-                            System.out.println("date in old format - " + strDate);
-                            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-
+                            String myDate =fromDate +" 00:00:00";
+                            SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
+                            Date date = null;
                             try {
-
-                                date = formatter.parse(strDate);
-                                System.out.println("Parsed date - " + date);
-
-//                                formatter = new SimpleDateFormat("yyyy-MM-dd");
-//                                System.out.println("date in new format - " + formatter.format(date));
+                                date = sdf.parse(myDate);
                             } catch (ParseException e) {
-                                // TODO Auto-generated catch block
                                 e.printStackTrace();
-                                System.out.println("error in data ");
+                                System.out.println("bug in the  simple date format >>"+e.toString());
                             }
-                            todate.setText(dayOfMonth + " " + monthsD[(monthOfYear)]);
-                          //  System.out.println("here is millis "+ date.getTime());
 
+                            millis = date.getTime();
+                            System.out.println("here is millis baby : "+millis);
+                        }else if(tag==2){
+                            todate.setText(dayOfMonth + " " + monthsD[(monthOfYear)]);
                             toDate = dayOfMonth + "-" + months[(monthOfYear)] + "-" + year;
                             System.out.println("to date : " + dayOfMonth + "-" + months[(monthOfYear)] + "-" + year);
+
+
+
                             key_pass_generator key_pass_generator= new key_pass_generator(handler,sd);
                             key_pass_generator.start();
                         }else{
@@ -329,9 +277,9 @@ public class attend_shower extends AppCompatActivity {
                     }
                 }, mYear, mMonth, mDay);
         datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
-//        if(tag==2) {
-//            datePickerDialog.getDatePicker().setMinDate(date.getTime());
-//        }
+        if(tag==2) {
+            datePickerDialog.getDatePicker().setMinDate(millis);
+        }
         datePickerDialog.show();
     }
 }
