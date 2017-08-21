@@ -34,6 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20sp"
                 android:layout_toRightOf="@id/name"
+
                 android:text="branch"
                 android:textSize="20sp" />
 
@@ -60,6 +61,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/sem"
+
                 android:text="sec"
                 android:textSize="20sp" />
 
