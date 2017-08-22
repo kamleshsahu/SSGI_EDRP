@@ -13,7 +13,8 @@
         android:orientation="vertical"
         android:visibility="visible">
 
-        <RelativeLayout
+        <LinearLayout
+            android:visibility="visible"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -26,6 +27,14 @@
                 android:text="name"
                 android:textSize="20sp" />
 
+            <TextView
+                android:id="@+id/batch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:text="batch"
+                android:textSize="20sp" />
             <TextView
                 android:id="@+id/branch"
                 android:layout_width="wrap_content"
@@ -58,38 +67,87 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/sem"
-
                 android:text="sec"
                 android:textSize="20sp" />
 
+        </LinearLayout>
+        <LinearLayout
+            android:elevation="0dp"
+            android:paddingBottom="0dp"
+            android:layout_marginBottom="0.5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+<LinearLayout
+    android:padding="2dp"
+    android:background="@drawable/tap"
+    android:orientation="vertical"
+    android:layout_weight="1"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content">
             <TextView
+                android:text="From Date"
+                android:fontFamily="sans-serif-condensed"
+                android:gravity="center_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:textSize="9.5sp"
+                />
+            <TextView
+                android:layout_marginTop="-3dp"
+                android:fontFamily="sans-serif-condensed"
+                android:paddingBottom="1dp"
+                android:gravity="center_horizontal"
                 android:id="@+id/fromDate"
-                android:layout_width="150dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:background="#d4d4d4"
                 android:hint="From Date"
-                android:padding="15dp"
-                android:textColor="#897"
-                android:textColorHint="#090"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
                 android:textSize="15sp"
                 android:textStyle="bold"
                 android:onClick="datePicker"/>
+</LinearLayout>
             <TextView
-                android:id="@+id/toDate"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_below="@id/fromDate"
-                android:background="#d4d4d4"
-                android:hint="To Date"
-                android:padding="15dp"
-                android:textColor="#897"
-                android:textColorHint="#090"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                android:onClick="datePicker"/>
-        </RelativeLayout>
+                android:padding="2dp"
+                android:background="@color/white"
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent" />
+            <LinearLayout
+                android:padding="2dp"
+                android:background="@drawable/tap"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:text="To Date"
+                    android:fontFamily="sans-serif-condensed"
+                    android:gravity="center_horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    android:textSize="9.5sp"
+                    />
+                <TextView
+                    android:layout_marginTop="-3dp"
+                    android:fontFamily="sans-serif-condensed"
+                    android:paddingBottom="1dp"
+                    android:gravity="center_horizontal"
+                    android:id="@+id/toDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="To Date"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:onClick="datePicker"/>
+            </LinearLayout>
+
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/loading"
@@ -108,15 +166,15 @@
                 android:layout_marginTop="200sp"
                 android:progressDrawable="@drawable/circular_progress_bar"
                 android:visibility="visible" />
-
         </LinearLayout>
 
         <android.support.design.widget.TabLayout
             android:id="@+id/sTabLayout"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
-            app:tabBackground="@color/primary_color"
-            app:tabIndicatorColor="@color/white"
+            android:layout_height="40dp"
+            app:tabTextColor="@color/white"
+            app:tabBackground="@color/colorPrimary"
+            app:tabIndicatorColor="@color/colorAccent"
             app:tabSelectedTextColor="@color/white"
             android:visibility="visible" />
 
