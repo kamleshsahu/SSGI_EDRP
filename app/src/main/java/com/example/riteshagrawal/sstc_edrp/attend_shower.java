@@ -49,7 +49,8 @@ public class attend_shower extends AppCompatActivity {
     static ArrayList<attend_info_class> datalist = new ArrayList<>();
     DatePickerDialog datePickerDialog;
     TextView fromdate=null,todate=null;
-
+     LinearLayout maindisplay;
+     LinearLayout loading;
 
     String months[] = {"JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"};
     String monthsD[] = {"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
@@ -84,12 +85,12 @@ public class attend_shower extends AppCompatActivity {
         final TextView branch=(TextView)findViewById(R.id.branch);
         final TextView sem=(TextView)findViewById(R.id.sem);
         final  TextView sec =(TextView)findViewById(R.id.sec);
-
         final TextView rollno=(TextView)findViewById(R.id.roll_no);
-        final LinearLayout maindisplay=(LinearLayout) findViewById(R.id.maindisplay);
-         final LinearLayout loading=(LinearLayout) findViewById(R.id.loading);
-        tabLayout = (TabLayout) findViewById(R.id.sTabLayout);
-        tabLayout.setupWithViewPager(simpleViewPager);
+        final TextView batch=(TextView)findViewById(R.id.batch);
+
+        maindisplay = (LinearLayout) findViewById(R.id.maindisplay);
+        loading = (LinearLayout) findViewById(R.id.loading);
+
 
 //
 //        DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy ");
@@ -134,6 +135,7 @@ public class attend_shower extends AppCompatActivity {
                     if(list != null){
                         try {
                             rollno.setText("Roll No:"+list.get(2).getValue()+"");
+                            batch.setText("Batch :"+list.get(3).getValue()+"");
                             branch.setText("Branch :"+list.get(6).getValue()+"");
                             sem.setText("Sem :"+list.get(7).getValue()+"");
                             sec.setText("Sec :"+list.get(8).getValue()+"");
@@ -144,6 +146,8 @@ public class attend_shower extends AppCompatActivity {
                         }
                     }
 
+                    tabLayout = (TabLayout) findViewById(R.id.sTabLayout);
+                    tabLayout.setupWithViewPager(simpleViewPager);
 
 
                     Toast.makeText(attend_shower.this,"Yehh "+data.getResult()+" % Attendence",Toast.LENGTH_LONG).show();
@@ -265,7 +269,8 @@ public class attend_shower extends AppCompatActivity {
                             toDate = dayOfMonth + "-" + months[(monthOfYear)] + "-" + year;
                             System.out.println("to date : " + dayOfMonth + "-" + months[(monthOfYear)] + "-" + year);
 
-
+                            loading.setVisibility(View.VISIBLE);
+                            maindisplay.setVisibility(View.GONE);
 
                             key_pass_generator key_pass_generator= new key_pass_generator(handler,sd);
                             key_pass_generator.start();

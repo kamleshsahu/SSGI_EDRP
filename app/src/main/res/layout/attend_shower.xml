@@ -7,16 +7,16 @@
     android:weightSum="1">
 
     <LinearLayout
-        android:id="@+id/maindisplay"
+        android:id="@+id/mainlayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:visibility="visible">
 
         <LinearLayout
-            android:visibility="visible"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:visibility="visible">
 
             <TextView
                 android:id="@+id/name"
@@ -35,6 +35,7 @@
                 android:layout_alignParentStart="true"
                 android:text="batch"
                 android:textSize="20sp" />
+
             <TextView
                 android:id="@+id/branch"
                 android:layout_width="wrap_content"
@@ -71,80 +72,86 @@
                 android:textSize="20sp" />
 
         </LinearLayout>
+
         <LinearLayout
-            android:elevation="0dp"
-            android:paddingBottom="0dp"
-            android:layout_marginBottom="0.5dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-<LinearLayout
-    android:padding="2dp"
-    android:background="@drawable/tap"
-    android:orientation="vertical"
-    android:layout_weight="1"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content">
-            <TextView
-                android:text="From Date"
-                android:fontFamily="sans-serif-condensed"
-                android:gravity="center_horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white"
-                android:textSize="9.5sp"
-                />
-            <TextView
-                android:layout_marginTop="-3dp"
-                android:fontFamily="sans-serif-condensed"
-                android:paddingBottom="1dp"
-                android:gravity="center_horizontal"
-                android:id="@+id/fromDate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="From Date"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                android:onClick="datePicker"/>
-</LinearLayout>
-            <TextView
-                android:padding="2dp"
-                android:background="@color/white"
-                android:layout_width="0.5dp"
-                android:layout_height="match_parent" />
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="0.5dp"
+            android:elevation="0dp"
+            android:paddingBottom="0dp">
+
             <LinearLayout
-                android:padding="2dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:background="@drawable/tap"
                 android:orientation="vertical"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content">
+                android:padding="2dp">
+
                 <TextView
-                    android:text="To Date"
-                    android:fontFamily="sans-serif-condensed"
-                    android:gravity="center_horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed"
+                    android:gravity="center_horizontal"
+                    android:text="From Date"
                     android:textColor="@color/white"
                     android:textColorHint="@color/white"
-                    android:textSize="9.5sp"
-                    />
+                    android:textSize="9.5sp" />
+
                 <TextView
-                    android:layout_marginTop="-3dp"
-                    android:fontFamily="sans-serif-condensed"
-                    android:paddingBottom="1dp"
-                    android:gravity="center_horizontal"
-                    android:id="@+id/toDate"
+                    android:id="@+id/fromDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="To Date"
+                    android:layout_marginTop="-3dp"
+                    android:fontFamily="sans-serif-condensed"
+                    android:gravity="center_horizontal"
+                    android:hint="From Date"
+                    android:onClick="datePicker"
+                    android:paddingBottom="1dp"
                     android:textColor="@color/white"
                     android:textColorHint="@color/white"
                     android:textSize="15sp"
-                    android:textStyle="bold"
-                    android:onClick="datePicker"/>
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:padding="2dp" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/tap"
+                android:orientation="vertical"
+                android:padding="2dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed"
+                    android:gravity="center_horizontal"
+                    android:text="To Date"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    android:textSize="9.5sp" />
+
+                <TextView
+                    android:id="@+id/toDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-3dp"
+                    android:fontFamily="sans-serif-condensed"
+                    android:gravity="center_horizontal"
+                    android:hint="To Date"
+                    android:onClick="datePicker"
+                    android:paddingBottom="1dp"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
         </LinearLayout>
@@ -167,16 +174,21 @@
                 android:progressDrawable="@drawable/circular_progress_bar"
                 android:visibility="visible" />
         </LinearLayout>
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:id="@+id/maindisplay"
+    android:visibility="gone">
         <android.support.design.widget.TabLayout
             android:id="@+id/sTabLayout"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            app:tabTextColor="@color/white"
+            android:visibility="visible"
             app:tabBackground="@color/colorPrimary"
             app:tabIndicatorColor="@color/colorAccent"
             app:tabSelectedTextColor="@color/white"
-            android:visibility="visible" />
+            app:tabTextColor="@color/white" />
 
         <android.support.v4.view.ViewPager
             android:id="@+id/simpleViewPager"
@@ -184,6 +196,8 @@
             android:layout_height="match_parent"
             android:visibility="visible"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+</LinearLayout>
+
     </LinearLayout>
 
 
