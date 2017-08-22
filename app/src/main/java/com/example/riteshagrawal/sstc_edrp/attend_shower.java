@@ -3,7 +3,6 @@ package com.example.riteshagrawal.sstc_edrp;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -16,21 +15,15 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
-import java.util.Locale;
 
 
 public class attend_shower extends AppCompatActivity {
@@ -218,6 +211,11 @@ public class attend_shower extends AppCompatActivity {
             }
         };
 
+
+        fromDate="01-AUG-2017";
+        toDate="22-AUG-2017";
+        key_pass_generator key_pass_generator= new key_pass_generator(handler,sd);
+        key_pass_generator.start();
 
 
     }
