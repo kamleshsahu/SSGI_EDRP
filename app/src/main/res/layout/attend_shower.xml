@@ -15,8 +15,8 @@
 
         <LinearLayout
             android:orientation="vertical"
-            android:elevation="2dp"
-            android:layout_margin="7dp"
+            android:elevation="3dp"
+            android:layout_margin="8dp"
             android:background="@drawable/rect"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -27,79 +27,105 @@
                 android:layout_gravity="center_vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-            <ImageView
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/professor"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:id="@+id/imageView" />
-            <TextView
+           <LinearLayout
+               android:layout_gravity="center_vertical"
+               android:layout_marginTop="0dp"
+               android:orientation="vertical"
+               android:layout_marginLeft="8dp"
+               android:layout_weight="1"
+               android:layout_width="0dp"
+               android:layout_height="wrap_content">
+               <TextView
                 android:fontFamily="sans-serif-thin"
                 android:textColor="#2196F3"
-                android:layout_marginLeft="8dp"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
                 android:id="@+id/name"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="RISHABH NAYAK"
-                android:textSize="20sp"
+                android:textSize="23sp"
                  />
-            <TextView
-                android:elevation="2dp"
-                android:fontFamily="sans-serif-condensed"
-                android:textColor="@color/white"
+<LinearLayout
+    android:layout_marginTop="-4dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+               <TextView
+                   android:fontFamily="sans-serif-condensed"
+                   android:layout_marginRight="10dp"
+                   android:id="@+id/sec"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="SEC : A"
+                   android:textSize="10sp"
+                   />
+
+               <TextView
+                   android:layout_marginRight="10dp"
+                   android:fontFamily="sans-serif-condensed"
+                   android:gravity="center_horizontal"
+                   android:id="@+id/batch"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="B-1"
+                   android:textSize="10sp"
+                   />
+    <TextView
+
+        android:fontFamily="sans-serif-condensed"
+        android:layout_marginRight="10dp"
+        android:gravity="center_horizontal"
+        android:id="@+id/branch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CSE"
+        android:textSize="10sp"
+        />
+
+    <TextView
+        android:fontFamily="sans-serif-condensed"
+        android:id="@+id/sem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SEM:3 "
+        android:textSize="10sp"
+        />
+</LinearLayout>
+           </LinearLayout>
+
+                <LinearLayout
+                    android:paddingRight="8dp"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                <TextView
+                    android:textAlignment="center"
+                android:gravity="center_vertical"
+                android:fontFamily="sans-serif-thin"
+                android:textColor="@color/colorPrimary"
                 android:paddingRight="5dp"
                 android:paddingLeft="5dp"
-                android:background="@drawable/rect_roll"
-                android:layout_gravity="center_vertical"
+                android:background="@drawable/circle"
+                android:layout_gravity="right"
                 android:id="@+id/roll_no"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="roll no"
-                android:textSize="15sp"
-                />
-            </LinearLayout>
-            <LinearLayout
-                android:padding="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/sec"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="sec - "
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:text="25"
                 android:textSize="20sp"
                 />
+<TextView
+    android:layout_marginTop="3dp"
+    android:paddingLeft="2dp"
+    android:paddingRight="2dp"
+    android:elevation="2dp"
+    android:textColor="@color/white"
+    android:background="@drawable/rect_roll"
+    android:textSize="7dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="ROLL NO"/>
 
-            <TextView
-                android:gravity="center_horizontal"
-                android:layout_weight="1"
-                android:id="@+id/batch"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="B - "
-                android:textSize="20sp"
-                 />
 
-            <TextView
-                android:gravity="center_horizontal"
-                android:layout_weight="1"
-                android:id="@+id/branch"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:textSize="20sp"
-                 />
-
-            <TextView
-                android:id="@+id/sem"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="sem - "
-                android:textSize="20sp"
-                 />
-
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
 
@@ -217,7 +243,7 @@
             android:layout_height="40dp"
             android:visibility="visible"
             app:tabBackground="@color/colorPrimary"
-            app:tabIndicatorColor="@color/colorAccent"
+            app:tabIndicatorColor="@color/white"
             app:tabSelectedTextColor="@color/white"
             app:tabTextColor="@color/white" />
 
