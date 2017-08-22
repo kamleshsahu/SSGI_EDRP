@@ -1,15 +1,15 @@
 <rotate
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:fromDegrees="90"
+        android:fromDegrees="0"
         android:pivotX="50%"
         android:pivotY="50%"
-        android:toDegrees="0"
+        android:toDegrees="90"
     >
 
         <shape
-            android:innerRadiusRatio="3"
+            android:innerRadiusRatio="2"
             android:shape="ring"
-            android:thicknessRatio="7.0">
+            android:thicknessRatio="3">
 
             <gradient
                 android:centerColor="@color/primary_color"

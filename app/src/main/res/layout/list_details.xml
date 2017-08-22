@@ -1,56 +1,172 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingLeft="1dp"
     android:background="#fff"
-    android:paddingRight="1dp"
-    android:weightSum="1">
+    android:paddingBottom="5dp"
+    android:paddingLeft="3dp"
+    android:paddingRight="3dp"
+    android:paddingTop="5dp"
+    >
 
     <LinearLayout
-        android:layout_width="180dp"
-        android:layout_height="112dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="2dp"
-        android:layout_marginRight="2dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/tap"
-        android:elevation="4dp"
+
+        android:paddingBottom="12dp"
+        android:layout_margin="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/grad2"
+        android:elevation="3dp"
         android:orientation="vertical"
-        android:paddingBottom="10dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="10dp">
-
-        <TextView
-            android:id="@+id/teacher"
+        >
+<LinearLayout
+    android:background="@drawable/rect_main"
+    android:paddingBottom="4dp"
+    android:elevation="3dp"
+    android:layout_marginBottom="4dp"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="vertical"
+            android:paddingBottom="0dp"
+            android:paddingTop="0dp"
+            android:gravity="center_horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="teacher" />
-
+            android:layout_height="wrap_content">
         <TextView
+            android:shadowColor="@color/black"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="10"
+            android:textColor="@color/white"
+            android:fontFamily="sans-serif-thin"
+            android:textSize="18sp"
             android:id="@+id/subject"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="subject" />
-
         <TextView
+            android:layout_marginTop="-3dp"
+            android:gravity="center_vertical"
+            android:shadowColor="@color/black"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="10"
+            android:textColor="@color/white"
+            android:fontFamily="sans-serif-condensed"
+            android:textSize="10sp"
             android:id="@+id/sub_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="sub_desc" />
-
+            </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="2dp"
+            android:paddingBottom="0dp"
+            android:paddingTop="0dp"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_margin="0dp"
+                android:elevation="3dp"
+                android:paddingRight="3dp"
+                android:src="@drawable/professor"
+                android:layout_width="22dp"
+                android:layout_height="22dp" />
         <TextView
-            android:id="@+id/outOf"
+            android:textSize="15sp"
+            android:shadowColor="@color/black"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="10"
+            android:fontFamily="sans-serif-thin"
+            android:textColor="@color/white"
+            android:paddingLeft="3dp"
+            android:layout_gravity="center_vertical"
+            android:id="@+id/teacher"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="outOf" />
+            android:text="teacher" />
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/value"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="value" />
+</LinearLayout>
+
+
+
+        <LinearLayout
+            android:gravity="center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_marginTop="8dp"
+                android:textSize="10sp"
+                android:elevation="1dp"
+                android:layout_marginBottom="4dp"
+                android:background="@drawable/att_tect"
+                android:fontFamily="sans-serif-condensed"
+                android:shadowColor="@color/black"
+                android:textColor="@color/colorPrimary"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ATTENDANCE"/>
+        </LinearLayout>
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:elevation="5dp"
+            android:background="@drawable/attend_circle"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="80dp">
+            <LinearLayout
+                android:gravity="center_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+
+                    android:layout_gravity="center_vertical"
+                    android:shadowDx="1"
+                    android:shadowDy="1"
+                    android:shadowRadius="1"
+                    android:textSize="20sp"
+                    android:fontFamily="sans-serif-thin"
+                    android:textColor="@color/colorPrimary"
+                    android:shadowColor="@color/colorPrimary"
+                    android:id="@+id/value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="7" />
+                <TextView
+                    android:layout_gravity="center_vertical"
+                    android:shadowDx="1"
+                    android:shadowDy="1"
+                    android:shadowRadius="1"
+                    android:textColor="@color/colorPrimary"
+                    android:shadowColor="@color/colorPrimary"
+                    android:fontFamily="sans-serif-thin"
+                    android:textSize="35sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="/" />
+                <TextView
+                    android:layout_gravity="center_vertical"
+                    android:fontFamily="sans-serif-thin"
+                    android:textColor="@color/colorPrimary"
+                    android:shadowColor="@color/colorPrimary"
+                    android:shadowDx="1"
+                    android:shadowDy="1"
+                    android:shadowRadius="1"
+                    android:textSize="20sp"
+                    android:id="@+id/outOf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="9" />
+            </LinearLayout>
+        </LinearLayout>
 
     </LinearLayout>
 
