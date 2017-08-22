@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 Handler handler,handler2;
    static SharedPreferences sd;
-    String LoginParams="";
+    String LoginParams="",c_uname,c_pass;
     AutoCompleteTextView id;
     EditText pass;
 
@@ -30,7 +30,7 @@ Handler handler,handler2;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+         sd=MainActivity.sd;
         id = (AutoCompleteTextView) findViewById(R.id.id);
 
 
@@ -102,8 +102,11 @@ Handler handler,handler2;
     public void LoginOnClick(View view) {
         if(!id.getText().equals("") && !pass.getText().equals("")){
             LoginParams="uname="+id.getText()+"&"+"password="+pass.getText()+"&cmbsession=JUL-17";
+            sd.edit().putString("c_uname", id.getText().toString()).apply();
+            sd.edit().putString("c_pass", pass.getText().toString()).apply();
             sd.edit().putString("loginParams", LoginParams).apply();
             Intent i = new Intent(MainActivity.this, attend_shower.class);
+
             startActivity(i);
         }else{
             Toast.makeText(MainActivity.this,"please fill id and pass ",Toast.LENGTH_LONG).show();

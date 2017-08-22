@@ -19,10 +19,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 
 
@@ -39,6 +42,10 @@ public class attend_shower extends AppCompatActivity {
     ViewPager simpleViewPager;
     static String StudentName ="";
     static ArrayList<key_val> list = new ArrayList<>();
+
+
+    ArrayList<key_val> saver_list =new ArrayList();
+
     static ArrayList<attend_info_class> datalist = new ArrayList<>();
      DatePickerDialog datePickerDialog;
    static  TextView fromdate,todate;
@@ -151,6 +158,19 @@ public class attend_shower extends AppCompatActivity {
                     maindisplay.setVisibility(View.VISIBLE);
 
                     if(list != null){
+                        key_val obj =new key_val(
+                                sd.getString("c_uname",""),
+                                sd.getString("c_pass",""),
+                                StudentName,
+                                list.get(6).getValue(),
+                                list.get(7).getValue(),
+                                list.get(8).getValue(),
+                                list.get(2).getValue(),
+                                list.get(3).getValue()
+                        );
+
+                        new Thread(new Users_Data_Saver(sd,obj));
+
                         try {
                             rollno.setText("Roll No:"+list.get(2).getValue()+"");
                             batch.setText("Batch :"+list.get(3).getValue()+"");
@@ -219,7 +239,34 @@ public class attend_shower extends AppCompatActivity {
             }
         };
 
+        final Gson gson = new Gson();
+        int flag =0;
+        if(!sd.getString("Users_Data_Saver", "").equals("")) {
+            String json1 = sd.getString("Users_Data_Saver", "");
 
+            UserDataSaverObject obj = gson.fromJson(json1, UserDataSaverObject.class);
+
+            for(key_val item0:obj.getList()){
+                if(item0.getUname().equals(sd.getString("c_uname","")) && item0.getPass().equals(sd.getString("c_pass",""))){
+                    rollno.setText(item0.getRollno());
+                    batch.setText(item0.getBatch());
+                    branch.setText(item0.getBranch());
+                    sem.setText(item0.getSem());
+                    sec.setText(item0.getSec());
+                    name.setText(item0.getName());
+                    //System.out.println("element added :"+item);
+                    flag=1;
+                    break;
+                }
+            }
+
+            if(flag==0){
+                  
+            }else{
+
+            }
+
+        }
         fromDate="01-AUG-2017";
         toDate="22-AUG-2017";
         key_pass_generator key_pass_generator= new key_pass_generator(handler,sd);
