@@ -47,10 +47,12 @@ public class attend_shower extends AppCompatActivity {
     static String StudentName ="";
     static ArrayList<key_val> list = new ArrayList<>();
     static ArrayList<attend_info_class> datalist = new ArrayList<>();
-    DatePickerDialog datePickerDialog;
-    TextView fromdate=null,todate=null;
+     DatePickerDialog datePickerDialog;
+   static  TextView fromdate=null,todate=null;
      LinearLayout maindisplay;
      LinearLayout loading;
+     static String Total_lectures="";
+     static String Attended_lectures="";
 
     String months[] = {"JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"};
     String monthsD[] = {"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
@@ -87,7 +89,6 @@ public class attend_shower extends AppCompatActivity {
         final  TextView sec =(TextView)findViewById(R.id.sec);
         final TextView rollno=(TextView)findViewById(R.id.roll_no);
         final TextView batch=(TextView)findViewById(R.id.batch);
-
         maindisplay = (LinearLayout) findViewById(R.id.maindisplay);
         loading = (LinearLayout) findViewById(R.id.loading);
 
@@ -146,8 +147,10 @@ public class attend_shower extends AppCompatActivity {
                         }
                     }
 
+                    adapter=null;
+                    simpleViewPager=null;
                     tabLayout = (TabLayout) findViewById(R.id.sTabLayout);
-                    tabLayout.setupWithViewPager(simpleViewPager);
+                   // tabLayout.setupWithViewPager(simpleViewPager);
 
 
                     Toast.makeText(attend_shower.this,"Yehh "+data.getResult()+" % Attendence",Toast.LENGTH_LONG).show();

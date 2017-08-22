@@ -45,6 +45,11 @@ String dnld_data;
                 datalist.add(new attend_info_class(kk[0],kk[1],kk[2],kk[3],value.text()));
             }else if(kk.length ==2){
               // datalist.add(new attend_info_class("","",kk[0],kk[1],value.text()));
+                if(kk[0].startsWith("Tot")){
+                    attend_shower.Total_lectures=kk[1];
+                    attend_shower.Attended_lectures=value.text();
+                }
+
             }else{
               // datalist.add(new attend_info_class("","",kk[0],"",value.text()));
                 if(kk[0].startsWith("studentname")){

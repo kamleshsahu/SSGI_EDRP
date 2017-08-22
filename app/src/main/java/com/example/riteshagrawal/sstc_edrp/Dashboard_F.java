@@ -57,10 +57,16 @@ public class Dashboard_F extends Fragment {
                              Bundle savedInstanceState) {
 
         rootView = inflater.inflate(R.layout.dashboard, container, false);
-        TextView attendence =(TextView)rootView.findViewById(R.id.attendence);
+        TextView attendence =(TextView)rootView.findViewById(R.id.attendence_p);
+          TextView total_Lectures =(TextView)rootView.findViewById(R.id.total_lectures);
+         TextView attended_Lectures=(TextView)rootView.findViewById(R.id.attended_lectures);
+        TextView bw_dates=(TextView)rootView.findViewById(R.id.bw_dates);
 
 
        attendence.setText(attend_shower.attend_val);
+        attended_Lectures.setText(attend_shower.Attended_lectures);
+        total_Lectures.setText(attend_shower.Total_lectures);
+        bw_dates.setText(attend_shower.fromdate.getText() +" - "+ attend_shower.todate.getText()+",17");
         return rootView;
     }
 }
