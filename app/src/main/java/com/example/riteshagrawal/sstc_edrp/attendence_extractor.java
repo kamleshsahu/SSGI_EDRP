@@ -56,6 +56,7 @@ String dnld_data;
                     attend_shower.StudentName=value.text();
                 }else if(kk[0].startsWith("%")){
                     Attancence =value.text();
+                    System.out.println("yipeee got the attendence % :"+Attancence);
                 }
             }
         }

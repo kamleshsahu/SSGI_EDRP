@@ -120,11 +120,11 @@ public class attend_shower extends AppCompatActivity {
         });
 
         tabLayout = (TabLayout) findViewById(R.id.sTabLayout);
-        // tabLayout.setupWithViewPager(simpleViewPager);
+         tabLayout.setupWithViewPager(simpleViewPager);
 
 
 //        Toast.makeText(attend_shower.this,"Yehh "+data.getResult()+" % Attendence",Toast.LENGTH_LONG).show();
-//        attend_val=data.getResult()+" %";
+
 
         TabLayout.Tab firstTab;
         firstTab = tabLayout.newTab();
@@ -189,6 +189,7 @@ public class attend_shower extends AppCompatActivity {
                             sem.setText("Sem :"+list.get(7).getValue()+"");
                             sec.setText("Sec :"+list.get(8).getValue()+"");
                             name.setText(StudentName);
+                            attend_val=data.getResult()+" %";
                         }catch (Exception e){
                             e.fillInStackTrace();
                             System.out.println("here is the error :"+e.toString());
