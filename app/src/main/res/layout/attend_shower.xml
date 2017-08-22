@@ -13,65 +13,81 @@
         android:orientation="vertical"
         android:visibility="visible">
 
-        <LinearLayout
+        <RelativeLayout
+            android:elevation="2dp"
+            android:layout_margin="7dp"
+            android:background="@drawable/rect"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="visible">
 
+            <ImageView
+                android:layout_alignParentLeft="true"
+                android:src="@drawable/professor"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/imageView" />
             <TextView
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
                 android:text="name"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/batch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:text="batch"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/branch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20sp"
-                android:layout_toRightOf="@id/name"
-                android:text="branch"
-                android:textSize="20sp" />
-
+                android:textSize="20sp"
+                android:layout_centerHorizontal="true" />
             <TextView
                 android:id="@+id/roll_no"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/branch"
-
                 android:text="roll no"
-                android:textSize="20sp" />
-            android:textSize="20sp" />
-
+                android:textSize="20sp"
+                android:layout_alignParentRight="true"
+                />
             <TextView
-                android:id="@+id/sem"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/roll_no"
-                android:text="sem"
-                android:textSize="20sp" />
-
-            <TextView
+                android:layout_alignParentLeft="true"
                 android:id="@+id/sec"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/sem"
                 android:text="sec"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:layout_below="@id/imageView"
+                />
 
-        </LinearLayout>
+            <TextView
+                android:layout_centerInParent="true"
+                android:layout_toRightOf="@id/sec"
+                android:id="@+id/batch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="batch"
+                android:textSize="20sp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/imageView"
+                 />
+
+            <TextView
+                android:layout_centerInParent="true"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/branch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="branch"
+                android:textSize="20sp"
+                android:layout_below="@id/imageView"
+                 />
+
+            <TextView
+
+                android:id="@+id/sem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="sem"
+                android:layout_alignParentRight="true"
+                android:textSize="20sp"
+                android:layout_below="@id/imageView"
+                 />
+
+
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
