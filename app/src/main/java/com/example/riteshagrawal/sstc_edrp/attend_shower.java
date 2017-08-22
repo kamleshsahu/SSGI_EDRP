@@ -119,6 +119,54 @@ public class attend_shower extends AppCompatActivity {
             }
         });
 
+        tabLayout = (TabLayout) findViewById(R.id.sTabLayout);
+        // tabLayout.setupWithViewPager(simpleViewPager);
+
+
+//        Toast.makeText(attend_shower.this,"Yehh "+data.getResult()+" % Attendence",Toast.LENGTH_LONG).show();
+//        attend_val=data.getResult()+" %";
+
+        TabLayout.Tab firstTab;
+        firstTab = tabLayout.newTab();
+
+        tabLayout.addTab(firstTab);
+        secondTab = tabLayout.newTab();
+
+        tabLayout.addTab(secondTab);
+
+        simpleViewPager = (ViewPager) findViewById(R.id.simpleViewPager);
+        adapter = new PagerAdapter
+                (getSupportFragmentManager(), tabLayout.getTabCount());
+        simpleViewPager.setAdapter(adapter);
+        tabLayout.getTabAt(0).setText("DashBoard ");
+        tabLayout.getTabAt(1).setText("Details");
+
+        simpleViewPager.setCurrentItem(0);
+        simpleViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+        tabindex=0;
+
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+
+                //System.out.println("selected tab :"+tab.getPosition());
+                tabindex=tab.getPosition();
+                simpleViewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+                //System.out.println("Reselected tab :"+tab.getPosition());
+                tabindex=tab.getPosition();
+                simpleViewPager.setCurrentItem(tab.getPosition());
+            }
+        });
 
         handler2 = new Handler() {
             @Override
@@ -147,56 +195,8 @@ public class attend_shower extends AppCompatActivity {
                         }
                     }
 
-                    adapter=null;
-                    simpleViewPager=null;
-                    tabLayout = (TabLayout) findViewById(R.id.sTabLayout);
-                   // tabLayout.setupWithViewPager(simpleViewPager);
 
 
-                    Toast.makeText(attend_shower.this,"Yehh "+data.getResult()+" % Attendence",Toast.LENGTH_LONG).show();
-                    attend_val=data.getResult()+" %";
-
-                    TabLayout.Tab firstTab;
-                    firstTab = tabLayout.newTab();
-
-                    tabLayout.addTab(firstTab);
-                    secondTab = tabLayout.newTab();
-
-                    tabLayout.addTab(secondTab);
-
-                    simpleViewPager = (ViewPager) findViewById(R.id.simpleViewPager);
-                    adapter = new PagerAdapter
-                            (getSupportFragmentManager(), tabLayout.getTabCount());
-                    simpleViewPager.setAdapter(adapter);
-                    tabLayout.getTabAt(0).setText("DashBoard ");
-                    tabLayout.getTabAt(1).setText("Details");
-
-                    simpleViewPager.setCurrentItem(0);
-                    simpleViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-
-                    tabindex=0;
-
-                    tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-                        @Override
-                        public void onTabSelected(TabLayout.Tab tab) {
-
-                            //System.out.println("selected tab :"+tab.getPosition());
-                            tabindex=tab.getPosition();
-                            simpleViewPager.setCurrentItem(tab.getPosition());
-                        }
-
-                        @Override
-                        public void onTabUnselected(TabLayout.Tab tab) {
-
-                        }
-
-                        @Override
-                        public void onTabReselected(TabLayout.Tab tab) {
-                            //System.out.println("Reselected tab :"+tab.getPosition());
-                            tabindex=tab.getPosition();
-                            simpleViewPager.setCurrentItem(tab.getPosition());
-                        }
-                    });
                 }
             }
         };
