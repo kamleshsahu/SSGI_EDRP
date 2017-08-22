@@ -48,7 +48,7 @@ public class attend_shower extends AppCompatActivity {
     static ArrayList<key_val> list = new ArrayList<>();
     static ArrayList<attend_info_class> datalist = new ArrayList<>();
      DatePickerDialog datePickerDialog;
-   static  TextView fromdate=null,todate=null;
+   static  TextView fromdate,todate;
      LinearLayout maindisplay;
      LinearLayout loading;
      static String Total_lectures="";
@@ -61,9 +61,9 @@ public class attend_shower extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater=getMenuInflater();
         inflater.inflate(R.menu.back,menu);
-        MenuItem item =menu.findItem(R.id.logout);
+        MenuItem logout =menu.findItem(R.id.logout);
 
-         item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+         logout.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
              @Override
              public boolean onMenuItemClick(MenuItem menuItem) {
                  sd.edit().putString("loginParams", "").apply();
@@ -74,6 +74,14 @@ public class attend_shower extends AppCompatActivity {
              }
          });
 
+        MenuItem item =menu.findItem(R.id.refresh);
+        item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                recreate();
+                return false;
+            }
+        });
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -135,38 +143,6 @@ public class attend_shower extends AppCompatActivity {
         tabLayout.addTab(secondTab);
 
         simpleViewPager = (ViewPager) findViewById(R.id.simpleViewPager);
-        adapter = new PagerAdapter
-                (getSupportFragmentManager(), tabLayout.getTabCount());
-        simpleViewPager.setAdapter(adapter);
-        tabLayout.getTabAt(0).setText("DashBoard ");
-        tabLayout.getTabAt(1).setText("Details");
-
-        simpleViewPager.setCurrentItem(0);
-        simpleViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-
-        tabindex=0;
-
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-
-                //System.out.println("selected tab :"+tab.getPosition());
-                tabindex=tab.getPosition();
-                simpleViewPager.setCurrentItem(tab.getPosition());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-                //System.out.println("Reselected tab :"+tab.getPosition());
-                tabindex=tab.getPosition();
-                simpleViewPager.setCurrentItem(tab.getPosition());
-            }
-        });
 
         handler2 = new Handler() {
             @Override
@@ -196,6 +172,38 @@ public class attend_shower extends AppCompatActivity {
                         }
                     }
 
+                    adapter = new PagerAdapter
+                            (getSupportFragmentManager(), tabLayout.getTabCount());
+                    simpleViewPager.setAdapter(adapter);
+                    tabLayout.getTabAt(0).setText("DashBoard ");
+                    tabLayout.getTabAt(1).setText("Details");
+
+                    simpleViewPager.setCurrentItem(0);
+                    simpleViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+                    tabindex=0;
+
+                    tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                        @Override
+                        public void onTabSelected(TabLayout.Tab tab) {
+
+                            //System.out.println("selected tab :"+tab.getPosition());
+                            tabindex=tab.getPosition();
+                            simpleViewPager.setCurrentItem(tab.getPosition());
+                        }
+
+                        @Override
+                        public void onTabUnselected(TabLayout.Tab tab) {
+
+                        }
+
+                        @Override
+                        public void onTabReselected(TabLayout.Tab tab) {
+                            //System.out.println("Reselected tab :"+tab.getPosition());
+                            tabindex=tab.getPosition();
+                            simpleViewPager.setCurrentItem(tab.getPosition());
+                        }
+                    });
 
 
                 }
@@ -291,4 +299,7 @@ public class attend_shower extends AppCompatActivity {
         }
         datePickerDialog.show();
     }
+
+
+
 }
