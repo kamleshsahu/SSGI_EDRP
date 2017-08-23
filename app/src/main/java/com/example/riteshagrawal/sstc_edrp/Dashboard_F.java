@@ -83,11 +83,6 @@ try{
 
             @Override
             public void onAnimationFinish() {
-<<<<<<< HEAD
-
-=======
-             //   attendence.setSubTitle("ATTENDENCE");
->>>>>>> origin/master
             }
         });
 
