@@ -157,19 +157,24 @@ public class attend_shower extends AppCompatActivity {
                     maindisplay.setVisibility(View.VISIBLE);
 
                     if(list != null){
-                        key_val obj =new key_val(
-                                sd.getString("c_uname",""),
-                                sd.getString("c_pass",""),
-                                StudentName,
-                                list.get(6).getValue(),
-                                list.get(7).getValue(),
-                                list.get(8).getValue(),
-                                list.get(2).getValue(),
-                                list.get(3).getValue()
-                        );
+                        try {
+                            key_val obj = new key_val(
+                                    sd.getString("c_uname", ""),
+                                    sd.getString("c_pass", ""),
+                                    StudentName,
+                                    list.get(6).getValue(),
+                                    list.get(7).getValue(),
+                                    list.get(8).getValue(),
+                                    list.get(2).getValue(),
+                                    list.get(3).getValue()
+                            );
 
-                        new Thread(new Users_Data_Saver(sd,obj));
-
+                            Thread t = new Thread(new Users_Data_Saver(sd, obj));
+                            t.start();
+                        }catch (Exception e){
+                            e.fillInStackTrace();
+                            System.out.println("saving user data error ");
+                        }
                         try {
                             rollno.setText(""+list.get(2).getValue()+"");
                             batch.setText("Batch :"+list.get(3).getValue()+"");
@@ -242,6 +247,7 @@ public class attend_shower extends AppCompatActivity {
         int flag =0;
         if(!sd.getString("Users_Data_Saver", "").equals("")) {
             String json1 = sd.getString("Users_Data_Saver", "");
+            System.out.println("yeh user data reading ..........");
 
             UserDataSaverObject obj = gson.fromJson(json1, UserDataSaverObject.class);
 
