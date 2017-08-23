@@ -29,7 +29,6 @@ public class Dashboard_F extends Fragment {
     private boolean isViewShown = false;
     String data1;
     TabLayout tabLayout;
-
     private Context mContext;
     private PopupWindow mPopupWindow;
 
@@ -57,13 +56,39 @@ public class Dashboard_F extends Fragment {
                              Bundle savedInstanceState) {
 
         rootView = inflater.inflate(R.layout.dashboard, container, false);
-        TextView attendence =(TextView)rootView.findViewById(R.id.attendence_p);
-          TextView total_Lectures =(TextView)rootView.findViewById(R.id.total_lectures);
-         TextView attended_Lectures=(TextView)rootView.findViewById(R.id.attended_lectures);
+
+
+
+
+
+        final com.example.riteshagrawal.sstc_edrp.CircularProgressBar attendence =(com.example.riteshagrawal.sstc_edrp.CircularProgressBar)rootView.findViewById(R.id.attendence_p);
+
+        attendence.animateProgressTo(0, 80 , new CircularProgressBar.ProgressAnimationListener() {
+
+            @Override
+            public void onAnimationStart() {
+            }
+
+            @Override
+            public void onAnimationProgress(int progress) {
+                attendence.setTitle(attend_shower.attend_val);
+            }
+
+            @Override
+            public void onAnimationFinish() {
+                attendence.setSubTitle("ATTENDENCE");
+            }
+        });
+
+
+
+
+
+        TextView total_Lectures =(TextView)rootView.findViewById(R.id.total_lectures);
+        TextView attended_Lectures=(TextView)rootView.findViewById(R.id.attended_lectures);
         TextView bw_dates=(TextView)rootView.findViewById(R.id.bw_dates);
 
-
-       attendence.setText(attend_shower.attend_val);
+       //attendence.setText(attend_shower.attend_val);
         System.out.println("here is attendence percent : "+attend_shower.attend_val);
         attended_Lectures.setText(attend_shower.Attended_lectures);
         total_Lectures.setText(attend_shower.Total_lectures);

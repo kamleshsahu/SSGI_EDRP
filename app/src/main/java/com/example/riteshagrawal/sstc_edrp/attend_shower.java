@@ -25,7 +25,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
 
 
@@ -172,7 +171,7 @@ public class attend_shower extends AppCompatActivity {
                         new Thread(new Users_Data_Saver(sd,obj));
 
                         try {
-                            rollno.setText("Roll No:"+list.get(2).getValue()+"");
+                            rollno.setText(""+list.get(2).getValue()+"");
                             batch.setText("Batch :"+list.get(3).getValue()+"");
                             branch.setText("Branch :"+list.get(6).getValue()+"");
                             sem.setText("Sem :"+list.get(7).getValue()+"");
