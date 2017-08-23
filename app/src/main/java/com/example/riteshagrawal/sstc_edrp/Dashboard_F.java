@@ -60,11 +60,11 @@ public class Dashboard_F extends Fragment {
 
         int val=0;
 try{
-
-    val = Integer.parseInt(attend_shower.attend_val.split("\\.")[0]);
+   // val = Integer.parseInt(attend_shower.attend_val.split("\\.")[0]);
+    val =(int)Float.parseFloat(attend_shower.attend_val);
 }catch (Exception e){
     e.fillInStackTrace();
-    val=100;
+    val=0;
     System.out.println("attendence value changing error ...");
 }
 
@@ -78,7 +78,7 @@ try{
 
             @Override
             public void onAnimationProgress(int progress) {
-                attendence.setTitle(attend_shower.attend_val);
+                attendence.setTitle(attend_shower.attend_val+" %");
             }
 
             @Override

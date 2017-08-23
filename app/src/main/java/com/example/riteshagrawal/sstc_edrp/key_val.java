@@ -31,6 +31,17 @@ public class key_val {
         this.sec=sec;
         this.name=name;
         this.pass=pass;
+
+    }
+
+    public key_val(String uname, String pass,String sem_start_date) {
+        this.uname = uname;
+        this.pass=pass;
+        this.sem_start_date = sem_start_date;
+    }
+
+    public void setSem_start_date(String sem_start_date) {
+        this.sem_start_date = sem_start_date;
     }
 
     public String getUname() {

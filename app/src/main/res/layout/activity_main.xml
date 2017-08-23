@@ -7,7 +7,7 @@
     android:background="@drawable/grad1">
 
     <AutoCompleteTextView
-        android:text="BE20160706"
+        android:text=""
         android:fontFamily="sans-serif-condensed"
         android:textColorHint="#d1d1d1"
         android:textColor="@color/colorPrimary"
@@ -28,7 +28,7 @@
         android:layout_centerHorizontal="true" />
 
     <EditText
-        android:text="8120822235"
+        android:text=""
         android:fontFamily="sans-serif-thin"
         android:textColorHint="#d1d1d1"
         android:textColor="@color/colorAccent"

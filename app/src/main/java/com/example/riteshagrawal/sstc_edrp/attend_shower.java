@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -41,6 +42,8 @@ public class attend_shower extends AppCompatActivity {
     ViewPager simpleViewPager;
     static String StudentName ="";
     static ArrayList<key_val> list = new ArrayList<>();
+   static String sem_start_date="";
+    String todays_date="";
 
 
     ArrayList<key_val> saver_list =new ArrayList();
@@ -100,10 +103,11 @@ public class attend_shower extends AppCompatActivity {
         loading = (LinearLayout) findViewById(R.id.loading);
 
 
-//
-//        DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy ");
-//        Date date = new Date();
-//        System.out.println("here is todays date :"+dateFormat.format(date));
+
+        DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy ");
+        Date date = new Date();
+        todays_date=dateFormat.format(date);
+        System.out.println("here is todays date :"+dateFormat.format(date));
 
 
 
@@ -182,7 +186,7 @@ public class attend_shower extends AppCompatActivity {
                             sem.setText("Sem :"+list.get(7).getValue()+"");
                             sec.setText("Sec :"+list.get(8).getValue()+"");
                             name.setText(StudentName);
-                            attend_val=data.getResult()+" %";
+                            attend_val=data.getResult();
                         }catch (Exception e){
                             e.fillInStackTrace();
                             System.out.println("here is the error :"+e.toString());
@@ -254,28 +258,49 @@ public class attend_shower extends AppCompatActivity {
             for(key_val item0:obj.getList()){
                 if(item0.getUname().equals(sd.getString("c_uname","")) && item0.getPass().equals(sd.getString("c_pass",""))){
                     rollno.setText(item0.getRollno());
-                    batch.setText(item0.getBatch());
-                    branch.setText(item0.getBranch());
-                    sem.setText(item0.getSem());
-                    sec.setText(item0.getSec());
+                    batch.setText("Batch :"+item0.getBatch()+"");
+                    branch.setText("Branch :"+item0.getBranch()+"");
+                    sem.setText("Sem :"+item0.getSem()+"");
+                    sec.setText("Sec :"+item0.getSec()+"");
                     name.setText(item0.getName());
+                    sem_start_date= item0.getSem_start_date();
                     //System.out.println("element added :"+item);
                     flag=1;
                     break;
                 }
             }
 
-            if(flag==0){
-                  
-            }else{
+            if(flag==1){
+                fromDate=sem_start_date;
+                fromdate.setText(sem_start_date);
+                toDate=todays_date;
+                todate.setText(todays_date);
 
+                key_pass_generator key_pass_generator= new key_pass_generator(handler,sd);
+                key_pass_generator.start();
+            }else if(flag==0){
+
+                datePicker(3);
             }
 
+
+        }else if(sd.getString("Users_Data_Saver", "").equals("")){
+            System.out.println("else if part ........user data daver not created yet....");
+               datePicker(4);
+
+//                    fromDate="01-AUG-2017";
+//                    toDate="22-AUG-2017";
+//                    fromdate.setText("01-AUG-2017");
+//                    todate.setText("23-AUG-2017");
+//            key_pass_generator key_pass_generator= new key_pass_generator(handler,sd);
+//            key_pass_generator.start();
         }
-        fromDate="01-AUG-2017";
-        toDate="22-AUG-2017";
-        key_pass_generator key_pass_generator= new key_pass_generator(handler,sd);
-        key_pass_generator.start();
+
+//
+
+
+
+
 
 
     }
@@ -326,6 +351,14 @@ public class attend_shower extends AppCompatActivity {
 
                             millis = date.getTime();
                             System.out.println("here is millis baby : "+millis);
+
+                            if(todate != null){
+                                loading.setVisibility(View.VISIBLE);
+                                maindisplay.setVisibility(View.GONE);
+                                key_pass_generator key_pass_generator= new key_pass_generator(handler,sd);
+                                key_pass_generator.start();
+                            }
+
                         }else if(tag==2){
                             todate.setText(dayOfMonth + " " + monthsD[(monthOfYear)]);
                             toDate = dayOfMonth + "-" + months[(monthOfYear)] + "-" + year;
@@ -336,6 +369,45 @@ public class attend_shower extends AppCompatActivity {
 
                             key_pass_generator key_pass_generator= new key_pass_generator(handler,sd);
                             key_pass_generator.start();
+                        }else if(tag==3 || tag==4){
+                            fromdate.setText(dayOfMonth+ " "+monthsD[(monthOfYear)]);
+                            System.out.println("to date : "+dayOfMonth + "-" + months[(monthOfYear)] + "-" + year);
+                            fromDate=dayOfMonth + "-" + months[(monthOfYear)] + "-" + year;
+
+                            String myDate =fromDate +" 00:00:00";
+                            SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
+                            Date date = null;
+                            try {
+                                date = sdf.parse(myDate);
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                                System.out.println("bug in the  simple date format >>"+e.toString());
+                            }
+
+                            millis = date.getTime();
+                            System.out.println("here is millis baby : "+millis);
+
+                            todate.setText(todays_date);
+                            toDate = todays_date;
+                            System.out.println("to date : " +todays_date);
+
+                            loading.setVisibility(View.VISIBLE);
+                            maindisplay.setVisibility(View.GONE);
+
+
+                                key_val obj = new key_val(
+                                        sd.getString("c_uname", ""),
+                                        sd.getString("c_pass", ""),
+                                        fromDate
+                                );
+
+                                Thread t = new Thread(new Users_Data_Saver(sd, obj));
+                                t.start();
+
+
+                            key_pass_generator key_pass_generator= new key_pass_generator(handler,sd);
+                            key_pass_generator.start();
+
                         }else{
                             Toast.makeText(getApplicationContext(),"unkwown tag",Toast.LENGTH_LONG).show();
                         }
@@ -347,6 +419,7 @@ public class attend_shower extends AppCompatActivity {
         if(tag==2) {
             datePickerDialog.getDatePicker().setMinDate(millis);
         }
+
         datePickerDialog.show();
     }
 
