@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:circular="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <com.example.riteshagrawal.sstc_edrp.CircularProgressBar
+        android:id="@+id/circularprogressbar2"
+        style="@style/Widget.ProgressBar.Holo.CircularProgressBar"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="10dp"
+        circular:cpb_subtitle="ATTENDANCE" />
 
     <TextView
         android:id="@+id/attended_lectures"
@@ -20,6 +30,9 @@
         android:text="total"
 
         android:textSize="30sp" />
+
+
+
     <TextView
         android:id="@+id/attendence_p"
         android:layout_width="wrap_content"
