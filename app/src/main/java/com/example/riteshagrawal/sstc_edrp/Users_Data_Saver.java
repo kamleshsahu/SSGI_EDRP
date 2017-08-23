@@ -22,21 +22,21 @@ public class Users_Data_Saver implements Runnable {
         Boolean elementRemoved=false;
         Gson gson = new Gson();
             if(sd.getString("Users_Data_Saver", "").equals("")) {
-              //System.out.println("Trains Saver is not there so creating Users_Data_Saver and then adding");
+              System.out.println("Trains Saver is not there so creating Users_Data_Saver and then adding");
                 list.add(item);
-           //System.out.println("element added :"+item);
+           System.out.println("element added :"+item);
                 SharedPreferences.Editor prefsEditor = sd.edit();
                 String json = gson.toJson(new UserDataSaverObject(list));
                 prefsEditor.putString("Users_Data_Saver", json);
                 prefsEditor.commit();
             }else if(!sd.getString("Users_Data_Saver", "").equals("")){
                 String json1 = sd.getString("Users_Data_Saver", "");
-           //System.out.println("here is json 1" + json1);
+           System.out.println("here is json 1" + json1);
                 UserDataSaverObject obj = gson.fromJson(json1, UserDataSaverObject.class);
                 list=obj.getList();
 
-
-               //System.out.println("list iterator on job...");
+               int flag =0;
+               System.out.println("list iterator on job...");
                     for(key_val item0:list){
                         if(item0.getUname().equals(item.getUname()) && item0.getPass().equals(item.getPass())){
                             list.remove(item0);
@@ -44,16 +44,21 @@ public class Users_Data_Saver implements Runnable {
                        //System.out.println("element removed :"+item.getTrnNo());
                             list.add(item);
                        //System.out.println("element added :"+item);
+                            flag=1;
                             break;
                         }
+                    }
+
+                    if(flag==0){
+                        list.add(item);
                     }
                 SharedPreferences.Editor prefsEditor = sd.edit();
                 String json = gson.toJson(new UserDataSaverObject(list));
                 prefsEditor.putString("Users_Data_Saver", json);
                 prefsEditor.commit();
-           //System.out.println("creating Users_Data_Saver in sd");
+           System.out.println("creating Users_Data_Saver in sd");
             }else{
-           //System.out.println("dont know what to do....");
+           System.out.println("dont know what to do....");
             }
 
     }
