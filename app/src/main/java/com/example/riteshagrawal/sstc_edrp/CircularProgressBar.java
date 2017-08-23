@@ -136,13 +136,13 @@ public class CircularProgressBar extends ProgressBar {
 		mBackgroundColorPaint.setStyle(Paint.Style.STROKE);
 		mBackgroundColorPaint.setStrokeWidth(mStrokeWidth);
 
-		mTitlePaint.setTextSize(60); 
+		mTitlePaint.setTextSize(65);
 		mTitlePaint.setStyle(Style.FILL);
 		mTitlePaint.setAntiAlias(true);
-		mTitlePaint.setTypeface(Typeface.create("Roboto-Thin", Typeface.NORMAL));
-		mTitlePaint.setShadowLayer(0.1f, 0, 1, Color.GRAY);
+		mTitlePaint.setTypeface(Typeface.create("sans-serif-thin", Typeface.NORMAL));
+		//mTitlePaint.setShadowLayer(0.1f, 0, 1, Color.GRAY);
 
-		mSubtitlePaint.setTextSize(20); 
+		mSubtitlePaint.setTextSize(0);
 		mSubtitlePaint.setStyle(Style.FILL);
 		mSubtitlePaint.setAntiAlias(true);
 		mSubtitlePaint.setTypeface(Typeface.create("Roboto-Thin", Typeface.BOLD));
@@ -163,18 +163,10 @@ public class CircularProgressBar extends ProgressBar {
 
 		if(!TextUtils.isEmpty(mTitle)){
 			int xPos =  (int)(getMeasuredWidth()/2 - mTitlePaint.measureText(mTitle) / 2);
-			int yPos = (int) (getMeasuredHeight()/2);
+			int yPos = (int) (getMeasuredHeight()/1.75);
 
 			float titleHeight = Math.abs(mTitlePaint.descent() + mTitlePaint.ascent());
-			if(TextUtils.isEmpty(mSubTitle)){
-				yPos += titleHeight/2;
-			}
-			canvas.drawText(mTitle, xPos, yPos, mTitlePaint); 
-
-			yPos += titleHeight;
-			xPos = (int)(getMeasuredWidth()/2 - mSubtitlePaint.measureText(mSubTitle) / 2);
-
-			canvas.drawText(mSubTitle, xPos, yPos, mSubtitlePaint);
+			canvas.drawText(mTitle, xPos, yPos, mTitlePaint);
 		}		
 
 		super.onDraw(canvas);
@@ -204,7 +196,7 @@ public class CircularProgressBar extends ProgressBar {
 			setProgress(start);
 
 		final ObjectAnimator progressBarAnimator = ObjectAnimator.ofFloat(this, "animateProgress", start, end);
-		progressBarAnimator.setDuration(2000);
+		progressBarAnimator.setDuration(1000);
 		//		progressBarAnimator.setInterpolator(new AnticipateOvershootInterpolator(2f, 1.5f));
 		progressBarAnimator.setInterpolator(new LinearInterpolator());
 
