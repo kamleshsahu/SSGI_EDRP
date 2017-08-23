@@ -58,12 +58,19 @@ public class Dashboard_F extends Fragment {
         rootView = inflater.inflate(R.layout.dashboard, container, false);
 
 
+        int val=0;
+try{
 
-
+    val = Integer.parseInt(attend_shower.attend_val.split("\\.")[0]);
+}catch (Exception e){
+    e.fillInStackTrace();
+    val=100;
+    System.out.println("attendence value changing error ...");
+}
 
         final com.example.riteshagrawal.sstc_edrp.CircularProgressBar attendence =(com.example.riteshagrawal.sstc_edrp.CircularProgressBar)rootView.findViewById(R.id.attendence_p);
 
-        attendence.animateProgressTo(0, 80 , new CircularProgressBar.ProgressAnimationListener() {
+        attendence.animateProgressTo(0, val , new CircularProgressBar.ProgressAnimationListener() {
 
             @Override
             public void onAnimationStart() {
@@ -76,7 +83,7 @@ public class Dashboard_F extends Fragment {
 
             @Override
             public void onAnimationFinish() {
-                attendence.setSubTitle("ATTENDENCE");
+             //   attendence.setSubTitle("ATTENDENCE");
             }
         });
 
