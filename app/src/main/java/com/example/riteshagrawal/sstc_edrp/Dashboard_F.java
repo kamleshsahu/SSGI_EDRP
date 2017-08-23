@@ -63,7 +63,7 @@ public class Dashboard_F extends Fragment {
 
         final com.example.riteshagrawal.sstc_edrp.CircularProgressBar attendence =(com.example.riteshagrawal.sstc_edrp.CircularProgressBar)rootView.findViewById(R.id.attendence_p);
 
-        attendence.animateProgressTo(0, 80 , new CircularProgressBar.ProgressAnimationListener() {
+        attendence.animateProgressTo(0, val , new CircularProgressBar.ProgressAnimationListener() {
 
             @Override
             public void onAnimationStart() {
@@ -76,7 +76,7 @@ public class Dashboard_F extends Fragment {
 
             @Override
             public void onAnimationFinish() {
-                attendence.setSubTitle("ATTENDENCE");
+
             }
         });
 

@@ -54,8 +54,7 @@
                    android:id="@+id/sec"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
-                   android:text="SEC : A"
-                   android:textSize="10sp"
+                   android:textSize="12sp"
                    />
 
                <TextView
@@ -65,8 +64,7 @@
                    android:id="@+id/batch"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
-                   android:text="B-1"
-                   android:textSize="10sp"
+                   android:textSize="12sp"
                    />
     <TextView
 
@@ -76,8 +74,7 @@
         android:id="@+id/branch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="CSE"
-        android:textSize="10sp"
+        android:textSize="12sp"
         />
 
     <TextView
@@ -85,8 +82,7 @@
         android:id="@+id/sem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="SEM:3 "
-        android:textSize="10sp"
+        android:textSize="12sp"
         />
 </LinearLayout>
            </LinearLayout>
