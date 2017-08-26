@@ -4,37 +4,68 @@
     android:layout_height="match_parent"
      android:layout_width="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/grad1">
+    >
 
+<ImageView
+    android:scaleType="centerCrop"
+    android:src="@drawable/as"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" />
+    <LinearLayout
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:onClick="rotate"
+        android:id="@+id/lin_rotate"
+        android:paddingBottom="20dp"
+        android:paddingTop="10dp"
+        android:paddingRight="0dp"
+        android:paddingLeft="0dp"
+        android:elevation="50dp"
+        android:background="@drawable/main_rect"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:scaleX="1.1"
+            android:scaleY="1.1"
+            android:background="@color/colorPrimary"
+            android:src="@mipmap/sstclogo_a"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"/>
     <AutoCompleteTextView
+        android:layout_marginTop="40dp"
         android:text=""
-        android:fontFamily="sans-serif-condensed"
+        android:fontFamily="sans-serif-thin"
         android:textColorHint="#d1d1d1"
         android:textColor="@color/colorPrimary"
         android:gravity="center_horizontal"
-        android:background="@drawable/button1"
+        android:background="@drawable/edit_rect"
         android:id="@+id/id"
         android:textAllCaps="true"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:ems="7"
         android:textSize="25dp"
-
         android:layout_gravity="center_horizontal"
         android:inputType="textPersonName"
         android:hint="STUDENT ID"
-        android:layout_marginBottom="16dp"
-        android:layout_above="@+id/pass"
-        android:layout_centerHorizontal="true" />
+         />
 
     <EditText
+
+        android:layout_margin="10dp"
+        android:elevation="5dp"
         android:text=""
         android:fontFamily="sans-serif-thin"
         android:textColorHint="#d1d1d1"
         android:textColor="@color/colorAccent"
         android:gravity="center_horizontal"
         android:textAllCaps="true"
-        android:background="@drawable/button1"
+        android:background="@drawable/edit_rect"
         android:id="@+id/pass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -43,22 +74,22 @@
         android:hint="PASSWORD"
         android:textSize="25dp"
         android:inputType="textPassword"
-        android:layout_above="@+id/Login"
-        android:layout_alignLeft="@+id/id"
-        android:layout_alignStart="@+id/id"
-        android:layout_marginBottom="28dp" />
+        />
 
     <Button
-        android:textSize="20sp"
-        android:textColor="@color/colorPrimary"
-        android:fontFamily="sans-serif-thin"
-        android:background="@drawable/button1"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="40dp"
+        android:elevation="5dp"
+        android:textSize="15sp"
+        android:textColor="@color/white"
+        android:fontFamily="sans-serif-condensed"
+        android:background="@drawable/login"
         android:id="@+id/Login"
         android:layout_width="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_height="wrap_content"
-        android:text="LOGIN"
+        android:layout_height="45dp"
+        android:text="SIGN IN"
         android:onClick="LoginOnClick"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        />
+    </LinearLayout>
 </RelativeLayout>
