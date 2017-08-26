@@ -3,10 +3,12 @@ package com.example.riteshagrawal.sstc_edrp;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Handler;
-import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -120,4 +122,36 @@ Handler handler,handler2;
         startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(startMain);
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.share, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Bundle bundle = new Bundle();
+        switch (item.getItemId()) {
+            case R.id.share:
+                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                sharingIntent.setType("text/plain");
+                String shareBodyText = "http://play.google.com/store/apps/details?id=com.SahuAppsPvtLtd.myTrainEnquiryApp";
+                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,"Subject here");
+                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBodyText);
+                startActivity(Intent.createChooser(sharingIntent, "Share Google Play Link"));
+                return true;
+
+            case R.id.rate:
+                Intent intent=new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("http://play.google.com/store/apps/details?id=com.SahuAppsPvtLtd.myTrainEnquiryApp"));
+                startActivity(intent);
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+
 }
