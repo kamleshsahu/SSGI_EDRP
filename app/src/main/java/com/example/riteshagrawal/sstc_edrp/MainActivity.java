@@ -64,10 +64,12 @@ Handler handler,handler2;
 
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                LoginParams="uname="+countryList.get(i).getId()+"&"+"password="+countryList.get(0).getPass()+"&cmbsession=JUL-17";
-                sd.edit().putString("loginParams", LoginParams).apply();
-                Intent i1 = new Intent(MainActivity.this, attend_shower.class);
-                startActivity(i1);
+        //        LoginParams="uname="+countryList.get(i).getId()+"&"+"password="+countryList.get(0).getPass()+"&cmbsession=JUL-17";
+       //         sd.edit().putString("loginParams", LoginParams).apply();
+       //         Intent i1 = new Intent(MainActivity.this, attend_shower.class);
+         //       startActivity(i1);
+
+                id.setText(countryList.get(i).getId());
             }
         });
 
