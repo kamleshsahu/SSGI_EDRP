@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#4D8E90</color>
-    <color name="colorPrimaryDark">#4D8E90</color>
+    <color name="colorPrimary">#03a9f4</color>
+    <color name="colorPrimaryDark">#03a9f4</color>
     <color name="colorPrimaryMiddle">#6003a9f4</color>
     <color name="white">#ffffff</color>
-    <color name="colorAccent">#4FC3F7</color>
+    <color name="colorAccent">#ffab00</color>
     <color name="primary_color">#ee0e3256</color>
     <color name="tbts_pressed">#7f422c64</color>
     <color name="black">#2f4f4f</color>
