@@ -267,7 +267,7 @@
                 android:layout_height="40dp"
                 android:visibility="visible"
                 app:tabBackground="@color/colorPrimary"
-                app:tabIndicatorColor="#ffe684"
+                app:tabIndicatorColor="#f4f4f4"
                 app:tabSelectedTextColor="@color/white"
                 app:tabTextColor="@color/white" />
 
