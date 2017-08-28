@@ -9,14 +9,9 @@
 
     <LinearLayout
         android:layout_marginTop="30dp"
-<<<<<<< HEAD
         android:layout_marginBottom="0dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-
-=======
->>>>>>> origin/master
-        android:id="@+id/lin_rotate"
         android:paddingBottom="20dp"
         android:paddingTop="10dp"
         android:paddingRight="0dp"
