@@ -32,7 +32,7 @@ import java.util.Date;
 public class attend_shower extends AppCompatActivity {
 
     long millis= (long) 1501732200000f;
-    Handler handler,handler2;
+    Handler handler,handler2,log_in_handler;
     SharedPreferences sd=MainActivity.sd;
     static int tabindex=-1;
     static TabLayout tabLayout;
@@ -52,7 +52,7 @@ public class attend_shower extends AppCompatActivity {
      DatePickerDialog datePickerDialog;
    static  TextView fromdate,todate;
      LinearLayout maindisplay;
-     LinearLayout loading;
+     LinearLayout loading,error_disp;
      static String Total_lectures="";
      static String Attended_lectures="";
 
@@ -101,8 +101,8 @@ public class attend_shower extends AppCompatActivity {
         final TextView batch=(TextView)findViewById(R.id.batch);
         maindisplay = (LinearLayout) findViewById(R.id.maindisplay);
         loading = (LinearLayout) findViewById(R.id.loading);
-
-
+        error_disp = (LinearLayout) findViewById(R.id.error_disp);
+        final TextView error_msg=(TextView)findViewById(R.id.error_msg);
 
         DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy ");
         Date date = new Date();
@@ -156,6 +156,14 @@ public class attend_shower extends AppCompatActivity {
                 System.out.println(data.getResult());
                 if(data.getResult().equals("error")){
                     System.out.println("here is error msg :"+data.getErrorMsg());
+
+                    Intent i = new Intent(attend_shower.this,MainActivity.class);
+                    i.putExtra("error_msg",data.getErrorMsg());
+                    startActivity(i);
+                    attend_shower.this.finish();
+ //                   loading.setVisibility(View.GONE);
+//                    error_disp.setVisibility(View.VISIBLE);
+//                    error_msg.setText(data.getErrorMsg());
                 }else{
                     loading.setVisibility(View.GONE);
                     maindisplay.setVisibility(View.VISIBLE);
@@ -231,6 +239,8 @@ public class attend_shower extends AppCompatActivity {
             }
         };
 
+
+
         handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
@@ -241,6 +251,7 @@ public class attend_shower extends AppCompatActivity {
                 if(data.getResult().equals("error")){
                     System.out.println("here is error msg :"+data.getErrorMsg());
                 }else{
+
                     System.out.println("yeh got the cookie :"+sd.getString("cookie",""));
                     new Thread( new Worker(attend_shower.this,"hey baby",sd,handler2)).start();
                 }

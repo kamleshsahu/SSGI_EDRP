@@ -66,10 +66,12 @@ Handler handler,handler2;
 
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                LoginParams="uname="+countryList.get(i).getId()+"&"+"password="+countryList.get(0).getPass()+"&cmbsession=JUL-17";
-                sd.edit().putString("loginParams", LoginParams).apply();
-                Intent i1 = new Intent(MainActivity.this, attend_shower.class);
-                startActivity(i1);
+        //        LoginParams="uname="+countryList.get(i).getId()+"&"+"password="+countryList.get(0).getPass()+"&cmbsession=JUL-17";
+       //         sd.edit().putString("loginParams", LoginParams).apply();
+       //         Intent i1 = new Intent(MainActivity.this, attend_shower.class);
+         //       startActivity(i1);
+
+                id.setText(countryList.get(i).getId());
             }
         });
 
@@ -85,8 +87,11 @@ Handler handler,handler2;
 
         System.out.println("hii by");
 
-
-        if(sd.getString("loginParams","").equals("")) {
+        if(getIntent().hasExtra("error_msg")){
+            System.out.println("yehh it error id pass is working ........");
+            Toast.makeText(MainActivity.this,getIntent().getStringExtra("error_msg"),Toast.LENGTH_LONG).show();
+        }
+        else if(sd.getString("loginParams","").equals("")) {
             sd.edit().putString("loginParams", "").apply();
 
         }else {
@@ -103,8 +108,8 @@ Handler handler,handler2;
 
     public void LoginOnClick(View view) {
         if(!id.getText().equals("") && !pass.getText().equals("")){
-            LoginParams="uname="+id.getText()+"&"+"password="+pass.getText()+"&cmbsession=JUL-17";
-            sd.edit().putString("c_uname", id.getText().toString()).apply();
+            LoginParams="uname="+id.getText().toString().toUpperCase()+"&"+"password="+pass.getText()+"&cmbsession=JUL-17";
+            sd.edit().putString("c_uname", id.getText().toString().toUpperCase()).apply();
             sd.edit().putString("c_pass", pass.getText().toString()).apply();
             sd.edit().putString("loginParams", LoginParams).apply();
             Intent i = new Intent(MainActivity.this, attend_shower.class);
