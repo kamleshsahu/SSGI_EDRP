@@ -12,12 +12,17 @@ import android.support.annotation.RequiresApi;
 import android.support.annotation.UiThread;
 import android.widget.Toast;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 
 
 public class Worker implements Runnable {
@@ -186,15 +191,49 @@ public class Worker implements Runnable {
                                 new InputStreamReader(E.getInputStream()));
 
 
+
                         String inputLine = null;
                         while ((inputLine = in.readLine()) != null) {
+                         //   System.out.println("hii baby "+inputLine);
                             result += inputLine;
                         }
 
-                     System.out.println(" downloaded data =" + result);
-                        Message message = Message.obtain();
-                        message.obj = new customObject(task_name, result);
-                        dnld_handler.sendMessage(message);
+                     //   System.out.println("hii baby 2 :"+result);
+                        org.jsoup.nodes.Document doc = null;
+                        try {
+                            doc = Jsoup.parse(result, "utf-8");
+
+                            String title_text= doc.getElementsByTag("title").text();
+                            System.out.println("here is doc : "+doc);
+                            System.out.println("here is href :"+title_text);
+
+
+                            if(title_text.startsWith("My Home Page")){
+                                System.out.println(" downloaded data =" + result);
+                                Message message = Message.obtain();
+                                message.obj = new customObject(task_name, result);
+                                dnld_handler.sendMessage(message);
+
+                            }else  if(title_text.startsWith("SSCET-eCampus") ){
+
+                                Message message = Message.obtain();
+                                message.obj = new customObject("", "error", "Wrong ID or Password");
+                                handler.sendMessage(message);
+                            }else{
+                                Message message = Message.obtain();
+                                message.obj = new customObject("", "error", "Wrong ID or Password");
+                                handler.sendMessage(message);
+                            }
+                        }catch (Exception e){
+                            e.fillInStackTrace();
+                            Message message = Message.obtain();
+                            message.obj = new customObject("", "error", "Error Connecting to Server.Pls Retry");
+                            dnld_handler.sendMessage(message);
+                        }
+
+
+
+
                     }
                 } catch (Exception e) {
             e.fillInStackTrace();
