@@ -239,7 +239,32 @@ public class attend_shower extends AppCompatActivity {
             }
         };
 
+        log_in_handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                //System.out.println("under pre dnld handler");
+                customObject data = (customObject) msg.obj;
+                System.out.println(data.getResult());
+                if(data.getResult().equals("error")){
+                    System.out.println("here is error msg :"+data.getErrorMsg());
 
+                    Intent i = new Intent(attend_shower.this,MainActivity.class);
+                    i.putExtra("error_msg",data.getErrorMsg());
+                    startActivity(i);
+                    attend_shower.this.finish();
+                }else{
+
+                    System.out.println("yeh logged in ..........");
+                    if(flag!=0){
+                    new Thread( new Worker(attend_shower.this,"fetch_attendence",sd,handler2)).start();
+                    }else{
+                        datePicker(3);
+                  }
+
+                }
+            }
+        };
 
         handler = new Handler() {
             @Override
@@ -253,11 +278,11 @@ public class attend_shower extends AppCompatActivity {
                 }else{
 
                     System.out.println("yeh got the cookie :"+sd.getString("cookie",""));
-                    if(flag!=0){
-                        new Thread( new Worker(attend_shower.this,"hey baby",sd,handler2)).start();
-                    }else{
-                        datePicker(3);
-                    }
+//                    if(flag!=0){
+                        new Thread( new Worker(attend_shower.this,"login",sd,log_in_handler)).start();
+//                    }else{
+//                        datePicker(3);
+//                    }
 
                 }
             }
@@ -423,7 +448,7 @@ public class attend_shower extends AppCompatActivity {
 //                            key_pass_generator key_pass_generator= new key_pass_generator(handler,sd);
 //                            key_pass_generator.start();
 
-                            new Thread( new Worker(attend_shower.this,"hey baby",sd,handler2)).start();
+                            new Thread( new Worker(attend_shower.this,"fetch_attendence",sd,handler2)).start();
                         }else{
                             Toast.makeText(getApplicationContext(),"unkwown tag",Toast.LENGTH_LONG).show();
                         }

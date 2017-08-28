@@ -127,17 +127,39 @@ public class Worker implements Runnable {
                 }else{
                     System.out.println("yeh got the data :"+data.getResult());
 
-                     get_Details_via_POST(dnld_handler_2,"poster2",getDetails_url);
-
+                 //    get_Details_via_POST(dnld_handler_2,"poster2",getDetails_url);
+                    Message message = Message.obtain();
+                    message.obj = new customObject("", "success", "");
+                    handler.sendMessage(message);
                 }
             }
         };
 
-        Post_Login(dnld_handler,"poster",postUrl);
+      //  Post_Login(dnld_handler,"poster",postUrl);
+
+        task_identifier(task_name);
+
         Looper.loop();
 
     }
 
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    private void task_identifier(String task_name){
+        switch (task_name){
+            case "login":
+                Post_Login(dnld_handler,"poster",postUrl);
+                break;
+
+            case "fetch_attendence":
+                get_Details_via_POST(dnld_handler_2,"poster2",getDetails_url);
+                break;
+            default:
+                System.out.println("unknown errror inside worker");
+
+
+        }
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void Post_Login(Handler dnld_handler, String task_name, String urls) {
