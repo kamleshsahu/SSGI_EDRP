@@ -44,7 +44,7 @@ public class attend_shower extends AppCompatActivity {
     static ArrayList<key_val> list = new ArrayList<>();
    static String sem_start_date="";
     String todays_date="";
-
+    int flag =0;
 
     ArrayList<key_val> saver_list =new ArrayList();
 
@@ -253,13 +253,18 @@ public class attend_shower extends AppCompatActivity {
                 }else{
 
                     System.out.println("yeh got the cookie :"+sd.getString("cookie",""));
-                    new Thread( new Worker(attend_shower.this,"hey baby",sd,handler2)).start();
+                    if(flag!=0){
+                        new Thread( new Worker(attend_shower.this,"hey baby",sd,handler2)).start();
+                    }else{
+                        datePicker(3);
+                    }
+
                 }
             }
         };
 
         final Gson gson = new Gson();
-        int flag =0;
+
         if(!sd.getString("Users_Data_Saver", "").equals("")) {
             String json1 = sd.getString("Users_Data_Saver", "");
             System.out.println("yeh user data reading ..........");
@@ -287,24 +292,22 @@ public class attend_shower extends AppCompatActivity {
                 toDate=todays_date;
                 todate.setText(todays_date);
 
-                key_pass_generator key_pass_generator= new key_pass_generator(handler,sd);
-                key_pass_generator.start();
+
             }else if(flag==0){
 
-                datePicker(3);
+              //  datePicker(3);
             }
 
 
         }else if(sd.getString("Users_Data_Saver", "").equals("")){
             System.out.println("else if part ........user data daver not created yet....");
-               datePicker(4);
+        //       datePicker(4);
 
 //                    fromDate="01-AUG-2017";
 //                    toDate="22-AUG-2017";
 //                    fromdate.setText("01-AUG-2017");
 //                    todate.setText("23-AUG-2017");
-//            key_pass_generator key_pass_generator= new key_pass_generator(handler,sd);
-//            key_pass_generator.start();
+
         }
 
 //
@@ -313,7 +316,8 @@ public class attend_shower extends AppCompatActivity {
 
 
 
-
+        key_pass_generator key_pass_generator= new key_pass_generator(handler,sd);
+        key_pass_generator.start();
     }
 
 
@@ -416,9 +420,10 @@ public class attend_shower extends AppCompatActivity {
                                 t.start();
 
 
-                            key_pass_generator key_pass_generator= new key_pass_generator(handler,sd);
-                            key_pass_generator.start();
+//                            key_pass_generator key_pass_generator= new key_pass_generator(handler,sd);
+//                            key_pass_generator.start();
 
+                            new Thread( new Worker(attend_shower.this,"hey baby",sd,handler2)).start();
                         }else{
                             Toast.makeText(getApplicationContext(),"unkwown tag",Toast.LENGTH_LONG).show();
                         }

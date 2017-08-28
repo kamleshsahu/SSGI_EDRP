@@ -144,7 +144,7 @@ Handler handler,handler2;
                 String shareBodyText = "http://play.google.com/store/apps/details?id=com.SahuAppsPvtLtd.myTrainEnquiryApp";
                 sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,"Subject here");
                 sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBodyText);
-                startActivity(Intent.createChooser(sharingIntent, "Share Google Play Link"));
+                startActivity(Intent.createChooser(sharingIntent, "Share This App"));
                 return true;
 
             case R.id.rate:
