@@ -6,17 +6,13 @@
     android:orientation="vertical"
     >
 
-<ImageView
-    android:scaleType="centerCrop"
-    android:src="@drawable/as"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+
     <LinearLayout
         android:layout_marginTop="30dp"
         android:layout_marginBottom="0dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:onClick="rotate"
+
         android:id="@+id/lin_rotate"
         android:paddingBottom="20dp"
         android:paddingTop="10dp"
@@ -28,7 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <ImageView
-            android:paddingTop="2dp"
+            android:paddingTop="3dp"
             android:paddingBottom="2dp"
             android:scaleX="1.1"
             android:scaleY="1.1"
@@ -37,6 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"/>
     <AutoCompleteTextView
+        android:elevation="3dp"
         android:layout_marginTop="40dp"
         android:text=""
         android:fontFamily="sans-serif-thin"
@@ -58,7 +55,7 @@
     <EditText
 
         android:layout_margin="10dp"
-        android:elevation="5dp"
+        android:elevation="3dp"
         android:text=""
         android:fontFamily="sans-serif-thin"
         android:textColorHint="#d1d1d1"
