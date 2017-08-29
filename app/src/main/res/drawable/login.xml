@@ -6,6 +6,11 @@
         android:left="5dp"
         android:right="5dp"
         android:top="0dp"/>
-    <corners android:radius="7dp"/>
-    <solid android:color="@color/colorPrimary"/>
+    <gradient
+        android:centerX="30%"
+        android:startColor="@color/colorPrimary"
+        android:centerColor="@color/colorPrimary"
+        android:endColor="#78d2fa"
+        android:angle="135"/>
+    <corners android:radius="1dp"/>
 </shape>
