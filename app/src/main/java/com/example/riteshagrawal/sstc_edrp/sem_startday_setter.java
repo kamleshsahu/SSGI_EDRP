@@ -73,7 +73,9 @@ DatePicker simpleDatePicker;
                 }
                 attend_shower.millis = date.getTime();
                 System.out.println("here is millis baby : "+attend_shower.millis);
+                System.out.println("here is sem start day before change :"+attend_shower.sem_start_date);
                 attend_shower.sem_start_date=day +"-"+attend_shower.months[Integer.parseInt(month)]+"-"+year;
+                System.out.println("here is sem start day after change :"+attend_shower.sem_start_date);
                 final Calendar c = Calendar.getInstance();
                 int mYear = c.get(Calendar.YEAR); // current year
                 int mMonth = c.get(Calendar.MONTH); // current month
@@ -86,7 +88,7 @@ DatePicker simpleDatePicker;
                     key_val obj = new key_val(
                             attend_shower.sd.getString("c_uname", ""),
                             attend_shower.sd.getString("c_pass", ""),
-                            attend_shower.sem_start_date
+                            day +"-"+attend_shower.months[Integer.parseInt(month)]+"-"+year
                     );
                     Thread t = new Thread(new Users_Data_Saver(attend_shower.sd, obj));
                     t.start();
