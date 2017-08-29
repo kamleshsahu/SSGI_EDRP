@@ -33,7 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"/>
     <AutoCompleteTextView
-        android:elevation="3dp"
+        android:elevation="0dp"
         android:layout_marginTop="40dp"
         android:text=""
         android:fontFamily="sans-serif-thin"
@@ -55,7 +55,7 @@
     <EditText
 
         android:layout_margin="10dp"
-        android:elevation="3dp"
+        android:elevation="0dp"
         android:text=""
         android:fontFamily="sans-serif-thin"
         android:textColorHint="#d1d1d1"
