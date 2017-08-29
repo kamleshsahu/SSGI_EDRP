@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/change_sem_startdate"
+        android:icon="@drawable/logout"
+        android:title="Change Sem StartDate"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/logout"
+        android:icon="@drawable/logout"
+        android:title="Sign Out"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/refresh"
+        android:icon="@drawable/refresh2_"
+        android:title="Rate Us"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/rate"
+        android:icon="@drawable/ic_stars_white_24dp"
+        android:title="Rate Us"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/share"
+        android:actionProviderClass="android.widget.ShareActionProvider"
+        android:icon="@android:drawable/ic_menu_share"
+        android:title="Share"
+        app:showAsAction="never" />
+</menu>

@@ -121,8 +121,8 @@ Handler handler,handler2;
             sd.edit().putString("c_pass", pass.getText().toString()).apply();
             sd.edit().putString("loginParams", LoginParams).apply();
             Intent i = new Intent(MainActivity.this, attend_shower.class);
-
             startActivity(i);
+            MainActivity.this.finish();
         }else{
             Toast.makeText(MainActivity.this,"please fill id and pass ",Toast.LENGTH_LONG).show();
         }

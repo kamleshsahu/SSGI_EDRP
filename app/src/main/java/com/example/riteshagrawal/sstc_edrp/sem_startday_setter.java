@@ -32,7 +32,7 @@ DatePicker simpleDatePicker;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sem_startday_setter);
-
+        attend_shower.flag=0;
 
         submit =(Button)findViewById(R.id.submitButton);
         simpleDatePicker = (DatePicker)findViewById(R.id.simpleDatePicker);
@@ -45,8 +45,6 @@ DatePicker simpleDatePicker;
             e.printStackTrace();
             System.out.println("bug in the  simple date format >>"+e.toString());
         }
-
-
 
         simpleDatePicker.setMaxDate(date.getTime());
         submit.setOnClickListener(new View.OnClickListener() {
@@ -84,14 +82,16 @@ DatePicker simpleDatePicker;
                 attend_shower.todate.setText(attend_shower.todays_date);
                 attend_shower.toDate = attend_shower.todays_date;
                 System.out.println("to date : " +attend_shower.todays_date);
-                key_val obj = new key_val(
-                        attend_shower.sd.getString("c_uname", ""),
-                        attend_shower.sd.getString("c_pass", ""),
-                        attend_shower.fromDate
-                );
 
-                Thread t = new Thread(new Users_Data_Saver(attend_shower.sd, obj));
-                t.start();
+                    key_val obj = new key_val(
+                            attend_shower.sd.getString("c_uname", ""),
+                            attend_shower.sd.getString("c_pass", ""),
+                            attend_shower.sem_start_date
+                    );
+                    Thread t = new Thread(new Users_Data_Saver(attend_shower.sd, obj));
+                    t.start();
+
+
                 Intent i = new Intent(sem_startday_setter.this ,attend_shower.class);
                 i.putExtra("sem_startday_set",true);
                 startActivity(i);
@@ -101,4 +101,11 @@ DatePicker simpleDatePicker;
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent startMain = new Intent(Intent.ACTION_MAIN);
+        startMain.addCategory(Intent.CATEGORY_HOME);
+        startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(startMain);
+    }
 }

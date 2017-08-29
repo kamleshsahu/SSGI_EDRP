@@ -30,7 +30,7 @@ import java.util.Date;
 
 
 public class attend_shower extends AppCompatActivity {
-
+    final static Gson gson = new Gson();
    static long millis= 0;
     Handler handler,log_in_handler,logout_handler;
     static SharedPreferences sd=MainActivity.sd;
@@ -45,7 +45,7 @@ public class attend_shower extends AppCompatActivity {
     static ArrayList<key_val> list = new ArrayList<>();
    static String sem_start_date="";
    static String todays_date="";
-    int flag =0;
+   static int flag =0;
 
     ArrayList<key_val> saver_list =new ArrayList();
 
@@ -63,9 +63,9 @@ public class attend_shower extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater=getMenuInflater();
-        inflater.inflate(R.menu.back,menu);
+        inflater.inflate(R.menu.menuitems,menu);
         MenuItem logout =menu.findItem(R.id.logout);
-
+        MenuItem change_sem_startdate =menu.findItem(R.id.change_sem_startdate);
          logout.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
              @Override
              public boolean onMenuItemClick(MenuItem menuItem) {
@@ -75,11 +75,20 @@ public class attend_shower extends AppCompatActivity {
              }
          });
 
+        change_sem_startdate.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                Intent i = new Intent( attend_shower.this,sem_startday_setter.class);
+                startActivity(i);
+              //  attend_shower.this.finish();
+                return false;
+            }
+        });
+
         MenuItem item =menu.findItem(R.id.refresh);
         item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-
                 recreate();
                 return false;
             }
@@ -282,6 +291,7 @@ public class attend_shower extends AppCompatActivity {
                        // datePicker(3);
                         Intent i = new Intent( attend_shower.this,sem_startday_setter.class);
                         startActivity(i);
+                        attend_shower.this.finish();
                   }
 
                 }
@@ -310,7 +320,7 @@ public class attend_shower extends AppCompatActivity {
             }
         };
 
-        final Gson gson = new Gson();
+
 
 
 
@@ -341,7 +351,8 @@ public class attend_shower extends AppCompatActivity {
                 toDate=todays_date;
                 todate.setText(todays_date);
 
-
+                key_pass_generator key_pass_generator= new key_pass_generator(handler,sd);
+                key_pass_generator.start();
             }else if(flag==0){
 
                 if(getIntent().getBooleanExtra("sem_startday_set",false)){
@@ -365,6 +376,9 @@ public class attend_shower extends AppCompatActivity {
                 toDate=todays_date;
                 todate.setText(todays_date);
                 new Thread( new Worker(attend_shower.this,"fetch_attendence",sd,handler2)).start();
+            }else{
+                key_pass_generator key_pass_generator= new key_pass_generator(handler,sd);
+                key_pass_generator.start();
             }
 //                    fromDate="01-AUG-2017";
 //                    toDate="22-AUG-2017";
@@ -379,8 +393,7 @@ public class attend_shower extends AppCompatActivity {
 
 
 
-        key_pass_generator key_pass_generator= new key_pass_generator(handler,sd);
-        key_pass_generator.start();
+
     }
 
 
