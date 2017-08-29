@@ -72,6 +72,14 @@ Handler handler,handler2;
          //       startActivity(i1);
 
                 id.setText(countryList.get(i).getId());
+                pass.requestFocus();
+                pass.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                        inputMethodManager.showSoftInput(id, InputMethodManager.SHOW_IMPLICIT);
+                    }
+                }, 500);
             }
         });
 

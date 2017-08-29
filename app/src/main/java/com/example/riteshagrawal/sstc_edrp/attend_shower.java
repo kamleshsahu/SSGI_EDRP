@@ -31,9 +31,10 @@ import java.util.Date;
 
 public class attend_shower extends AppCompatActivity {
 
-    long millis= (long) 1501732200000f;
-    Handler handler,handler2,log_in_handler;
-    SharedPreferences sd=MainActivity.sd;
+   static long millis= 0;
+    Handler handler,log_in_handler,logout_handler;
+    static SharedPreferences sd=MainActivity.sd;
+    static Handler handler2;
     static int tabindex=-1;
     static TabLayout tabLayout;
     static String attend_val="";
@@ -43,7 +44,7 @@ public class attend_shower extends AppCompatActivity {
     static String StudentName ="";
     static ArrayList<key_val> list = new ArrayList<>();
    static String sem_start_date="";
-    String todays_date="";
+   static String todays_date="";
     int flag =0;
 
     ArrayList<key_val> saver_list =new ArrayList();
@@ -56,8 +57,8 @@ public class attend_shower extends AppCompatActivity {
      static String Total_lectures="";
      static String Attended_lectures="";
 
-    String months[] = {"JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"};
-    String monthsD[] = {"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
+   static String months[] = {"JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"};
+   static String monthsD[] = {"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
     static String fromDate="",toDate="";
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -69,9 +70,7 @@ public class attend_shower extends AppCompatActivity {
              @Override
              public boolean onMenuItemClick(MenuItem menuItem) {
                  sd.edit().putString("loginParams", "").apply();
-                 Intent i = new Intent( attend_shower.this,MainActivity.class);
-                 startActivity(i);
-                 attend_shower.this.finish();
+                 new Thread( new Worker(attend_shower.this,"logout",sd,logout_handler)).start();
                  return false;
              }
          });
@@ -80,6 +79,7 @@ public class attend_shower extends AppCompatActivity {
         item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
+
                 recreate();
                 return false;
             }
@@ -146,6 +146,26 @@ public class attend_shower extends AppCompatActivity {
         tabLayout.addTab(secondTab);
 
         simpleViewPager = (ViewPager) findViewById(R.id.simpleViewPager);
+
+
+        logout_handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                //System.out.println("under pre dnld handler");
+                customObject data = (customObject) msg.obj;
+                System.out.println(data.getResult());
+                if(data.getResult().equals("error")){
+                    System.out.println("here is error msg :"+data.getErrorMsg());
+
+
+                }else{
+                    Intent i = new Intent( attend_shower.this,MainActivity.class);
+                    startActivity(i);
+                    attend_shower.this.finish();
+                }
+            }
+        };
 
         handler2 = new Handler() {
             @Override
@@ -259,7 +279,9 @@ public class attend_shower extends AppCompatActivity {
                     if(flag!=0){
                     new Thread( new Worker(attend_shower.this,"fetch_attendence",sd,handler2)).start();
                     }else{
-                        datePicker(3);
+                       // datePicker(3);
+                        Intent i = new Intent( attend_shower.this,sem_startday_setter.class);
+                        startActivity(i);
                   }
 
                 }
@@ -289,6 +311,8 @@ public class attend_shower extends AppCompatActivity {
         };
 
         final Gson gson = new Gson();
+
+
 
         if(!sd.getString("Users_Data_Saver", "").equals("")) {
             String json1 = sd.getString("Users_Data_Saver", "");
@@ -320,6 +344,13 @@ public class attend_shower extends AppCompatActivity {
 
             }else if(flag==0){
 
+                if(getIntent().getBooleanExtra("sem_startday_set",false)){
+                    fromDate=sem_start_date;
+                    fromdate.setText(sem_start_date);
+                    toDate=todays_date;
+                    todate.setText(todays_date);
+                    new Thread( new Worker(attend_shower.this,"fetch_attendence",sd,handler2)).start();
+                }
               //  datePicker(3);
             }
 
@@ -328,6 +359,13 @@ public class attend_shower extends AppCompatActivity {
             System.out.println("else if part ........user data daver not created yet....");
         //       datePicker(4);
 
+            if(getIntent().getBooleanExtra("sem_startday_set",false)){
+                fromDate=sem_start_date;
+                fromdate.setText(sem_start_date);
+                toDate=todays_date;
+                todate.setText(todays_date);
+                new Thread( new Worker(attend_shower.this,"fetch_attendence",sd,handler2)).start();
+            }
 //                    fromDate="01-AUG-2017";
 //                    toDate="22-AUG-2017";
 //                    fromdate.setText("01-AUG-2017");
@@ -409,47 +447,51 @@ public class attend_shower extends AppCompatActivity {
 
                             key_pass_generator key_pass_generator= new key_pass_generator(handler,sd);
                             key_pass_generator.start();
-                        }else if(tag==3 || tag==4){
-                            fromdate.setText(dayOfMonth+ " "+monthsD[(monthOfYear)]);
-                            System.out.println("to date : "+dayOfMonth + "-" + months[(monthOfYear)] + "-" + year);
-                            fromDate=dayOfMonth + "-" + months[(monthOfYear)] + "-" + year;
-
-                            String myDate =fromDate +" 00:00:00";
-                            SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
-                            Date date = null;
-                            try {
-                                date = sdf.parse(myDate);
-                            } catch (ParseException e) {
-                                e.printStackTrace();
-                                System.out.println("bug in the  simple date format >>"+e.toString());
-                            }
-
-                            millis = date.getTime();
-                            System.out.println("here is millis baby : "+millis);
-
-                            todate.setText(todays_date);
-                            toDate = todays_date;
-                            System.out.println("to date : " +todays_date);
-
-                            loading.setVisibility(View.VISIBLE);
-                            maindisplay.setVisibility(View.GONE);
 
 
-                                key_val obj = new key_val(
-                                        sd.getString("c_uname", ""),
-                                        sd.getString("c_pass", ""),
-                                        fromDate
-                                );
-
-                                Thread t = new Thread(new Users_Data_Saver(sd, obj));
-                                t.start();
-
-
-//                            key_pass_generator key_pass_generator= new key_pass_generator(handler,sd);
-//                            key_pass_generator.start();
-
-                            new Thread( new Worker(attend_shower.this,"fetch_attendence",sd,handler2)).start();
-                        }else{
+                        }
+//                        else if(tag==3 || tag==4){
+//                            fromdate.setText(dayOfMonth+ " "+monthsD[(monthOfYear)]);
+//                            System.out.println("to date : "+dayOfMonth + "-" + months[(monthOfYear)] + "-" + year);
+//                            fromDate=dayOfMonth + "-" + months[(monthOfYear)] + "-" + year;
+//
+//                            String myDate =fromDate +" 00:00:00";
+//                            SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
+//                            Date date = null;
+//                            try {
+//                                date = sdf.parse(myDate);
+//                            } catch (ParseException e) {
+//                                e.printStackTrace();
+//                                System.out.println("bug in the  simple date format >>"+e.toString());
+//                            }
+//
+//                            millis = date.getTime();
+//                            System.out.println("here is millis baby : "+millis);
+//
+//                            todate.setText(todays_date);
+//                            toDate = todays_date;
+//                            System.out.println("to date : " +todays_date);
+//
+//                            loading.setVisibility(View.VISIBLE);
+//                            maindisplay.setVisibility(View.GONE);
+//
+//
+//                                key_val obj = new key_val(
+//                                        sd.getString("c_uname", ""),
+//                                        sd.getString("c_pass", ""),
+//                                        fromDate
+//                                );
+//
+//                                Thread t = new Thread(new Users_Data_Saver(sd, obj));
+//                                t.start();
+//
+//
+////                            key_pass_generator key_pass_generator= new key_pass_generator(handler,sd);
+////                            key_pass_generator.start();
+//
+//                            new Thread( new Worker(attend_shower.this,"fetch_attendence",sd,handler2)).start();
+//                        }
+                           else{
                             Toast.makeText(getApplicationContext(),"unkwown tag",Toast.LENGTH_LONG).show();
                         }
 
@@ -458,6 +500,19 @@ public class attend_shower extends AppCompatActivity {
                 }, mYear, mMonth, mDay);
         datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
         if(tag==2) {
+            if(millis==0) {
+                String myDate = fromDate + " 00:00:00";
+                SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
+                Date date = null;
+                try {
+                    date = sdf.parse(myDate);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                    System.out.println("bug in the  simple date format >>" + e.toString());
+                }
+
+                millis = date.getTime();
+            }
             datePickerDialog.getDatePicker().setMinDate(millis);
         }
 

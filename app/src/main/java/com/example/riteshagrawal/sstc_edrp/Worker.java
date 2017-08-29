@@ -41,6 +41,7 @@ public class Worker implements Runnable {
     String postUrl="http://182.71.130.11/x%40%40%401%40%40%4011/o0xx00x0x0x0x00xx___/default.asp";
     String getDetails_url="http://182.71.130.11/x%40%40%401%40%40%4011/stud@_1276@@@@_@@@@@@/2@@@@@@@@@@att/default.asp";
     String final_call="http://182.71.130.11/x%40%40%401%40%40%4011/stud@_1276@@@@_@@@@@@/2@@@@@@@@@@att/s__att@@@@@@@@@@__s@@@all.asp";
+    String logout_url="http://182.71.130.11/x%40%40%401%40%40%4011/logout.asp";
 
     public Worker(Context context, String task_name,SharedPreferences sd,Handler handlermain) {
         this.context = context;
@@ -154,6 +155,11 @@ public class Worker implements Runnable {
             case "fetch_attendence":
                 get_Details_via_POST(dnld_handler_2,"poster2",getDetails_url);
                 break;
+
+            case "logout":
+                Post_Logout(handler,"logout",logout_url );
+                break;
+
             default:
                 System.out.println("unknown errror inside worker");
 
@@ -418,5 +424,86 @@ public class Worker implements Runnable {
 
 
     }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    private void Post_Logout(Handler dnld_handler, String task_name, String urls) {
+        String result = "";
+        String sendTaskName = task_name;
+        URL url;
+           String urlParameters  = "info=myhome";
+       // String urlParameters  = sd.getString("loginParams","");
+        byte[] postData = urlParameters.getBytes( StandardCharsets.UTF_8 );
+        //    int postDataLength = postData.length;
+        try {
+            HttpURLConnection E = null;
+            url = new URL(urls);
+            E = (HttpURLConnection) url.openConnection();
+            System.out.println("calling url :"+urls);
+            String str2 = sd.getString("cookie", "");
+            // str2 = str2.replaceAll("\\s", "").split("\\[", 2)[1].split("\\]", 2)[0];\
+            E.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
+            E.setRequestProperty("Cookie", str2);
+            E.setRequestProperty("Referer", "http://182.71.130.11/x%40%40%401%40%40%4011/home/title.asp");
+            E.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36");
+            E.setRequestProperty("Host", "182.71.130.11");
+            E.setRequestProperty("Method", "POST");
+            //           E.setRequestProperty("Content-Length", Integer.toString(postDataLength));
+            E.setUseCaches(false);
+
+            E.setConnectTimeout(5000);
+            E.setReadTimeout(5000);
+            E.setDoInput(true);
+            E.setDoOutput(true);
+
+            try(DataOutputStream wr = new DataOutputStream(E.getOutputStream())) {
+                wr.write( postData );
+            }
+
+
+            //  E.connect();
+            System.out.println("response code is :"+E.getResponseCode());
+            if (E.getResponseCode() != 200) {
+                System.out.println("response code is not 200");
+
+                System.out.println("redirect url is :"+E.getHeaderField("Location"));
+                //                Data_Downloader(dnld_handler, task_name,E.getHeaderField("Location"));
+
+            }
+            else {
+                System.out.println("Jai hind : " + E.getResponseCode());
+
+
+                BufferedReader in = new BufferedReader(
+                        new InputStreamReader(E.getInputStream()));
+
+
+
+                String inputLine = null;
+                while ((inputLine = in.readLine()) != null) {
+                    //   System.out.println("hii baby "+inputLine);
+                    result += inputLine;
+                }
+
+                //   System.out.println("hii baby 2 :"+result);
+
+                        System.out.println(" downloaded data =" + result);
+                        Message message = Message.obtain();
+                        message.obj = new customObject(task_name, result);
+                        dnld_handler.sendMessage(message);
+
+
+            }
+        } catch (Exception e) {
+            e.fillInStackTrace();
+            System.out.println("here is the error :"+e.toString());
+            Message message = Message.obtain();
+            message.obj = new customObject("", "error", "Error Connecting to Server.Pls Retry");
+            dnld_handler.sendMessage(message);
+        }
+
+
+    }
+
+
 
 }

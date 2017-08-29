@@ -21,6 +21,9 @@
         <activity android:name=".attend_shower"
             android:label="Attendence"
             android:screenOrientation="portrait"/>
+        <activity android:name=".sem_startday_setter"
+            android:label="SET Sem Start Date"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
