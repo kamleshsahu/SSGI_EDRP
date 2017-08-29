@@ -1,49 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 <LinearLayout
+    android:background="@color/white"
     android:layout_width="match_parent"
-    android:layout_height="70sp">
+    android:layout_height="wrap_content">
 
     <TextView
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        android:textSize="13sp"
+        android:fontFamily="sans-serif-condensed"
+        android:textColor="#d0d0d0"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:paddingLeft="20sp"
-        android:paddingRight="20sp"
-        android:text="Hii , Please Set Ur 'Semester Start Date'\nThis Date will be used as Default Date to Calc. Ur Attendence"/>
+        android:paddingLeft="10sp"
+        android:paddingRight="10sp"
+        android:text="Please set your 'SEMESTER START DATE'\nThis date will be used as 'DEFAULT DATE' to calculate your attendence"/>
 </LinearLayout>
     <ScrollView
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     <RelativeLayout
+        android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/datepickerlayout">
             <DatePicker
-                android:backgroundTint="#0a422c64"
-                android:headerBackground="@color/primary_color"
+                android:backgroundTint="#f4f4f4"
+                android:headerBackground="@color/colorPrimary"
                 android:layout_marginTop="2dp"
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"
                 android:id="@+id/simpleDatePicker"
                 android:layout_width="match_parent"
-                android:layout_height="400sp"
-                android:background="#fff"
+                android:layout_height="wrap_content"
+                android:background="#f4f4f4"
                 android:datePickerMode="calendar"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true" />
 
             <Button
-
+                android:elevation="5dp"
+android:layout_marginTop="5dp"
                 android:fontFamily="sans-serif-thin"
                 android:id="@+id/submitButton"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_below="@+id/simpleDatePicker"
                 android:layout_centerHorizontal="true"
-                android:background="@drawable/rect"
+                android:background="@drawable/login"
                 android:text="SUBMIT"
                 android:textColor="#fff"
                 android:textSize="15sp"

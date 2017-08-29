@@ -6,7 +6,7 @@
     <item
         android:id="@+id/change_sem_startdate"
         android:icon="@drawable/logout"
-        android:title="Change Sem StartDate"
+        android:title="Semester Start Date"
         app:showAsAction="never" />
     <item
         android:id="@+id/logout"
@@ -21,12 +21,14 @@
         app:showAsAction="always" />
 
     <item
+        android:visible="false"
         android:id="@+id/rate"
         android:icon="@drawable/ic_stars_white_24dp"
         android:title="Rate Us"
         app:showAsAction="never"
         />
     <item
+        android:visible="false"
         android:id="@+id/share"
         android:actionProviderClass="android.widget.ShareActionProvider"
         android:icon="@android:drawable/ic_menu_share"

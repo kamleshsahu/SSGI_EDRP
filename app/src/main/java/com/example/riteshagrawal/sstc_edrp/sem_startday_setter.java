@@ -1,26 +1,16 @@
 package com.example.riteshagrawal.sstc_edrp;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -33,6 +23,10 @@ DatePicker simpleDatePicker;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sem_startday_setter);
         attend_shower.flag=0;
+
+        //back button
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         submit =(Button)findViewById(R.id.submitButton);
         simpleDatePicker = (DatePicker)findViewById(R.id.simpleDatePicker);
@@ -102,12 +96,19 @@ DatePicker simpleDatePicker;
             }
         });
     }
-
+    //back menu
     @Override
-    public void onBackPressed() {
-        Intent startMain = new Intent(Intent.ACTION_MAIN);
-        startMain.addCategory(Intent.CATEGORY_HOME);
-        startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(startMain);
+    public  boolean onOptionsItemSelected(MenuItem item){
+        onBackPressed();
+        return true;
     }
+
+//    @Override
+//    public void onBackPressed() {
+//        Intent startMain = new Intent(Intent.ACTION_MAIN);
+//        startMain.addCategory(Intent.CATEGORY_HOME);
+//        startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//        startActivity(startMain);
+//    }
+//    
 }
