@@ -31,8 +31,8 @@ public class Worker implements Runnable {
     private Context context;
     private String task_name;
 
-    private Handler handler, key_handler;
-    Handler dnld_handler,after_UserInfo_dnld, after_attendencedata_dnld, info_ext_handler;
+    private Handler handler;
+    Handler dnld_handler,after_UserInfo_dnld, after_attendencedata_dnld;
     private SharedPreferences sd = null;
     String post_loginUrl="http://182.71.130.11/x%40%40%401%40%40%4011/o0xx00x0x0x0x00xx___/default.asp";
     String getDetails_url="http://182.71.130.11/x%40%40%401%40%40%4011/stud@_1276@@@@_@@@@@@/2@@@@@@@@@@att/default.asp";
@@ -55,50 +55,26 @@ public class Worker implements Runnable {
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
-                //System.out.println("under pre dnld handler");
+                System.out.println("worker,after attendence data download");
                 customObject data = (customObject) msg.obj;
                 System.out.println(data.getResult());
                 if(data.getResult().equals("error")){
                     System.out.println("here is error msg :"+data.getErrorMsg());
                 }else{
-//                    System.out.println("yeh got the data :"+data.getResult());
-//                    Message message = Message.obtain();
-//                    message.obj = new customObject(task_name, data.getResult());
-//                    handler.sendMessage(message);
 
-                   new attendence_extractor(data.getResult(),handler);
+                    new attendence_extractor(data.getMsg(),handler);
 
                 }
             }
         };
 
 
-//        info_ext_handler = new Handler() {
-//            @Override
-//            public void handleMessage(Message msg) {
-//                super.handleMessage(msg);
-//                //System.out.println("under pre dnld handler");
-//                customObject data = (customObject) msg.obj;
-//                System.out.println(data.getResult());
-//                if(data.getResult().equals("error")){
-//                    System.out.println("here is error msg :"+data.getErrorMsg());
-//                }else{
-//                    System.out.println("yeh got the data :"+data.getResult());
-//
-//                     finalCall_via_POST(dnld_handler_3,"",final_call,data.getResult());
-//
-//
-//
-//
-//                }
-//            }
-//        };
 
         after_UserInfo_dnld= new Handler() {
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
-                //System.out.println("under pre dnld handler");
+                System.out.println("worker,after Userinfo data download");
                 customObject data = (customObject) msg.obj;
                 System.out.println(data.getResult());
                 if(data.getResult().equals("error")){
@@ -106,7 +82,7 @@ public class Worker implements Runnable {
                 }else{
                     System.out.println("yeh got the data :"+data.getResult());
 
-                    new info_extractor(data.getResult(),handler);
+                    new info_extractor(data.getMsg(),handler);
                 }
             }
         };
@@ -115,7 +91,7 @@ public class Worker implements Runnable {
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
-                //System.out.println("under pre dnld handler");
+                System.out.println("worker,under dnld handler");
                 customObject data = (customObject) msg.obj;
                 System.out.println(data.getResult());
                 if(data.getResult().equals("error")){
@@ -247,7 +223,7 @@ public class Worker implements Runnable {
                             if(title_text.startsWith("My Home Page")){
                                 System.out.println(" downloaded data =" + result);
                                 Message message = Message.obtain();
-                                message.obj = new customObject(task_name, result);
+                                message.obj = new customObject(task_name,"success" ,result);
                                 dnld_handler.sendMessage(message);
                                 attend_shower.logged_in=true;
 
@@ -282,19 +258,15 @@ public class Worker implements Runnable {
                         }catch (Exception e){
                             e.fillInStackTrace();
                             Message message = Message.obtain();
-                            message.obj = new customObject("", "error", "Error Connecting to Server.Pls Retry");
+                            message.obj = new customObject("", "error", e.toString());
                             dnld_handler.sendMessage(message);
                         }
-
-
-
-
                     }
                 } catch (Exception e) {
-            e.fillInStackTrace();
-            System.out.println("here is the error :"+e.toString());
+                    e.fillInStackTrace();
+                    System.out.println("here is the error :"+e.toString());
                     Message message = Message.obtain();
-                    message.obj = new customObject("", "error", "Error Connecting to Server.Pls Retry");
+                    message.obj = new customObject("", "error", e.toString());
                     dnld_handler.sendMessage(message);
                 }
 
@@ -303,7 +275,7 @@ public class Worker implements Runnable {
 
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    private void get_Details_via_POST(Handler dnld_handler2, String task_name, String urls) {
+    private void get_Details_via_POST(Handler dnld_handler, String task_name, String urls) {
         String result = "";
         String sendTaskName = task_name;
         URL url;
@@ -325,10 +297,6 @@ public class Worker implements Runnable {
             E.setRequestProperty("Method", "POST");
             E.setRequestProperty("Content-Length", Integer.toString(postDataLength ));
             E.setUseCaches(false);
-//            E.setRequestProperty("info1","21");
-//            E.setRequestProperty("infox","Attendance");
-//            E.setRequestProperty("e_id","");
-//            E.setRequestProperty("e_cat","");
             E.setConnectTimeout(5000);
             E.setReadTimeout(5000);
             E.setDoInput(true);
@@ -380,15 +348,15 @@ public class Worker implements Runnable {
 
                 System.out.println(" downloaded data =" + result);
                 Message message = Message.obtain();
-                message.obj = new customObject(task_name, result);
-                dnld_handler2.sendMessage(message);
+                message.obj = new customObject(task_name,"success" ,result);
+                dnld_handler.sendMessage(message);
             }
         } catch (Exception e) {
             e.fillInStackTrace();
             System.out.println("here is the error :"+e.toString());
             Message message = Message.obtain();
-            message.obj = new customObject("", "error", "Error Connecting to Server.Pls Retry");
-            dnld_handler2.sendMessage(message);
+            message.obj = new customObject(task_name, "error", e.toString());
+            dnld_handler.sendMessage(message);
         }
 
 
@@ -471,7 +439,7 @@ public class Worker implements Runnable {
                 }
                 System.out.println(" downloaded data =" + result);
                 Message message = Message.obtain();
-                message.obj = new customObject(task_name, result);
+                message.obj = new customObject(task_name,"success", result);
                 dnld_handler2.sendMessage(message);
             }
         }catch
@@ -479,7 +447,7 @@ public class Worker implements Runnable {
             e.fillInStackTrace();
             System.out.println("here is the error :"+e.toString());
             Message message = Message.obtain();
-            message.obj = new customObject("", "error",e.toString());
+            message.obj = new customObject(task_name, "error",e.toString());
             dnld_handler2.sendMessage(message);
         }
 
@@ -544,21 +512,18 @@ public class Worker implements Runnable {
                     //   System.out.println("hii baby "+inputLine);
                     result += inputLine;
                 }
-
-                //   System.out.println("hii baby 2 :"+result);
-
                         System.out.println(" downloaded data =" + result);
                         Message message = Message.obtain();
-                        message.obj = new customObject(task_name, result);
+                        message.obj = new customObject(task_name,"success", result);
                         dnld_handler.sendMessage(message);
 
 
             }
         } catch (Exception e) {
             e.fillInStackTrace();
-            System.out.println("here is the error :"+e.toString());
+            System.out.println("Calling Post_Logout :"+e.toString());
             Message message = Message.obtain();
-            message.obj = new customObject("", "error", "Error Connecting to Server.Pls Retry");
+            message.obj = new customObject(task_name, "error", e.toString());
             dnld_handler.sendMessage(message);
         }
 

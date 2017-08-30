@@ -69,7 +69,7 @@ String dnld_data;
 
         attend_shower.datalist=datalist;
         Message message = Message.obtain();
-        message.obj = new customObject("", Attancence);
+        message.obj = new customObject("", "success",Attancence);
         handler.sendMessage(message);
     }
 }

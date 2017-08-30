@@ -65,7 +65,7 @@ String dnld_data;
 
             attend_shower.list=list;
             Message message = Message.obtain();
-            message.obj = new customObject("", urlParams);
+            message.obj = new customObject("","success" ,urlParams);
             handler.sendMessage(message);
         }catch (Exception e){
             e.fillInStackTrace();
