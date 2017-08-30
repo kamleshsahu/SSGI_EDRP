@@ -4,37 +4,38 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    android:background="#f4f4f4"
-    >
-    <LinearLayout
 
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="0dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="0dp"
+    >
+    
+    <LinearLayout
+android:background="@drawable/rect"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:paddingBottom="20dp"
         android:paddingTop="0dp"
         android:paddingRight="0dp"
         android:paddingLeft="0dp"
-        android:elevation="0dp"
+        android:elevation="2dp"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
         <ImageView
+            android:layout_gravity="center_horizontal"
             android:elevation="00dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
             android:layout_marginRight="20dp"
-            android:layout_marginBottom="50dp"
+            android:layout_marginBottom="25dp"
             android:paddingTop="0dp"
             android:paddingBottom="0dp"
             android:scaleX="1"
             android:scaleY="1"
-            android:background="@color/colorPrimary"
-            android:src="@mipmap/sstclogo_a"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"/>
+            android:src="@mipmap/web_hi_res"
+            android:layout_width="150dp"
+            android:layout_height="150dp"/>
 <LinearLayout
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -116,16 +117,16 @@
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginBottom="0dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
         android:elevation="3dp"
-        android:textSize="15sp"
+        android:textSize="18sp"
         android:textColor="@color/white"
         android:fontFamily="sans-serif-condensed"
         android:background="@drawable/login"
         android:id="@+id/Login"
         android:layout_width="match_parent"
         android:layout_gravity="center_horizontal"
-        android:layout_height="45dp"
+        android:layout_height="48dp"
         android:text="SIGN IN"
         android:onClick="LoginOnClick"
         />

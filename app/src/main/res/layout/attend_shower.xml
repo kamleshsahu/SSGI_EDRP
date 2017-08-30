@@ -148,7 +148,6 @@
                     android:fontFamily="sans-serif-condensed"
                     android:gravity="center_horizontal"
                     android:text="From Date"
-                    android:paddingLeft="70sp"
                     android:textColor="@color/white"
                     android:textColorHint="@color/white"
                     android:textSize="9.5sp" />
@@ -162,7 +161,6 @@
                     android:gravity="center_horizontal"
                     android:hint="From Date"
                     android:onClick="datePicker"
-                   android:paddingLeft="70sp"
                     android:paddingBottom="1dp"
                     android:textColor="@color/white"
                     android:textColorHint="@color/white"
@@ -190,7 +188,6 @@
                     android:fontFamily="sans-serif-condensed"
                     android:gravity="center_horizontal"
                     android:text="To Date"
-                    android:paddingRight="70sp"
                     android:textColor="@color/white"
                     android:textColorHint="@color/white"
                     android:textSize="9.5sp" />
@@ -204,7 +201,6 @@
                     android:gravity="center_horizontal"
                     android:hint="To Date"
                     android:onClick="datePicker"
-                    android:paddingRight="70sp"
                     android:paddingBottom="1dp"
                     android:textColor="@color/white"
                     android:textColorHint="@color/white"
