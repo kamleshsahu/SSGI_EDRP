@@ -46,7 +46,7 @@
 
             <Button
                 android:elevation="5dp"
-android:layout_marginTop="5dp"
+                android:layout_margin="5dp"
                 android:fontFamily="sans-serif-thin"
                 android:id="@+id/submitButton"
                 android:layout_width="wrap_content"
