@@ -18,8 +18,10 @@ import org.jsoup.select.Elements;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -28,17 +30,11 @@ import java.util.ArrayList;
 public class Worker implements Runnable {
     private Context context;
     private String task_name;
-    private String from_stn, to_stn;
-    private String stn_code;
-    private String train_no;
-    private Handler handler, key_handler;
-    Handler dnld_handler,dnld_handler_2, dnld_handler_3, info_ext_handler;
-    private SharedPreferences sd = null;
 
-    private String filter;
-    private String[] dateobj;
-    private String TrnStartDate;
-    String postUrl="http://182.71.130.11/x%40%40%401%40%40%4011/o0xx00x0x0x0x00xx___/default.asp";
+    private Handler handler, key_handler;
+    Handler dnld_handler,after_UserInfo_dnld, after_attendencedata_dnld, info_ext_handler;
+    private SharedPreferences sd = null;
+    String post_loginUrl="http://182.71.130.11/x%40%40%401%40%40%4011/o0xx00x0x0x0x00xx___/default.asp";
     String getDetails_url="http://182.71.130.11/x%40%40%401%40%40%4011/stud@_1276@@@@_@@@@@@/2@@@@@@@@@@att/default.asp";
     String final_call="http://182.71.130.11/x%40%40%401%40%40%4011/stud@_1276@@@@_@@@@@@/2@@@@@@@@@@att/s__att@@@@@@@@@@__s@@@all.asp";
     String logout_url="http://182.71.130.11/x%40%40%401%40%40%4011/logout.asp";
@@ -55,7 +51,7 @@ public class Worker implements Runnable {
     public void run() {
         Looper.prepare();
 
-        dnld_handler_3 = new Handler() {
+        after_attendencedata_dnld = new Handler() {
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
@@ -77,7 +73,28 @@ public class Worker implements Runnable {
         };
 
 
-        info_ext_handler = new Handler() {
+//        info_ext_handler = new Handler() {
+//            @Override
+//            public void handleMessage(Message msg) {
+//                super.handleMessage(msg);
+//                //System.out.println("under pre dnld handler");
+//                customObject data = (customObject) msg.obj;
+//                System.out.println(data.getResult());
+//                if(data.getResult().equals("error")){
+//                    System.out.println("here is error msg :"+data.getErrorMsg());
+//                }else{
+//                    System.out.println("yeh got the data :"+data.getResult());
+//
+//                     finalCall_via_POST(dnld_handler_3,"",final_call,data.getResult());
+//
+//
+//
+//
+//                }
+//            }
+//        };
+
+        after_UserInfo_dnld= new Handler() {
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
@@ -89,29 +106,7 @@ public class Worker implements Runnable {
                 }else{
                     System.out.println("yeh got the data :"+data.getResult());
 
-                     finalCall_via_POST(dnld_handler_3,"",final_call,data.getResult());
-
-
-
-
-                }
-            }
-        };
-
-        dnld_handler_2 = new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                super.handleMessage(msg);
-                //System.out.println("under pre dnld handler");
-                customObject data = (customObject) msg.obj;
-                System.out.println(data.getResult());
-                if(data.getResult().equals("error")){
-                    System.out.println("here is error msg :"+data.getErrorMsg());
-                }else{
-                    System.out.println("yeh got the data :"+data.getResult());
-
-                    // finalCall_via_POST(dnld_handler_3,"",final_call);
-                       new info_extractor(data.getResult(),info_ext_handler);
+                    new info_extractor(data.getResult(),handler);
                 }
             }
         };
@@ -128,7 +123,7 @@ public class Worker implements Runnable {
                 }else{
                     System.out.println("yeh got the data :"+data.getResult());
 
-                 //    get_Details_via_POST(dnld_handler_2,"poster2",getDetails_url);
+
                     Message message = Message.obtain();
                     message.obj = new customObject("", "success", "");
                     handler.sendMessage(message);
@@ -136,10 +131,8 @@ public class Worker implements Runnable {
             }
         };
 
-      //  Post_Login(dnld_handler,"poster",postUrl);
 
         task_identifier(task_name);
-
         Looper.loop();
 
     }
@@ -148,12 +141,27 @@ public class Worker implements Runnable {
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void task_identifier(String task_name){
         switch (task_name){
+            case "generate_cookie":
+                if(attend_shower.cookie_generated){
+                    System.out.println(" task identifier, cookie is already available !!! ");
+                    Message message = Message.obtain();
+                    message.obj = new customObject("", "success", "");
+                    handler.sendMessage(message);
+                }else {
+                    new cookie_generator(handler, sd).start();
+                }
+                break;
+
             case "login":
-                Post_Login(dnld_handler,"poster",postUrl);
+                Post_Login(handler,"poster",post_loginUrl);
                 break;
 
             case "fetch_attendence":
-                get_Details_via_POST(dnld_handler_2,"poster2",getDetails_url);
+                finalCall_via_POST(after_attendencedata_dnld,"",final_call,attend_shower.users_info_url);
+                break;
+
+            case "fetch_users_info":
+                get_Details_via_POST(after_UserInfo_dnld,"poster2",getDetails_url);
                 break;
 
             case "logout":
@@ -182,7 +190,7 @@ public class Worker implements Runnable {
                     E = (HttpURLConnection) url.openConnection();
                     System.out.println("calling url :"+urls);
                     String str2 = sd.getString("cookie", "");
-                   // str2 = str2.replaceAll("\\s", "").split("\\[", 2)[1].split("\\]", 2)[0];\
+            System.out.println("post login ,cookie : "+str2);
                     E.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
                     E.setRequestProperty("Cookie", str2);
                     E.setRequestProperty("Referer", "http://182.71.130.11/x%40%40%401%40%40%4011/default1.asp");
@@ -192,14 +200,14 @@ public class Worker implements Runnable {
          //           E.setRequestProperty("Content-Length", Integer.toString(postDataLength));
                     E.setUseCaches(false);
 
-                    E.setConnectTimeout(5000);
-                    E.setReadTimeout(5000);
+                    E.setConnectTimeout(10000);
+                    E.setReadTimeout(10000);
                     E.setDoInput(true);
                     E.setDoOutput(true);
 
-            try(DataOutputStream wr = new DataOutputStream(E.getOutputStream())) {
+            DataOutputStream wr = new DataOutputStream(E.getOutputStream());
                 wr.write( postData );
-            }
+
 
 
                   //  E.connect();
@@ -241,6 +249,25 @@ public class Worker implements Runnable {
                                 Message message = Message.obtain();
                                 message.obj = new customObject(task_name, result);
                                 dnld_handler.sendMessage(message);
+                                attend_shower.logged_in=true;
+
+                                if(in !=null){
+                                    try {
+                                        in.close();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                                if (wr != null) {
+                                    try {
+                                        wr.close();
+                                    } catch (IOException e) {
+                                        e.fillInStackTrace();
+                                    }
+                                }
+                                if (E != null) {
+                                    E.disconnect();
+                                }
 
                             }else  if(title_text.startsWith("SSCET-eCampus") ){
 
@@ -289,7 +316,7 @@ public class Worker implements Runnable {
             E = (HttpURLConnection) url.openConnection();
             System.out.println("calling url :"+urls);
             String str2 = sd.getString("cookie", "");
-            // str2 = str2.replaceAll("\\s", "").split("\\[", 2)[1].split("\\]", 2)[0];
+            System.out.println("get details via post ,cookie : "+str2);
             E.setRequestProperty("Cookie", str2);
             E.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
             E.setRequestProperty("Referer", "http://182.71.130.11/x%40%40%401%40%40%4011/home/options.asp");
@@ -307,9 +334,9 @@ public class Worker implements Runnable {
             E.setDoInput(true);
             E.setDoOutput(true);
 
-            try(DataOutputStream wr = new DataOutputStream(E.getOutputStream())) {
+            DataOutputStream wr = new DataOutputStream(E.getOutputStream());
                 wr.write( postData );
-            }
+
 
        //     E.connect();
             System.out.println("response code is :"+E.getResponseCode());
@@ -332,6 +359,23 @@ public class Worker implements Runnable {
                 while ((inputLine = in.readLine()) != null) {
                     System.out.println(inputLine);
                     result += inputLine;
+                }
+                if(in !=null){
+                    try {
+                        in.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (wr != null) {
+                    try {
+                        wr.close();
+                    } catch (IOException e) {
+                        e.fillInStackTrace();
+                    }
+                }
+                if (E != null) {
+                    E.disconnect();
                 }
 
                 System.out.println(" downloaded data =" + result);
@@ -358,13 +402,16 @@ public class Worker implements Runnable {
       //  String urlParameters  = "sub_mit=&holdme=0&txtrollinfo=90&txtbatchinfo=2&cmbcollegename=FET&BranchF=CSE&SemesterF=3&SectionF=B&extsec='B','.'&reporttype=Attendance Report&dc1=17-JUL-2017&dc2=14-AUG-2017&apercent=ALL";
         byte[] postData = urlParameters.getBytes( StandardCharsets.UTF_8 );
         int postDataLength = postData.length;
+        DataOutputStream wr=null;
+        HttpURLConnection E = null;
+        BufferedReader in=null;
         try {
-            HttpURLConnection E = null;
+
             url = new URL(urls);
             E = (HttpURLConnection) url.openConnection();
             System.out.println("calling url :"+urls);
             String str2 = sd.getString("cookie", "");
-            // str2 = str2.replaceAll("\\s", "").split("\\[", 2)[1].split("\\]", 2)[0];
+            System.out.println("finalcall via post ,cookie : "+str2);
             E.setRequestProperty("Cookie", str2);
             E.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
             E.setRequestProperty("Referer", "http://182.71.130.11/x%40%40%401%40%40%4011/stud@_1276@@@@_@@@@@@/2@@@@@@@@@@att/default.asp");
@@ -373,18 +420,14 @@ public class Worker implements Runnable {
             E.setRequestProperty("Method", "POST");
             E.setRequestProperty("Content-Length", Integer.toString(postDataLength ));
             E.setUseCaches(false);
-//            E.setRequestProperty("info1","21");
-//            E.setRequestProperty("infox","Attendance");
-//            E.setRequestProperty("e_id","");
-//            E.setRequestProperty("e_cat","");
             E.setConnectTimeout(5000);
             E.setReadTimeout(5000);
             E.setDoInput(true);
             E.setDoOutput(true);
 
-            try(DataOutputStream wr = new DataOutputStream(E.getOutputStream())) {
-                wr.write( postData );
-            }
+             wr = new DataOutputStream(E.getOutputStream());
+            wr.write(postData);
+
 
             //     E.connect();
             System.out.println("response code is :"+E.getResponseCode());
@@ -399,7 +442,8 @@ public class Worker implements Runnable {
                 System.out.println("Jai hind : " + E.getResponseCode());
 
 
-                BufferedReader in = new BufferedReader(
+
+                in = new BufferedReader(
                         new InputStreamReader(E.getInputStream()));
 
 
@@ -408,17 +452,34 @@ public class Worker implements Runnable {
                     System.out.println(inputLine);
                     result += inputLine;
                 }
-
+                if(in !=null){
+                    try {
+                        in.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (wr != null) {
+                    try {
+                        wr.close();
+                    } catch (IOException e) {
+                        e.fillInStackTrace();
+                    }
+                }
+                if (E != null) {
+                    E.disconnect();
+                }
                 System.out.println(" downloaded data =" + result);
                 Message message = Message.obtain();
                 message.obj = new customObject(task_name, result);
                 dnld_handler2.sendMessage(message);
             }
-        } catch (Exception e) {
+        }catch
+         (Exception e) {
             e.fillInStackTrace();
             System.out.println("here is the error :"+e.toString());
             Message message = Message.obtain();
-            message.obj = new customObject("", "error", "Error Connecting to Server.Pls Retry");
+            message.obj = new customObject("", "error",e.toString());
             dnld_handler2.sendMessage(message);
         }
 
@@ -440,7 +501,7 @@ public class Worker implements Runnable {
             E = (HttpURLConnection) url.openConnection();
             System.out.println("calling url :"+urls);
             String str2 = sd.getString("cookie", "");
-            // str2 = str2.replaceAll("\\s", "").split("\\[", 2)[1].split("\\]", 2)[0];\
+
             E.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
             E.setRequestProperty("Cookie", str2);
             E.setRequestProperty("Referer", "http://182.71.130.11/x%40%40%401%40%40%4011/home/title.asp");

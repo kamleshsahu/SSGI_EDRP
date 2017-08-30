@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -19,7 +20,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class key_pass_generator extends Thread {
+public class cookie_generator extends Thread {
 
 static SharedPreferences sd;
 
@@ -28,11 +29,11 @@ static SharedPreferences sd;
 
 
 
-    public key_pass_generator() {
+    public cookie_generator() {
 
     }
 
-    public key_pass_generator(Handler handler, SharedPreferences sd){
+    public cookie_generator(Handler handler, SharedPreferences sd){
         this.handler=handler;
         this.sd=sd;
     }
@@ -40,22 +41,23 @@ static void getkeyval()
 
     {
         try {
-            if((new Date()).getTime() - Long.parseLong(sd.getString("lastcall","")) >= 240000) {
+            if((new Date()).getTime() - Long.parseLong(sd.getString("lastcall","")) >= 240000 ) {
            //System.out.println("calling keypass url.........");
                 DownloadTask task = new DownloadTask();
                 task.seturl("http://182.71.130.11/x%40%40%401%40%40%4011/default1.asp");
                 task.doInBackground();
             }else{
            //System.out.println("no need to call keypass");
+
                 Message message = Message.obtain();
-                message.obj =new customObject("key_pass_generator","success","already having..no need to call keypass");
+                message.obj =new customObject("cookie_generator","success","already having..no need to call keypass");
                 handler.sendMessage(message);
             }
         } catch (Exception e) {
-       //System.out.println("error inside key_pass_generator :"+e.fillInStackTrace());
-            String msgSend ="error inside key_pass_generator :"+e.fillInStackTrace();
+       //System.out.println("error inside cookie_generator :"+e.fillInStackTrace());
+            String msgSend ="error inside cookie_generator :"+e.fillInStackTrace();
             Message message = Message.obtain();
-            message.obj =new customObject("key_pass_generator","error","Pls Check Your Internet Connection");
+            message.obj =new customObject("cookie_generator","error","Pls Check Your Internet Connection");
             handler.sendMessage(message);
         }
     }
@@ -110,6 +112,7 @@ static void getkeyval()
                     result= localObject1.toString();
 
                                     gotthekey=true;
+                                    attend_shower.cookie_generated=true;
 
 
 
@@ -124,7 +127,7 @@ static void getkeyval()
                       handler.sendMessage(message);
                   }else{
                       Message message = Message.obtain();
-                      message.obj =new customObject("key_pass_generator","error","unknown error.....");
+                      message.obj =new customObject("cookie_generator","error","unknown error.....");
                       handler.sendMessage(message);
                   }
 
@@ -134,7 +137,7 @@ static void getkeyval()
            //System.out.println("Socket Timeout Exception:"+e.fillInStackTrace());
 
                 Message message = Message.obtain();
-                message.obj =new customObject("key_pass_generator","error","Server Timeout .Pls Retry");
+                message.obj =new customObject("cookie_generator","error","Server Timeout .Pls Retry");
                 handler.sendMessage(message);
             }
             catch (Exception e) {
@@ -142,7 +145,7 @@ static void getkeyval()
           //System.out.println("Error inside key pass generator 2:"+e.fillInStackTrace());
                 String msgSend="Error inside key pass generator 2:"+e.fillInStackTrace();
                 Message message = Message.obtain();
-                message.obj =new customObject("key_pass_generator","error","Pls Check Your Internet Connection");
+                message.obj =new customObject("cookie_generator","error","Pls Check Your Internet Connection");
                 handler.sendMessage(message);
 
             }

@@ -32,7 +32,7 @@ import java.util.Date;
 public class attend_shower extends AppCompatActivity {
     final static Gson gson = new Gson();
    static long millis= 0;
-    Handler handler,log_in_handler,logout_handler;
+    Handler handler,log_in_handler,logout_handler,after_login,after_gotCookies,after_gotUsersInfo,after_fetchAttendence;
     static SharedPreferences sd=MainActivity.sd;
     static Handler handler2;
     static int tabindex=-1;
@@ -45,7 +45,10 @@ public class attend_shower extends AppCompatActivity {
     static ArrayList<key_val> list = new ArrayList<>();
    static String sem_start_date="";
    static String todays_date="";
+    static String users_info_url="";
    static int flag =0;
+    static Boolean logged_in=false;
+    static Boolean cookie_generated=false;
 
     ArrayList<key_val> saver_list =new ArrayList();
 
@@ -112,6 +115,18 @@ public class attend_shower extends AppCompatActivity {
         loading = (LinearLayout) findViewById(R.id.loading);
         error_disp = (LinearLayout) findViewById(R.id.error_disp);
         final TextView error_msg=(TextView)findViewById(R.id.error_msg);
+        fromdate = (TextView) findViewById(R.id .fromDate);
+        todate = (TextView) findViewById(R.id .toDate);
+        tabLayout = (TabLayout) findViewById(R.id.sTabLayout);
+        tabLayout.setupWithViewPager(simpleViewPager);
+        TabLayout.Tab firstTab;
+        firstTab = tabLayout.newTab();
+        tabLayout.addTab(firstTab);
+        secondTab = tabLayout.newTab();
+        tabLayout.addTab(secondTab);
+        simpleViewPager = (ViewPager) findViewById(R.id.simpleViewPager);
+
+
 
         DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy ");
         Date date = new Date();
@@ -120,41 +135,19 @@ public class attend_shower extends AppCompatActivity {
 
 
 
-        fromdate = (TextView) findViewById(R.id .fromDate);
-        // perform click event on edit text
+
         fromdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 datePicker(1);
             }
         });
-
-        todate = (TextView) findViewById(R.id .toDate);
-        // perform click event on edit text
         todate.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-
-                datePicker(2);
+            public void onClick(View v) {datePicker(2);
             }
         });
 
-        tabLayout = (TabLayout) findViewById(R.id.sTabLayout);
-         tabLayout.setupWithViewPager(simpleViewPager);
-
-
-//        Toast.makeText(attend_shower.this,"Yehh "+data.getResult()+" % Attendence",Toast.LENGTH_LONG).show();
-
-
-        TabLayout.Tab firstTab;
-        firstTab = tabLayout.newTab();
-
-        tabLayout.addTab(firstTab);
-        secondTab = tabLayout.newTab();
-
-        tabLayout.addTab(secondTab);
-
-        simpleViewPager = (ViewPager) findViewById(R.id.simpleViewPager);
 
 
         logout_handler = new Handler() {
@@ -176,11 +169,11 @@ public class attend_shower extends AppCompatActivity {
             }
         };
 
-        handler2 = new Handler() {
+        after_fetchAttendence= new Handler() {
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
-                //System.out.println("under pre dnld handler");
+
                 customObject data = (customObject) msg.obj;
                 System.out.println(data.getResult());
                 if(data.getResult().equals("error")){
@@ -190,16 +183,14 @@ public class attend_shower extends AppCompatActivity {
                     i.putExtra("error_msg",data.getErrorMsg());
                     startActivity(i);
                     attend_shower.this.finish();
- //                   loading.setVisibility(View.GONE);
-//                    error_disp.setVisibility(View.VISIBLE);
-//                    error_msg.setText(data.getErrorMsg());
+
                 }else{
                     loading.setVisibility(View.GONE);
                     maindisplay.setVisibility(View.VISIBLE);
 
-                    if(list != null){
-                        try {
-                            key_val obj = new key_val(
+                    if(list != null){                        try {
+                        key_val obj = new key_val(
+
                                     sd.getString("c_uname", ""),
                                     sd.getString("c_pass", ""),
                                     StudentName,
@@ -268,54 +259,72 @@ public class attend_shower extends AppCompatActivity {
             }
         };
 
-        log_in_handler = new Handler() {
+
+        after_gotUsersInfo = new Handler() {
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
-                //System.out.println("under pre dnld handler");
+                System.out.println("after_gotUserinfo handler");
                 customObject data = (customObject) msg.obj;
                 System.out.println(data.getResult());
-                if(data.getResult().equals("error")){
-                    System.out.println("here is error msg :"+data.getErrorMsg());
-
-                    Intent i = new Intent(attend_shower.this,MainActivity.class);
-                    i.putExtra("error_msg",data.getErrorMsg());
-                    startActivity(i);
-                    attend_shower.this.finish();
+                if(!data.getResult().equals("error")){
+                    users_info_url=data.getResult();
+                    new Thread(new Worker(getApplicationContext(),"fetch_attendence",sd,after_fetchAttendence)).start();
                 }else{
-
-                    System.out.println("yeh logged in ..........");
-                    if(flag!=0){
-                    new Thread( new Worker(attend_shower.this,"fetch_attendence",sd,handler2)).start();
-                    }else{
-                       // datePicker(3);
-                        Intent i = new Intent( attend_shower.this,sem_startday_setter.class);
-                        startActivity(i);
-                        attend_shower.this.finish();
-                  }
-
+                    Toast.makeText(getApplicationContext()," Error ",Toast.LENGTH_LONG).show();
+                    System.out.println("after got cookies error :"+data.getResult());
                 }
             }
         };
 
-        handler = new Handler() {
+        after_login = new Handler() {
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
-                //System.out.println("under pre dnld handler");
+                System.out.println("after_login handler");
                 customObject data = (customObject) msg.obj;
                 System.out.println(data.getResult());
-                if(data.getResult().equals("error")){
-                    System.out.println("here is error msg :"+data.getErrorMsg());
+                if(!data.getResult().equals("error")){
+                    if(!users_info_url.equals("")) {
+                        Toast.makeText(attend_shower.this, "already have user_info", Toast.LENGTH_SHORT).show();
+                        System.out.println("after login handler, having user_info url");
+                        new Thread(new Worker(getApplicationContext(),"fetch_attendence",sd,after_fetchAttendence)).start();
+                    }else {
+                        Toast.makeText(attend_shower.this, "not have user_info", Toast.LENGTH_SHORT).show();
+                        System.out.println("after login handler,Not having user_info url");
+                        new Thread(new Worker(getApplicationContext(),"fetch_users_info",sd,after_gotUsersInfo)).start();
+                    }
                 }else{
+                    Toast.makeText(getApplicationContext()," Error ",Toast.LENGTH_LONG).show();
+                    System.out.println("after got cookies error :"+data.getResult());
+                }
+            }
+        };
 
-                    System.out.println("yeh got the cookie :"+sd.getString("cookie",""));
-//                    if(flag!=0){
-                        new Thread( new Worker(attend_shower.this,"login",sd,log_in_handler)).start();
-//                    }else{
-//                        datePicker(3);
-//                    }
-
+        after_gotCookies= new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                System.out.println("after_gotCookies handler");
+                customObject data = (customObject) msg.obj;
+                System.out.println(data.getResult());
+                if(!data.getResult().equals("error")){
+                    if(logged_in && !users_info_url.equals("")) {
+                        Toast.makeText(attend_shower.this, "already logged in", Toast.LENGTH_SHORT).show();
+                        System.out.println("after gotCookies, already logged in");
+                        new Thread(new Worker(getApplicationContext(),"fetch_attendence",sd,after_fetchAttendence)).start();
+                    }else if(logged_in) {
+                        Toast.makeText(attend_shower.this, "logged in,no usr infos", Toast.LENGTH_SHORT).show();
+                        System.out.println("after gotCookies,logged in,no usr infos");
+                        new Thread(new Worker(getApplicationContext(),"fetch_users_info",sd,after_gotUsersInfo)).start();
+                    }else {
+                        Toast.makeText(attend_shower.this, "not logged in", Toast.LENGTH_SHORT).show();
+                        System.out.println("after gotCookies,not logged in");
+                        new Thread(new Worker(getApplicationContext(), "login", sd, after_login)).start();
+                    }
+                }else{
+                    Toast.makeText(getApplicationContext()," Error ",Toast.LENGTH_LONG).show();
+                    System.out.println("after got cookies error :"+data.getResult());
                 }
             }
         };
@@ -339,7 +348,6 @@ public class attend_shower extends AppCompatActivity {
                     sec.setText("Sec :"+item0.getSec()+"");
                     name.setText(item0.getName());
                     sem_start_date= item0.getSem_start_date();
-                    //System.out.println("element added :"+item);
                     flag=1;
                     break;
                 }
@@ -351,8 +359,6 @@ public class attend_shower extends AppCompatActivity {
                 toDate=todays_date;
                 todate.setText(todays_date);
 
-                key_pass_generator key_pass_generator= new key_pass_generator(handler,sd);
-                key_pass_generator.start();
             }else if(flag==0){
 
                 if(getIntent().getBooleanExtra("sem_startday_set",false)){
@@ -360,40 +366,30 @@ public class attend_shower extends AppCompatActivity {
                     fromdate.setText(sem_start_date);
                     toDate=todays_date;
                     todate.setText(todays_date);
-                    new Thread( new Worker(attend_shower.this,"fetch_attendence",sd,handler2)).start();
                 }
-              //  datePicker(3);
+
             }
 
 
         }else if(sd.getString("Users_Data_Saver", "").equals("")){
             System.out.println("else if part ........user data daver not created yet....");
-        //       datePicker(4);
+
 
             if(getIntent().getBooleanExtra("sem_startday_set",false)){
                 fromDate=sem_start_date;
                 fromdate.setText(sem_start_date);
                 toDate=todays_date;
                 todate.setText(todays_date);
-                new Thread( new Worker(attend_shower.this,"fetch_attendence",sd,handler2)).start();
-            }else{
-                key_pass_generator key_pass_generator= new key_pass_generator(handler,sd);
-                key_pass_generator.start();
             }
-//                    fromDate="01-AUG-2017";
-//                    toDate="22-AUG-2017";
-//                    fromdate.setText("01-AUG-2017");
-//                    todate.setText("23-AUG-2017");
+
 
         }
 
 //
+//        cookie_generator cookie_generator = new cookie_generator(after_gotCookies,sd);
+//        cookie_generator.start();
 
-
-
-
-
-
+        new Thread(new Worker(getApplicationContext(), "generate_cookie", sd, after_gotCookies)).start();
     }
 
 
@@ -408,9 +404,6 @@ public class attend_shower extends AppCompatActivity {
 
     public void datePicker(final int tag) {
 
-
-     //   System.out.println("hello its working :");
-    //    Toast.makeText(getApplicationContext(),"tag :"+tag,Toast.LENGTH_LONG).show();
 
         final Calendar c = Calendar.getInstance();
         int mYear = c.get(Calendar.YEAR); // current year
@@ -446,8 +439,9 @@ public class attend_shower extends AppCompatActivity {
                             if(todate != null){
                                 loading.setVisibility(View.VISIBLE);
                                 maindisplay.setVisibility(View.GONE);
-                                key_pass_generator key_pass_generator= new key_pass_generator(handler,sd);
-                                key_pass_generator.start();
+//                                cookie_generator cookie_generator = new cookie_generator(after_gotCookies,sd);
+//                                cookie_generator.start();
+                                new Thread(new Worker(getApplicationContext(), "generate_cookie", sd, after_gotCookies)).start();
                             }
 
                         }else if(tag==2){
@@ -457,54 +451,13 @@ public class attend_shower extends AppCompatActivity {
 
                             loading.setVisibility(View.VISIBLE);
                             maindisplay.setVisibility(View.GONE);
+//
+//                            cookie_generator cookie_generator = new cookie_generator(after_gotCookies,sd);
+//                            cookie_generator.start();
 
-                            key_pass_generator key_pass_generator= new key_pass_generator(handler,sd);
-                            key_pass_generator.start();
+                            new Thread(new Worker(getApplicationContext(), "generate_cookie", sd, after_gotCookies)).start();
 
-
-                        }
-//                        else if(tag==3 || tag==4){
-//                            fromdate.setText(dayOfMonth+ " "+monthsD[(monthOfYear)]);
-//                            System.out.println("to date : "+dayOfMonth + "-" + months[(monthOfYear)] + "-" + year);
-//                            fromDate=dayOfMonth + "-" + months[(monthOfYear)] + "-" + year;
-//
-//                            String myDate =fromDate +" 00:00:00";
-//                            SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
-//                            Date date = null;
-//                            try {
-//                                date = sdf.parse(myDate);
-//                            } catch (ParseException e) {
-//                                e.printStackTrace();
-//                                System.out.println("bug in the  simple date format >>"+e.toString());
-//                            }
-//
-//                            millis = date.getTime();
-//                            System.out.println("here is millis baby : "+millis);
-//
-//                            todate.setText(todays_date);
-//                            toDate = todays_date;
-//                            System.out.println("to date : " +todays_date);
-//
-//                            loading.setVisibility(View.VISIBLE);
-//                            maindisplay.setVisibility(View.GONE);
-//
-//
-//                                key_val obj = new key_val(
-//                                        sd.getString("c_uname", ""),
-//                                        sd.getString("c_pass", ""),
-//                                        fromDate
-//                                );
-//
-//                                Thread t = new Thread(new Users_Data_Saver(sd, obj));
-//                                t.start();
-//
-//
-////                            key_pass_generator key_pass_generator= new key_pass_generator(handler,sd);
-////                            key_pass_generator.start();
-//
-//                            new Thread( new Worker(attend_shower.this,"fetch_attendence",sd,handler2)).start();
-//                        }
-                           else{
+                        } else{
                             Toast.makeText(getApplicationContext(),"unkwown tag",Toast.LENGTH_LONG).show();
                         }
 
@@ -521,7 +474,7 @@ public class attend_shower extends AppCompatActivity {
                     date = sdf.parse(myDate);
                 } catch (ParseException e) {
                     e.printStackTrace();
-                    System.out.println("bug in the  simple date format >>" + e.toString());
+                    System.out.println("bug in the  simple date format " + e.toString());
                 }
 
                 millis = date.getTime();
