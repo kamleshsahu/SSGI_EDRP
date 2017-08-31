@@ -283,15 +283,15 @@ public class attend_shower extends AppCompatActivity {
                 customObject data = (customObject) msg.obj;
                 System.out.println(data.getResult());
                 if(data.getResult().equals("success")){
-                    if(!users_info_url.equals("")) {
-                        Toast.makeText(attend_shower.this, "already have user_info", Toast.LENGTH_SHORT).show();
-                        System.out.println("after login handler, having user_info url");
-                        new Thread(new Worker(getApplicationContext(),"fetch_attendence",sd,after_fetchAttendence)).start();
-                    }else {
+//                    if(!users_info_url.equals("")) {
+//                        Toast.makeText(attend_shower.this, "already have user_info", Toast.LENGTH_SHORT).show();
+//                        System.out.println("after login handler, having user_info url");
+//                        new Thread(new Worker(getApplicationContext(),"fetch_attendence",sd,after_fetchAttendence)).start();
+//                    }else {
                         Toast.makeText(attend_shower.this, "not have user_info", Toast.LENGTH_SHORT).show();
                         System.out.println("after login handler,Not having user_info url");
                         new Thread(new Worker(getApplicationContext(),"fetch_users_info",sd,after_gotUsersInfo)).start();
-                    }
+//                    }
                 }else{
                     Toast.makeText(getApplicationContext()," Error ",Toast.LENGTH_LONG).show();
                     System.out.println("after got cookies error :"+data.getResult());

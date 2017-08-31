@@ -58,12 +58,10 @@ public class Worker implements Runnable {
                 System.out.println("worker,after attendence data download");
                 customObject data = (customObject) msg.obj;
                 System.out.println(data.getResult());
-                if(data.getResult().equals("error")){
-                    System.out.println("here is error msg :"+data.getErrorMsg());
-                }else{
-
+                if(data.getResult().equals("success")){
                     new attendence_extractor(data.getMsg(),handler);
-
+                }else{
+                    System.out.println("here is error msg :"+data.getErrorMsg());
                 }
             }
         };
@@ -77,12 +75,13 @@ public class Worker implements Runnable {
                 System.out.println("worker,after Userinfo data download");
                 customObject data = (customObject) msg.obj;
                 System.out.println(data.getResult());
-                if(data.getResult().equals("error")){
-                    System.out.println("here is error msg :"+data.getErrorMsg());
-                }else{
+                if(data.getResult().equals("success")){
                     System.out.println("yeh got the data :"+data.getResult());
 
                     new info_extractor(data.getMsg(),handler);
+
+                }else{
+                    System.out.println("here is error msg :"+data.getErrorMsg());
                 }
             }
         };
@@ -94,15 +93,16 @@ public class Worker implements Runnable {
                 System.out.println("worker,under dnld handler");
                 customObject data = (customObject) msg.obj;
                 System.out.println(data.getResult());
-                if(data.getResult().equals("error")){
-                    System.out.println("here is error msg :"+data.getErrorMsg());
-                }else{
-                    System.out.println("yeh got the data :"+data.getResult());
-
-
+                if(data.getResult().equals("success")){
                     Message message = Message.obtain();
                     message.obj = new customObject("", "success", "");
                     handler.sendMessage(message);
+                    System.out.println("yeh got the data :"+data.getResult());
+                }else{
+
+
+                    System.out.println("here is error msg :"+data.getErrorMsg());
+
                 }
             }
         };
