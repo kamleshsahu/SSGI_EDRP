@@ -4,7 +4,7 @@ package com.example.riteshagrawal.sstc_edrp;
  * Created by Ritesh Agrawal on 16-08-2017.
  */
 
-public class key_val {
+public class Users_info_Object {
     private String key;
     private String value;
     private String name;
@@ -16,13 +16,14 @@ public class key_val {
     private String sem_start_date;
     private String uname;
     private String pass;
+    private String clgname;
 
-    public key_val(String key, String value) {
+    public Users_info_Object(String key, String value) {
         this.key = key;
         this.value = value;
     }
 
-    public key_val(String uname, String pass,String name,String branch,String sem,String sec,String rollno,String batch) {
+    public Users_info_Object(String uname, String pass, String name, String branch, String sem, String sec, String rollno, String batch,String clgname) {
         this.uname = uname;
         this.batch=batch;
         this.branch=branch;
@@ -31,10 +32,10 @@ public class key_val {
         this.sec=sec;
         this.name=name;
         this.pass=pass;
-
+        this.clgname=clgname;
     }
 
-    public key_val(String uname, String pass,String sem_start_date) {
+    public Users_info_Object(String uname, String pass, String sem_start_date) {
         this.uname = uname;
         this.pass=pass;
         this.sem_start_date = sem_start_date;
@@ -87,7 +88,9 @@ public class key_val {
     public String getSem_start_date() {
         return sem_start_date;
     }
-    
-    
-    
+
+    public String getClgname() {
+        return clgname;
+    }
+
 }

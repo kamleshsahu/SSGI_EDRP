@@ -16,15 +16,15 @@ public class customObject {
 
 
 
-    private ArrayList<key_val> infoList;
+    private ArrayList<Users_info_Object> infoList;
 
 
 
-    public void setInfoList(ArrayList<key_val> infoList) {
+    public void setInfoList(ArrayList<Users_info_Object> infoList) {
         this.infoList = infoList;
     }
 
-    public ArrayList<key_val> getInfoList() {
+    public ArrayList<Users_info_Object> getInfoList() {
         return infoList;
     }
 

@@ -8,10 +8,10 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 
 public class Users_Data_Saver implements Runnable {
-    ArrayList<key_val> list =new ArrayList<key_val>();
-    key_val item;
+    ArrayList<Users_info_Object> list =new ArrayList<Users_info_Object>();
+    Users_info_Object item;
     SharedPreferences sd;
-    public Users_Data_Saver(SharedPreferences sd,key_val item) {
+    public Users_Data_Saver(SharedPreferences sd,Users_info_Object item) {
         this.item=item;
         this.sd=sd;
     }
@@ -38,7 +38,7 @@ public class Users_Data_Saver implements Runnable {
 
                int flag =0;
                System.out.println("list iterator on job...");
-                    for(key_val item0:list){
+                    for(Users_info_Object item0:list){
                         if(item0.getUname().equals(item.getUname()) && item0.getPass().equals(item.getPass())){
                             if(attend_shower.sem_start_date.equals("")) {
                                 item.setSem_start_date(item0.getSem_start_date());

@@ -9,28 +9,27 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.support.annotation.RequiresApi;
-import android.support.annotation.UiThread;
-import android.widget.Toast;
+
 
 import org.jsoup.Jsoup;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
+
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.SocketTimeoutException;
+
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
+
 
 
 public class Worker implements Runnable {
     private Context context;
     private String task_name;
-
+    ConnectivityManager mgr = (ConnectivityManager)MainActivity.appContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+    NetworkInfo netInfo = mgr.getActiveNetworkInfo();
     private Handler handler;
     Handler dnld_handler,after_UserInfo_dnld, after_attendencedata_dnld;
     private SharedPreferences sd = null;
@@ -108,7 +107,16 @@ public class Worker implements Runnable {
         };
 
 
-        task_identifier(task_name);
+
+        if (netInfo != null && netInfo.isConnected()) {
+            task_identifier(task_name);
+
+        }else{
+            System.out.println("Before task identifier !!!!.....here is the error :" + "no internet connection....!!!");
+            Message message = Message.obtain();
+            message.obj = new customObject("", "error", "Please Connect To Internet");
+            handler.sendMessage(message);
+        }
         Looper.loop();
 
     }
@@ -282,82 +290,87 @@ public class Worker implements Runnable {
         String urlParameters  = "info1=21&infox=Attendance&e_cat=&e_id=";
         byte[] postData = urlParameters.getBytes( StandardCharsets.UTF_8 );
         int postDataLength = postData.length;
-        try {
-            HttpURLConnection E = null;
-            url = new URL(urls);
-            E = (HttpURLConnection) url.openConnection();
-            System.out.println("calling url :"+urls);
-            String str2 = sd.getString("cookie", "");
-            System.out.println("get details via post ,cookie : "+str2);
-            E.setRequestProperty("Cookie", str2);
-            E.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
-            E.setRequestProperty("Referer", "http://182.71.130.11/x%40%40%401%40%40%4011/home/options.asp");
-            E.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36");
-            E.setRequestProperty("Host", "182.71.130.11");
-            E.setRequestProperty("Method", "POST");
-            E.setRequestProperty("Content-Length", Integer.toString(postDataLength ));
-            E.setUseCaches(false);
-            E.setConnectTimeout(10000);
-            E.setReadTimeout(5000);
-            E.setDoInput(true);
-            E.setDoOutput(true);
-
-            DataOutputStream wr = new DataOutputStream(E.getOutputStream());
-                wr.write( postData );
+        ConnectivityManager mgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = mgr.getActiveNetworkInfo();
 
 
-       //     E.connect();
-            System.out.println("response code is :"+E.getResponseCode());
-            if (E.getResponseCode() != 200) {
-                System.out.println("response code is not 200");
 
-                System.out.println("redirect url is :"+E.getHeaderField("Location"));
-                //                Data_Downloader(dnld_handler, task_name,E.getHeaderField("Location"));
+                try {
+                    HttpURLConnection E = null;
+                    url = new URL(urls);
+                    E = (HttpURLConnection) url.openConnection();
+                    System.out.println("calling url :" + urls);
+                    String str2 = sd.getString("cookie", "");
+                    System.out.println("get details via post ,cookie : " + str2);
+                    E.setRequestProperty("Cookie", str2);
+                    E.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                    E.setRequestProperty("Referer", "http://182.71.130.11/x%40%40%401%40%40%4011/home/options.asp");
+                    E.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36");
+                    E.setRequestProperty("Host", "182.71.130.11");
+                    E.setRequestProperty("Method", "POST");
+                    E.setRequestProperty("Content-Length", Integer.toString(postDataLength));
+                    E.setUseCaches(false);
+                    E.setConnectTimeout(10000);
+                    E.setReadTimeout(5000);
+                    E.setDoInput(true);
+                    E.setDoOutput(true);
 
-            }
-            else {
-                System.out.println("Jai hind : " + E.getResponseCode());
+                    DataOutputStream wr = new DataOutputStream(E.getOutputStream());
+                    wr.write(postData);
 
 
-                BufferedReader in = new BufferedReader(
-                        new InputStreamReader(E.getInputStream()));
+                    //     E.connect();
+                    System.out.println("response code is :" + E.getResponseCode());
+                    if (E.getResponseCode() != 200) {
+                        System.out.println("response code is not 200");
+
+                        System.out.println("redirect url is :" + E.getHeaderField("Location"));
+                        //                Data_Downloader(dnld_handler, task_name,E.getHeaderField("Location"));
+
+                    } else {
+                        System.out.println("Jai hind : " + E.getResponseCode());
 
 
-                String inputLine = null;
-                while ((inputLine = in.readLine()) != null) {
-                    System.out.println(inputLine);
-                    result += inputLine;
-                }
-                if(in !=null){
-                    try {
-                        in.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                        BufferedReader in = new BufferedReader(
+                                new InputStreamReader(E.getInputStream()));
+
+
+                        String inputLine = null;
+                        while ((inputLine = in.readLine()) != null) {
+                            System.out.println(inputLine);
+                            result += inputLine;
+                        }
+                        if (in != null) {
+                            try {
+                                in.close();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        if (wr != null) {
+                            try {
+                                wr.close();
+                            } catch (IOException e) {
+                                e.fillInStackTrace();
+                            }
+                        }
+                        if (E != null) {
+                            E.disconnect();
+                        }
+
+                        System.out.println(" downloaded data =" + result);
+                        Message message = Message.obtain();
+                        message.obj = new customObject(task_name, "success", result);
+                        dnld_handler.sendMessage(message);
                     }
-                }
-                if (wr != null) {
-                    try {
-                        wr.close();
-                    } catch (IOException e) {
-                        e.fillInStackTrace();
-                    }
-                }
-                if (E != null) {
-                    E.disconnect();
+                } catch (Exception e) {
+                    e.fillInStackTrace();
+                    System.out.println("here is the error :" + e.toString());
+                    Message message = Message.obtain();
+                    message.obj = new customObject(task_name, "error", e.toString());
+                    handler.sendMessage(message);
                 }
 
-                System.out.println(" downloaded data =" + result);
-                Message message = Message.obtain();
-                message.obj = new customObject(task_name,"success" ,result);
-                dnld_handler.sendMessage(message);
-            }
-        } catch (Exception e) {
-            e.fillInStackTrace();
-            System.out.println("here is the error :"+e.toString());
-            Message message = Message.obtain();
-            message.obj = new customObject(task_name, "error", e.toString());
-            dnld_handler.sendMessage(message);
-        }
 
 
     }
@@ -373,83 +386,85 @@ public class Worker implements Runnable {
         DataOutputStream wr=null;
         HttpURLConnection E = null;
         BufferedReader in=null;
-        try {
-
-            url = new URL(urls);
-            E = (HttpURLConnection) url.openConnection();
-            System.out.println("calling url :"+urls);
-            String str2 = sd.getString("cookie", "");
-            System.out.println("finalcall via post ,cookie : "+str2);
-            E.setRequestProperty("Cookie", str2);
-            E.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
-            E.setRequestProperty("Referer", "http://182.71.130.11/x%40%40%401%40%40%4011/stud@_1276@@@@_@@@@@@/2@@@@@@@@@@att/default.asp");
-            E.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36");
-            E.setRequestProperty("Host", "182.71.130.11");
-            E.setRequestProperty("Method", "POST");
-            E.setRequestProperty("Content-Length", Integer.toString(postDataLength ));
-            E.setUseCaches(false);
-            E.setConnectTimeout(10000);
-            E.setReadTimeout(5000);
-            E.setDoInput(true);
-            E.setDoOutput(true);
-
-             wr = new DataOutputStream(E.getOutputStream());
-            wr.write(postData);
+        ConnectivityManager mgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = mgr.getActiveNetworkInfo();
 
 
-            //     E.connect();
-            System.out.println("response code is :"+E.getResponseCode());
-            if (E.getResponseCode() != 200) {
-                System.out.println("response code is not 200");
+            try {
 
-                System.out.println("redirect url is :"+E.getHeaderField("Location"));
-                //                Data_Downloader(dnld_handler, task_name,E.getHeaderField("Location"));
+                url = new URL(urls);
+                E = (HttpURLConnection) url.openConnection();
+                System.out.println("calling url :" + urls);
+                String str2 = sd.getString("cookie", "");
+                System.out.println("finalcall via post ,cookie : " + str2);
+                E.setRequestProperty("Cookie", str2);
+                E.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                E.setRequestProperty("Referer", "http://182.71.130.11/x%40%40%401%40%40%4011/stud@_1276@@@@_@@@@@@/2@@@@@@@@@@att/default.asp");
+                E.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36");
+                E.setRequestProperty("Host", "182.71.130.11");
+                E.setRequestProperty("Method", "POST");
+                E.setRequestProperty("Content-Length", Integer.toString(postDataLength));
+                E.setUseCaches(false);
+                E.setConnectTimeout(10000);
+                E.setReadTimeout(5000);
+                E.setDoInput(true);
+                E.setDoOutput(true);
 
-            }
-            else {
-                System.out.println("Jai hind : " + E.getResponseCode());
+                wr = new DataOutputStream(E.getOutputStream());
+                wr.write(postData);
 
 
+                //     E.connect();
+                System.out.println("response code is :" + E.getResponseCode());
+                if (E.getResponseCode() != 200) {
+                    System.out.println("response code is not 200");
 
-                in = new BufferedReader(
-                        new InputStreamReader(E.getInputStream()));
+                    System.out.println("redirect url is :" + E.getHeaderField("Location"));
+                    //                Data_Downloader(dnld_handler, task_name,E.getHeaderField("Location"));
+
+                } else {
+                    System.out.println("Jai hind : " + E.getResponseCode());
 
 
-                String inputLine = null;
-                while ((inputLine = in.readLine()) != null) {
-                    System.out.println(inputLine);
-                    result += inputLine;
-                }
-                if(in !=null){
-                    try {
-                        in.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                    in = new BufferedReader(
+                            new InputStreamReader(E.getInputStream()));
+
+
+                    String inputLine = null;
+                    while ((inputLine = in.readLine()) != null) {
+                        System.out.println(inputLine);
+                        result += inputLine;
                     }
-                }
-                if (wr != null) {
-                    try {
-                        wr.close();
-                    } catch (IOException e) {
-                        e.fillInStackTrace();
+                    if (in != null) {
+                        try {
+                            in.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
+                    if (wr != null) {
+                        try {
+                            wr.close();
+                        } catch (IOException e) {
+                            e.fillInStackTrace();
+                        }
+                    }
+                    if (E != null) {
+                        E.disconnect();
+                    }
+                    System.out.println(" downloaded data =" + result);
+                    Message message = Message.obtain();
+                    message.obj = new customObject(task_name, "success", result);
+                    dnld_handler2.sendMessage(message);
                 }
-                if (E != null) {
-                    E.disconnect();
-                }
-                System.out.println(" downloaded data =" + result);
+            } catch
+                    (Exception e) {
+                e.fillInStackTrace();
+                System.out.println("here is the error :" + e.toString());
                 Message message = Message.obtain();
-                message.obj = new customObject(task_name,"success", result);
-                dnld_handler2.sendMessage(message);
+                message.obj = new customObject(task_name, "error", e.toString());
+                handler.sendMessage(message);
             }
-        }catch
-         (Exception e) {
-            e.fillInStackTrace();
-            System.out.println("here is the error :"+e.toString());
-            Message message = Message.obtain();
-            message.obj = new customObject(task_name, "error",e.toString());
-            dnld_handler2.sendMessage(message);
-        }
 
 
     }

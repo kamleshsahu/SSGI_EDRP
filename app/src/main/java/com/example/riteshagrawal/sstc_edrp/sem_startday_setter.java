@@ -79,7 +79,7 @@ DatePicker simpleDatePicker;
                 attend_shower.toDate = attend_shower.todays_date;
                 System.out.println("to date : " +attend_shower.todays_date);
 
-                    key_val obj = new key_val(
+                    Users_info_Object obj = new Users_info_Object(
                             attend_shower.sd.getString("c_uname", ""),
                             attend_shower.sd.getString("c_pass", ""),
                             day +"-"+attend_shower.months[Integer.parseInt(month)]+"-"+year

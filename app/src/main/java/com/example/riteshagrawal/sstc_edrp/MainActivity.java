@@ -24,6 +24,7 @@ Handler handler,handler2;
     String LoginParams="",c_uname,c_pass;
     AutoCompleteTextView id;
     EditText pass;
+    static Context appContext;
 
     private saver_class countryAdapter;
     private ArrayList<saver_class> countryList= new ArrayList<>();
@@ -34,14 +35,14 @@ Handler handler,handler2;
         setContentView(R.layout.activity_main);
          sd=MainActivity.sd;
         id = (AutoCompleteTextView) findViewById(R.id.id);
-
+        appContext=getApplicationContext();
 
    //     id = (EditText) findViewById(R.id.id);
         id.requestFocus();
         pass = (EditText) findViewById(R.id.pass);
-       countryList.add(new saver_class("BE20160467","9644790733","Kamlesh Sahu"));
-        countryList.add(new saver_class("BE20160826","9617340924","Somnath Trivedi"));
-        countryList.add(new saver_class("BE20170287","9982313173","Mohhamaad"));
+//       countryList.add(new saver_class("BE20160467","9644790733","Kamlesh Sahu"));
+//        countryList.add(new saver_class("BE20160826","9617340924","Somnath Trivedi"));
+//        countryList.add(new saver_class("BE20170287","9982313173","Mohhamaad"));
 
 
 

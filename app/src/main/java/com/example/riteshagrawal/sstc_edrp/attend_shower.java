@@ -43,7 +43,7 @@ public class attend_shower extends AppCompatActivity {
     PagerAdapter adapter;
     ViewPager simpleViewPager;
     static String StudentName ="";
-    static ArrayList<key_val> list = new ArrayList<>();
+    static ArrayList<Users_info_Object> list = new ArrayList<>();
    static String sem_start_date="";
    static String todays_date="";
     static String users_info_url="";
@@ -52,7 +52,7 @@ public class attend_shower extends AppCompatActivity {
     static Boolean cookie_generated=false;
     TextView error_msg_disp;
 
-    ArrayList<key_val> saver_list =new ArrayList();
+    ArrayList<Users_info_Object> saver_list =new ArrayList();
 
     static ArrayList<attend_info_class> datalist = new ArrayList<>();
      DatePickerDialog datePickerDialog;
@@ -173,9 +173,13 @@ public class attend_shower extends AppCompatActivity {
                     attend_shower.this.finish();
 
                 }else{
+                    maindisplay.setVisibility(View.GONE);
+                    loading.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.GONE);
+                    error_msg_disp.setVisibility(View.VISIBLE);
+                    error_msg_disp.setText(data.getErrorMsg());
+                    retryButton.setVisibility(View.VISIBLE);
 
-
-                    System.out.println("here is error msg :"+data.getErrorMsg());
                 }
             }
         };
@@ -193,7 +197,7 @@ public class attend_shower extends AppCompatActivity {
                     maindisplay.setVisibility(View.VISIBLE);
 
                     if(list != null){                        try {
-                        key_val obj = new key_val(
+                        Users_info_Object obj = new Users_info_Object(
 
                                     sd.getString("c_uname", ""),
                                     sd.getString("c_pass", ""),
@@ -202,7 +206,8 @@ public class attend_shower extends AppCompatActivity {
                                     list.get(7).getValue(),
                                     list.get(8).getValue(),
                                     list.get(2).getValue(),
-                                    list.get(3).getValue()
+                                    list.get(3).getValue(),
+                                     list.get(4).getValue()
                             );
 
                             Thread t = new Thread(new Users_Data_Saver(sd, obj));
@@ -210,6 +215,10 @@ public class attend_shower extends AppCompatActivity {
                         }catch (Exception e){
                             e.fillInStackTrace();
                             System.out.println("saving user data error ");
+                        progressBar.setVisibility(View.GONE);
+                        error_msg_disp.setVisibility(View.VISIBLE);
+                        error_msg_disp.setText("saving user data error :"+e.toString());
+                        retryButton.setVisibility(View.VISIBLE);
                         }
                         try {
                             rollno.setText(""+list.get(2).getValue()+"");
@@ -222,6 +231,10 @@ public class attend_shower extends AppCompatActivity {
                         }catch (Exception e){
                             e.fillInStackTrace();
                             System.out.println("here is the error :"+e.toString());
+                            progressBar.setVisibility(View.GONE);
+                            error_msg_disp.setVisibility(View.VISIBLE);
+                            error_msg_disp.setText("saving user data error :"+e.toString());
+                            retryButton.setVisibility(View.VISIBLE);
                         }
                     }
 
@@ -361,7 +374,7 @@ public class attend_shower extends AppCompatActivity {
 
             UserDataSaverObject obj = gson.fromJson(json1, UserDataSaverObject.class);
 
-            for(key_val item0:obj.getList()){
+            for(Users_info_Object item0:obj.getList()){
                 if(item0.getUname().equals(sd.getString("c_uname","")) && item0.getPass().equals(sd.getString("c_pass",""))){
                     rollno.setText(item0.getRollno());
                     batch.setText("Batch :"+item0.getBatch()+"");
@@ -507,7 +520,13 @@ public class attend_shower extends AppCompatActivity {
     public void RetryTask(View view) {
              cookie_generated=false;
            logged_in=false;
-
+        maindisplay.setVisibility(View.GONE);
+        loading.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.GONE);
+        retryButton.setVisibility(View.VISIBLE);
+          progressBar.setVisibility(View.VISIBLE);
+          error_msg_disp.setVisibility(View.GONE);
+          retryButton.setVisibility(View.GONE);
         new Thread(new Worker(getApplicationContext(), "generate_cookie", sd, after_gotCookies)).start();
     }
 }

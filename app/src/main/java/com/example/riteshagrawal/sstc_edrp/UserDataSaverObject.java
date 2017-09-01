@@ -7,12 +7,12 @@ import java.util.ArrayList;
  */
 
 public class UserDataSaverObject {
-    ArrayList<key_val> list;
-    public UserDataSaverObject(ArrayList<key_val> list) {
+    ArrayList<Users_info_Object> list;
+    public UserDataSaverObject(ArrayList<Users_info_Object> list) {
        this.list=list;
     }
 
-    public ArrayList<key_val> getList() {
+    public ArrayList<Users_info_Object> getList() {
         return list;
     }
 }
