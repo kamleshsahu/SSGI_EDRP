@@ -176,8 +176,8 @@ public class Worker implements Runnable {
          //           E.setRequestProperty("Content-Length", Integer.toString(postDataLength));
                     E.setUseCaches(false);
 
-                    E.setConnectTimeout(10000);
-                    E.setReadTimeout(10000);
+                    E.setConnectTimeout(240000);
+                    E.setReadTimeout(20000);
                     E.setDoInput(true);
                     E.setDoOutput(true);
 
@@ -227,23 +227,23 @@ public class Worker implements Runnable {
                                 dnld_handler.sendMessage(message);
                                 attend_shower.logged_in=true;
 
-                                if(in !=null){
-                                    try {
-                                        in.close();
-                                    } catch (IOException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                                if (wr != null) {
-                                    try {
-                                        wr.close();
-                                    } catch (IOException e) {
-                                        e.fillInStackTrace();
-                                    }
-                                }
-                                if (E != null) {
-                                    E.disconnect();
-                                }
+//                                if(in !=null){
+//                                    try {
+//                                        in.close();
+//                                    } catch (IOException e) {
+//                                        e.printStackTrace();
+//                                    }
+//                                }
+//                                if (wr != null) {
+//                                    try {
+//                                        wr.close();
+//                                    } catch (IOException e) {
+//                                        e.fillInStackTrace();
+//                                    }
+//                                }
+//                                if (E != null) {
+//                                    E.disconnect();
+//                                }
 
                             }else  if(title_text.startsWith("SSCET-eCampus") ){
 
@@ -297,7 +297,7 @@ public class Worker implements Runnable {
             E.setRequestProperty("Method", "POST");
             E.setRequestProperty("Content-Length", Integer.toString(postDataLength ));
             E.setUseCaches(false);
-            E.setConnectTimeout(5000);
+            E.setConnectTimeout(10000);
             E.setReadTimeout(5000);
             E.setDoInput(true);
             E.setDoOutput(true);
@@ -388,7 +388,7 @@ public class Worker implements Runnable {
             E.setRequestProperty("Method", "POST");
             E.setRequestProperty("Content-Length", Integer.toString(postDataLength ));
             E.setUseCaches(false);
-            E.setConnectTimeout(5000);
+            E.setConnectTimeout(10000);
             E.setReadTimeout(5000);
             E.setDoInput(true);
             E.setDoOutput(true);
@@ -479,7 +479,7 @@ public class Worker implements Runnable {
             //           E.setRequestProperty("Content-Length", Integer.toString(postDataLength));
             E.setUseCaches(false);
 
-            E.setConnectTimeout(5000);
+            E.setConnectTimeout(10000);
             E.setReadTimeout(5000);
             E.setDoInput(true);
             E.setDoOutput(true);

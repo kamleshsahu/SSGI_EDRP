@@ -211,11 +211,12 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/loading"
             android:layout_width="match_parent"
-            android:layout_height="509dp"
+            android:layout_height="match_parent"
             android:orientation="vertical"
+            android:id="@+id/loading"
             android:visibility="visible">
+
 
 
             <ProgressBar
@@ -225,34 +226,31 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="200sp"
-                android:progressDrawable="@drawable/circular_progress_bar"
-                android:visibility="visible" />
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/error_disp"
-            android:layout_width="match_parent"
-            android:layout_height="509dp"
-            android:orientation="vertical"
-            android:visibility="gone">
-
-
+                android:visibility="visible"
+                android:progressDrawable="@drawable/circular_progress_bar" />
             <TextView
-                android:id="@+id/error_msg"
-                android:layout_width="match_parent"
+                android:id="@+id/disp_msg"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:gravity="center"
-                android:text="Error "
-                android:textColor="@android:color/holo_red_dark"
-                android:textSize="40sp">
+                android:layout_marginTop="60sp"
+                android:layout_weight="1"
+                android:visibility="gone"
+                android:text="TextView" />
 
-
-            </TextView>
-
-
+            <Button
+                android:id="@+id/retryButton"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/retry"
+                android:visibility="gone"
+                android:layout_gravity="center"
+                android:layout_marginBottom="220sp"
+                android:textColor="#fff"
+                android:onClick="RetryTask"/>
         </LinearLayout>
+
 
         <LinearLayout
             android:id="@+id/maindisplay"

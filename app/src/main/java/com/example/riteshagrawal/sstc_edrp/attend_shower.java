@@ -14,8 +14,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,6 +50,7 @@ public class attend_shower extends AppCompatActivity {
    static int flag =0;
     static Boolean logged_in=false;
     static Boolean cookie_generated=false;
+    TextView error_msg_disp;
 
     ArrayList<key_val> saver_list =new ArrayList();
 
@@ -58,6 +61,8 @@ public class attend_shower extends AppCompatActivity {
      LinearLayout loading,error_disp;
      static String Total_lectures="";
      static String Attended_lectures="";
+    Button retryButton;
+    ProgressBar progressBar;
 
    static String months[] = {"JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"};
    static String monthsD[] = {"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
@@ -110,10 +115,13 @@ public class attend_shower extends AppCompatActivity {
         final  TextView sec =(TextView)findViewById(R.id.sec);
         final TextView rollno=(TextView)findViewById(R.id.roll_no);
         final TextView batch=(TextView)findViewById(R.id.batch);
+        progressBar=(ProgressBar)findViewById(R.id.progressBar);
+
+        retryButton =(Button)findViewById(R.id.retryButton);
         maindisplay = (LinearLayout) findViewById(R.id.maindisplay);
         loading = (LinearLayout) findViewById(R.id.loading);
-        error_disp = (LinearLayout) findViewById(R.id.error_disp);
-        final TextView error_msg=(TextView)findViewById(R.id.error_msg);
+
+         error_msg_disp=(TextView)findViewById(R.id.disp_msg);
         fromdate = (TextView) findViewById(R.id .fromDate);
         todate = (TextView) findViewById(R.id .toDate);
         tabLayout = (TabLayout) findViewById(R.id.sTabLayout);
@@ -165,6 +173,8 @@ public class attend_shower extends AppCompatActivity {
                     attend_shower.this.finish();
 
                 }else{
+
+
                     System.out.println("here is error msg :"+data.getErrorMsg());
                 }
             }
@@ -251,6 +261,10 @@ public class attend_shower extends AppCompatActivity {
 
                 }else if(data.getResult().equals("error")){
                     System.out.println("here is error msg :"+data.getErrorMsg());
+                        progressBar.setVisibility(View.GONE);
+                        error_msg_disp.setVisibility(View.VISIBLE);
+                        error_msg_disp.setText(data.getErrorMsg());
+                        retryButton.setVisibility(View.VISIBLE);
 
                     }
             }
@@ -269,8 +283,11 @@ public class attend_shower extends AppCompatActivity {
                     users_info_url=data.getMsg();
                     new Thread(new Worker(getApplicationContext(),"fetch_attendence",sd,after_fetchAttendence)).start();
                 }else{
-                    Toast.makeText(getApplicationContext()," Error ",Toast.LENGTH_LONG).show();
-                    System.out.println("after got cookies error :"+data.getResult());
+                    System.out.println("here is error msg :"+data.getErrorMsg());
+                    progressBar.setVisibility(View.GONE);
+                    error_msg_disp.setVisibility(View.VISIBLE);
+                    error_msg_disp.setText(data.getErrorMsg());
+                    retryButton.setVisibility(View.VISIBLE);
                 }
             }
         };
@@ -283,15 +300,15 @@ public class attend_shower extends AppCompatActivity {
                 customObject data = (customObject) msg.obj;
                 System.out.println(data.getResult());
                 if(data.getResult().equals("success")){
-//                    if(!users_info_url.equals("")) {
-//                        Toast.makeText(attend_shower.this, "already have user_info", Toast.LENGTH_SHORT).show();
-//                        System.out.println("after login handler, having user_info url");
-//                        new Thread(new Worker(getApplicationContext(),"fetch_attendence",sd,after_fetchAttendence)).start();
-//                    }else {
+                    if(!users_info_url.equals("")) {
+                        Toast.makeText(attend_shower.this, "already have user_info", Toast.LENGTH_SHORT).show();
+                        System.out.println("after login handler, having user_info url");
+                        new Thread(new Worker(getApplicationContext(),"fetch_attendence",sd,after_fetchAttendence)).start();
+                    }else {
                         Toast.makeText(attend_shower.this, "not have user_info", Toast.LENGTH_SHORT).show();
                         System.out.println("after login handler,Not having user_info url");
                         new Thread(new Worker(getApplicationContext(),"fetch_users_info",sd,after_gotUsersInfo)).start();
-//                    }
+                    }
                 }else{
                     Toast.makeText(getApplicationContext()," Error ",Toast.LENGTH_LONG).show();
                     System.out.println("after got cookies error :"+data.getResult());
@@ -311,24 +328,25 @@ public class attend_shower extends AppCompatActivity {
                 customObject data = (customObject) msg.obj;
                 System.out.println(data.getResult());
                 if(data.getResult().equals("success")){
-                 //   if(logged_in && !users_info_url.equals("")) {
-//                        Toast.makeText(attend_shower.this, "already logged in", Toast.LENGTH_SHORT).show();
-//                        System.out.println("after gotCookies, already logged in");
-//                        new Thread(new Worker(getApplicationContext(),"fetch_attendence",sd,after_fetchAttendence)).start();
-//                    }else if(logged_in) {
-//                        Toast.makeText(attend_shower.this, "logged in,no usr infos", Toast.LENGTH_SHORT).show();
-//                        System.out.println("after gotCookies,logged in,no usr infos");
-//                        new Thread(new Worker(getApplicationContext(),"fetch_users_info",sd,after_gotUsersInfo)).start();
-//                    }else {
+                    if(logged_in && !users_info_url.equals("")) {
+                        Toast.makeText(attend_shower.this, "already logged in", Toast.LENGTH_SHORT).show();
+                        System.out.println("after gotCookies, already logged in");
+                        new Thread(new Worker(getApplicationContext(),"fetch_attendence",sd,after_fetchAttendence)).start();
+                    }else if(logged_in) {
+                        Toast.makeText(attend_shower.this, "logged in,no usr infos", Toast.LENGTH_SHORT).show();
+                        System.out.println("after gotCookies,logged in,no usr infos");
+                        new Thread(new Worker(getApplicationContext(),"fetch_users_info",sd,after_gotUsersInfo)).start();
+                    }else {
                         Toast.makeText(attend_shower.this, "not logged in", Toast.LENGTH_SHORT).show();
                         System.out.println("after gotCookies,not logged in");
                         new Thread(new Worker(getApplicationContext(), "login", sd, after_login)).start();
- //                   }
+                    }
                 }else{
-                    Toast.makeText(getApplicationContext()," Error ",Toast.LENGTH_LONG).show();
-                    System.out.println("after got cookies error :"+data.getResult());
 
-
+                    progressBar.setVisibility(View.GONE);
+                    error_msg_disp.setVisibility(View.VISIBLE);
+                    error_msg_disp.setText(data.getErrorMsg());
+                    retryButton.setVisibility(View.VISIBLE);
                 }
             }
         };
@@ -453,9 +471,7 @@ public class attend_shower extends AppCompatActivity {
 
                             loading.setVisibility(View.VISIBLE);
                             maindisplay.setVisibility(View.GONE);
-//
-//                            cookie_generator cookie_generator = new cookie_generator(after_gotCookies,sd);
-//                            cookie_generator.start();
+
 
                             new Thread(new Worker(getApplicationContext(), "generate_cookie", sd, after_gotCookies)).start();
 
@@ -488,5 +504,10 @@ public class attend_shower extends AppCompatActivity {
     }
 
 
+    public void RetryTask(View view) {
+             cookie_generated=false;
+           logged_in=false;
 
+        new Thread(new Worker(getApplicationContext(), "generate_cookie", sd, after_gotCookies)).start();
+    }
 }

@@ -4,21 +4,17 @@ import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import android.widget.Toast;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.net.CookieManager;
-import java.net.HttpCookie;
+
 import java.net.HttpURLConnection;
 import java.net.SocketTimeoutException;
 import java.net.URL;
-import java.util.Arrays;
+
 import java.util.Date;
-import java.util.Iterator;
+
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
 
 public class cookie_generator extends Thread {
 
@@ -87,7 +83,7 @@ static void getkeyval()
                 url = new URL(uRl);
 
                 urlConnection = (HttpURLConnection) url.openConnection();
-                urlConnection.setConnectTimeout(8000);
+                urlConnection.setConnectTimeout(240000);
                 urlConnection.setReadTimeout(8000);
                 urlConnection.connect();
                 Object localObject2;
