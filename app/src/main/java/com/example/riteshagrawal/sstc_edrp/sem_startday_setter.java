@@ -3,7 +3,6 @@ package com.example.riteshagrawal.sstc_edrp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -25,7 +24,7 @@ DatePicker simpleDatePicker;
         attend_shower.flag=0;
 
         //back button
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+       // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
         submit =(Button)findViewById(R.id.submitButton);
@@ -101,18 +100,18 @@ DatePicker simpleDatePicker;
         });
     }
     //back menu
-    @Override
-    public  boolean onOptionsItemSelected(MenuItem item){
-        onBackPressed();
-        return true;
-    }
-
 //    @Override
-//    public void onBackPressed() {
-//        Intent startMain = new Intent(Intent.ACTION_MAIN);
-//        startMain.addCategory(Intent.CATEGORY_HOME);
-//        startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//        startActivity(startMain);
-//    }
+//    public  boolean onOptionsItemSelected(MenuItem item){
+//        onBackPressed();
+//        return true;
+   // }
+
+    @Override
+    public void onBackPressed() {
+        Intent startMain = new Intent(Intent.ACTION_MAIN);
+        startMain.addCategory(Intent.CATEGORY_HOME);
+        startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(startMain);
+    }
 
 }
