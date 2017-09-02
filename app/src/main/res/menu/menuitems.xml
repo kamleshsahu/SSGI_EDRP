@@ -8,30 +8,34 @@
         android:icon="@drawable/logout"
         android:title="Semester Start Date"
         app:showAsAction="never" />
-    <item
-        android:id="@+id/logout"
-        android:icon="@drawable/logout"
-        android:title="Sign Out"
-        app:showAsAction="never" />
+
 
     <item
         android:id="@+id/refresh"
         android:icon="@drawable/refresh2_"
         android:title="Rate Us"
         app:showAsAction="always" />
-
     <item
-        android:visible="false"
+        android:id="@+id/share"
+        android:actionProviderClass="android.widget.ShareActionProvider"
+        android:icon="@android:drawable/ic_menu_share"
+        android:title="Share link"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/rate"
         android:icon="@drawable/ic_stars_white_24dp"
         android:title="Rate Us"
         app:showAsAction="never"
         />
     <item
-        android:visible="false"
-        android:id="@+id/share"
-        android:actionProviderClass="android.widget.ShareActionProvider"
-        android:icon="@android:drawable/ic_menu_share"
-        android:title="Share"
+        android:id="@+id/about_us"
+        android:title="About Us"
+        app:showAsAction="never" />
+
+
+    <item
+        android:id="@+id/logout"
+        android:icon="@drawable/logout"
+        android:title="Sign Out"
         app:showAsAction="never" />
 </menu>

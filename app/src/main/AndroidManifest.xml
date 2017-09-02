@@ -11,8 +11,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity"
-            android:screenOrientation="portrait">
-            android:label="SSTC ATTENDANCE"
+            android:screenOrientation="portrait"
+            android:label="ATTENDANCE MONITOR">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
