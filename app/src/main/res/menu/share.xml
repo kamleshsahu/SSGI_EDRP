@@ -18,7 +18,7 @@
         app:showAsAction="never" />
     <item
         android:id="@+id/about_us"
-        android:title="About Us"
+        android:title="About App"
         app:showAsAction="never" />
 
 </menu>
