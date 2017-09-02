@@ -49,7 +49,7 @@ DatePicker simpleDatePicker;
                 String month = "" + (simpleDatePicker.getMonth() );
                 String year = "" + simpleDatePicker.getYear();
 
-                attend_shower.fromdate.setText(day+ " "+attend_shower.monthsD[Integer.parseInt(month)]);
+                attend_shower.fromdate.setText(day+ " "+attend_shower.months[Integer.parseInt(month)]+","+ year.substring(2));
                 System.out.println("to date : "+day + "-" + attend_shower.months[Integer.parseInt(month)] + "-" + year);
                 attend_shower.fromDate=day + "-" + attend_shower.months[Integer.parseInt(month)] + "-" + year;
 
@@ -76,7 +76,7 @@ DatePicker simpleDatePicker;
                 int mMonth = c.get(Calendar.MONTH); // current month
                 int mDay = c.get(Calendar.DAY_OF_MONTH); // current day
 
-                attend_shower.todate.setText(attend_shower.todays_date);
+                attend_shower.todate.setText(attend_shower.todays_date.split("-")[0]+" "+attend_shower.todays_date.split("-")[1]+","+attend_shower.todays_date.split("-")[1].substring(2));
                 attend_shower.toDate = attend_shower.todays_date;
                 System.out.println("to date : " +attend_shower.todays_date);
 

@@ -46,7 +46,7 @@ public class attend_shower extends AppCompatActivity {
     static String StudentName ="";
     static ArrayList<Users_info_Object> list = new ArrayList<>();
    static String sem_start_date="";
-   static String todays_date="";
+   static String todays_date="", todays_Date="";
 
 
    static int flag =0;
@@ -70,8 +70,8 @@ public class attend_shower extends AppCompatActivity {
     LinearLayout firstlogin;
 
 
-   static String months[] = {"JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"};
-   static String monthsD[] = {"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
+//   static String months[] = {"JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"};
+   static String months[] = {"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
     static String fromDate="",toDate="";
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -181,6 +181,10 @@ public class attend_shower extends AppCompatActivity {
         DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
         Date date = new Date();
         todays_date=dateFormat.format(date);
+        DateFormat dateFormat1 = new SimpleDateFormat("dd MMM,yy");
+        Date date1 = new Date();
+
+        todays_Date = dateFormat1.format(date1);
         System.out.println("here is todays date :"+dateFormat.format(date));
 
 
@@ -459,18 +463,18 @@ public class attend_shower extends AppCompatActivity {
 
             if(flag==1){
                 fromDate=sem_start_date;
-                fromdate.setText(sem_start_date);
+                fromdate.setText(sem_start_date.split("-")[0]+" "+sem_start_date.split("-")[1]+","+sem_start_date.split("-")[2].substring(2));
                 toDate=todays_date;
-                todate.setText(todays_date);
+                todate.setText(todays_Date);
 
             }else if(flag==0){
                 main_layout.setVisibility(View.GONE);
                 first_login.setVisibility(View.VISIBLE);
                 if(getIntent().getBooleanExtra("sem_startday_set",false)){
                     fromDate=sem_start_date;
-                    fromdate.setText(sem_start_date);
+                    fromdate.setText(sem_start_date.split("-")[0]+" "+sem_start_date.split("-")[1]+","+sem_start_date.split("-")[2].substring(2));
                     toDate=todays_date;
-                    todate.setText(todays_date);
+                    todate.setText(todays_Date);
 
 
                 }
@@ -486,9 +490,9 @@ public class attend_shower extends AppCompatActivity {
 
             if(getIntent().getBooleanExtra("sem_startday_set",false)){
                 fromDate=sem_start_date;
-                fromdate.setText(sem_start_date);
+                fromdate.setText(sem_start_date.split("-")[0]+" "+sem_start_date.split("-")[1]+","+sem_start_date.split("-")[2].substring(2));
                 toDate=todays_date;
-                todate.setText(todays_date);
+                todate.setText(todays_Date);
 
             }
 
@@ -527,7 +531,7 @@ public class attend_shower extends AppCompatActivity {
                         // set day of month , month and year value in the edit text
 
                         if(tag==1) {
-                            fromdate.setText(dayOfMonth+ " "+monthsD[(monthOfYear)]);
+                            fromdate.setText(dayOfMonth+ " "+months[(monthOfYear)]+","+ String.valueOf(year).substring(2));
                             System.out.println("to date : "+dayOfMonth + "-" + months[(monthOfYear)] + "-" + year);
                             fromDate=dayOfMonth + "-" + months[(monthOfYear)] + "-" + year;
 
@@ -552,7 +556,7 @@ public class attend_shower extends AppCompatActivity {
                             }
 
                         }else if(tag==2){
-                            todate.setText(dayOfMonth + " " + monthsD[(monthOfYear)]);
+                            todate.setText(dayOfMonth + " " + months[(monthOfYear)]+","+ String.valueOf(year).substring(2));
                             toDate = dayOfMonth + "-" + months[(monthOfYear)] + "-" + year;
                             System.out.println("to date : " + dayOfMonth + "-" + months[(monthOfYear)] + "-" + year);
 
