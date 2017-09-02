@@ -26,6 +26,9 @@
         <activity android:name=".sem_startday_setter"
             android:label="Set SEM Start Date"
             android:screenOrientation="portrait"/>
+        <activity android:name=".about_us"
+            android:label="About Us"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

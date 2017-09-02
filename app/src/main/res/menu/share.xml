@@ -15,6 +15,10 @@
         android:actionProviderClass="android.widget.ShareActionProvider"
         android:icon="@android:drawable/ic_menu_share"
         android:title="Share"
-        app:showAsAction="always" />
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/about_us"
+        android:title="About Us"
+        app:showAsAction="never" />
 
 </menu>
