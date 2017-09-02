@@ -47,10 +47,12 @@ public class attend_shower extends AppCompatActivity {
    static String sem_start_date="";
    static String todays_date="";
     static String users_info_url="";
+   static boolean have_users_infos=false;
    static int flag =0;
     static Boolean logged_in=false;
     static Boolean cookie_generated=false;
     TextView error_msg_disp;
+    Users_info_Object users_info_object=null;
 
     ArrayList<Users_info_Object> saver_list =new ArrayList();
 
@@ -87,7 +89,7 @@ public class attend_shower extends AppCompatActivity {
             public boolean onMenuItemClick(MenuItem menuItem) {
                 Intent i = new Intent( attend_shower.this,sem_startday_setter.class);
                 startActivity(i);
-              //  attend_shower.this.finish();
+                attend_shower.this.finish();
                 return false;
             }
         });
@@ -135,13 +137,13 @@ public class attend_shower extends AppCompatActivity {
 
 
 
-        DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy ");
+        DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
         Date date = new Date();
         todays_date=dateFormat.format(date);
         System.out.println("here is todays date :"+dateFormat.format(date));
 
 
-
+  //     ="sub_mit=&holdme	0=&txtrollinfo	46=&txtbatchinfo	2=&cmbcollegename	SSEC=&BranchF	CSE=&SemesterF	3=&SectionF	A=&extsec	'A','.'=&reporttype	Attendance=Report&dc1	02-SEP-2017=&dc2	02-SEP-2017=&apercent	ALL";
 
         fromdate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -170,7 +172,11 @@ public class attend_shower extends AppCompatActivity {
                     startActivity(i);
                     cookie_generated=false;
                     logged_in=false;
+                    have_users_infos=false;
+                    sem_start_date="";
+
                     attend_shower.this.finish();
+
 
                 }else{
                     maindisplay.setVisibility(View.GONE);
@@ -188,7 +194,7 @@ public class attend_shower extends AppCompatActivity {
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
-
+                System.out.println("attend_shower,after_fetchAttendence handler");
                 customObject data = (customObject) msg.obj;
                 System.out.println(data.getResult());
 
@@ -196,7 +202,9 @@ public class attend_shower extends AppCompatActivity {
                     loading.setVisibility(View.GONE);
                     maindisplay.setVisibility(View.VISIBLE);
 
-                    if(list != null){                        try {
+                    if(list != null && !have_users_infos){
+                        have_users_infos=true;
+                        try {
                         Users_info_Object obj = new Users_info_Object(
 
                                     sd.getString("c_uname", ""),
@@ -207,7 +215,7 @@ public class attend_shower extends AppCompatActivity {
                                     list.get(8).getValue(),
                                     list.get(2).getValue(),
                                     list.get(3).getValue(),
-                                     list.get(4).getValue()
+                                    list.get(5).getValue()
                             );
 
                             Thread t = new Thread(new Users_Data_Saver(sd, obj));
@@ -215,6 +223,9 @@ public class attend_shower extends AppCompatActivity {
                         }catch (Exception e){
                             e.fillInStackTrace();
                             System.out.println("saving user data error ");
+                        maindisplay.setVisibility(View.GONE);
+                        loading.setVisibility(View.VISIBLE);
+
                         progressBar.setVisibility(View.GONE);
                         error_msg_disp.setVisibility(View.VISIBLE);
                         error_msg_disp.setText("saving user data error :"+e.toString());
@@ -226,18 +237,23 @@ public class attend_shower extends AppCompatActivity {
                             branch.setText("Branch :"+list.get(6).getValue()+"");
                             sem.setText("Sem :"+list.get(7).getValue()+"");
                             sec.setText("Sec :"+list.get(8).getValue()+"");
-                            name.setText(StudentName);
-                            attend_val=data.getMsg();
+
+
                         }catch (Exception e){
                             e.fillInStackTrace();
                             System.out.println("here is the error :"+e.toString());
+                            maindisplay.setVisibility(View.GONE);
+                            loading.setVisibility(View.VISIBLE);
+
                             progressBar.setVisibility(View.GONE);
                             error_msg_disp.setVisibility(View.VISIBLE);
-                            error_msg_disp.setText("saving user data error :"+e.toString());
+                            error_msg_disp.setText("putting value in display error :"+e.toString());
                             retryButton.setVisibility(View.VISIBLE);
                         }
                     }
 
+                        name.setText(StudentName);
+                        attend_val=data.getMsg();
                     adapter = new PagerAdapter
                             (getSupportFragmentManager(), tabLayout.getTabCount());
                     simpleViewPager.setAdapter(adapter);
@@ -293,8 +309,35 @@ public class attend_shower extends AppCompatActivity {
                 System.out.println("here is result :"+data.getResult());
                 System.out.println("here is msg : "+data.getMsg());
                 if(data.getResult().equals("success")){
-                    users_info_url=data.getMsg();
-                    new Thread(new Worker(getApplicationContext(),"fetch_attendence",sd,after_fetchAttendence)).start();
+
+                    if(!sem_start_date.equals( "")) {
+                        users_info_object = new Users_info_Object(sd.getString("c_uname", ""),
+                                sd.getString("c_pass", ""),
+                                StudentName,
+                                list.get(6).getValue(),
+                                list.get(7).getValue(),
+                                list.get(8).getValue(),
+                                list.get(2).getValue(),
+                                list.get(3).getValue(),
+                                list.get(5).getValue());
+
+                        users_info_url = "sub_mit=&holdme=0&" +
+                                "txtrollinfo=" + users_info_object.getRollno() + "&" +
+                                "txtbatchinfo=" + users_info_object.getBatch() + "&" +
+                                "cmbcollegename=" + users_info_object.getClgname() + "&" +
+                                "BranchF=" + users_info_object.getBranch() + "&" +
+                                "SemesterF=" + users_info_object.getSem() + "&" +
+                                "SectionF=B&extsec='" + users_info_object.getSec() + "','.'&" +
+                                "reporttype=Attendance Report&" +
+                                "apercent=ALL&" +
+                                "dc1=" + fromDate + "&" +
+                                "dc2=" + toDate;
+                        new Thread(new Worker(getApplicationContext(), "fetch_attendence", sd, after_fetchAttendence)).start();
+                    }else{
+                        Intent i = new Intent( attend_shower.this,sem_startday_setter.class);
+                        startActivity(i);
+                        attend_shower.this.finish();
+                    }
                 }else{
                     System.out.println("here is error msg :"+data.getErrorMsg());
                     progressBar.setVisibility(View.GONE);
@@ -313,7 +356,18 @@ public class attend_shower extends AppCompatActivity {
                 customObject data = (customObject) msg.obj;
                 System.out.println(data.getResult());
                 if(data.getResult().equals("success")){
-                    if(!users_info_url.equals("")) {
+                    if(have_users_infos) {
+                        users_info_url="sub_mit=&holdme=0&"+
+                                "txtrollinfo="+users_info_object.getRollno()+"&"+
+                                "txtbatchinfo="+users_info_object.getBatch()+"&"+
+                                "cmbcollegename="+users_info_object.getClgname()+"&"+
+                                "BranchF="+users_info_object.getBranch()+"&"+
+                                "SemesterF="+users_info_object.getSem()+"&"+
+                                "SectionF=B&extsec='"+users_info_object.getSec()+"','.'&"+
+                                "reporttype=Attendance Report&"+
+                                "apercent=ALL&"+
+                                "dc1="+fromDate+"&"+
+                                "dc2="+toDate;
                         Toast.makeText(attend_shower.this, "already have user_info", Toast.LENGTH_SHORT).show();
                         System.out.println("after login handler, having user_info url");
                         new Thread(new Worker(getApplicationContext(),"fetch_attendence",sd,after_fetchAttendence)).start();
@@ -341,7 +395,19 @@ public class attend_shower extends AppCompatActivity {
                 customObject data = (customObject) msg.obj;
                 System.out.println(data.getResult());
                 if(data.getResult().equals("success")){
-                    if(logged_in && !users_info_url.equals("")) {
+                    if(logged_in && have_users_infos) {
+                        users_info_url="sub_mit=&holdme=0&"+
+                                "txtrollinfo="+users_info_object.getRollno()+"&"+
+                                "txtbatchinfo="+users_info_object.getBatch()+"&"+
+                                "cmbcollegename="+users_info_object.getClgname()+"&"+
+                                "BranchF="+users_info_object.getBranch()+"&"+
+                                "SemesterF="+users_info_object.getSem()+"&"+
+                                "SectionF=B&extsec='"+users_info_object.getSec()+"','.'&"+
+                                "reporttype=Attendance Report&"+
+                                "apercent=ALL&"+
+                                "dc1="+fromDate+"&"+
+                                "dc2="+toDate;
+
                         Toast.makeText(attend_shower.this, "already logged in", Toast.LENGTH_SHORT).show();
                         System.out.println("after gotCookies, already logged in");
                         new Thread(new Worker(getApplicationContext(),"fetch_attendence",sd,after_fetchAttendence)).start();
@@ -376,15 +442,21 @@ public class attend_shower extends AppCompatActivity {
 
             for(Users_info_Object item0:obj.getList()){
                 if(item0.getUname().equals(sd.getString("c_uname","")) && item0.getPass().equals(sd.getString("c_pass",""))){
-                    rollno.setText(item0.getRollno());
-                    batch.setText("Batch :"+item0.getBatch()+"");
-                    branch.setText("Branch :"+item0.getBranch()+"");
-                    sem.setText("Sem :"+item0.getSem()+"");
-                    sec.setText("Sec :"+item0.getSec()+"");
-                    name.setText(item0.getName());
-                    sem_start_date= item0.getSem_start_date();
-                    flag=1;
-                    break;
+
+                    if(item0.getRollno() != null) {
+                        rollno.setText(item0.getRollno());
+                        batch.setText("Batch :" + item0.getBatch() + "");
+                        branch.setText("Branch :" + item0.getBranch() + "");
+                        sem.setText("Sem :" + item0.getSem() + "");
+                        sec.setText("Sec :" + item0.getSec() + "");
+                        name.setText(item0.getName());
+                        sem_start_date = item0.getSem_start_date();
+                        users_info_object = item0;
+                        have_users_infos = true;
+
+                        flag = 1;
+                        break;
+                    }
                 }
             }
 
@@ -421,8 +493,8 @@ public class attend_shower extends AppCompatActivity {
         }
 
 
-
         new Thread(new Worker(getApplicationContext(), "generate_cookie", sd, after_gotCookies)).start();
+
     }
 
 

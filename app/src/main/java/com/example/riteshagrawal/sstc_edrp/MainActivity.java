@@ -47,8 +47,6 @@ Handler handler,handler2;
 
 
 
-
-
         id.postDelayed(new Runnable() {
             @Override
             public void run() {

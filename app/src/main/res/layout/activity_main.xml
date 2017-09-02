@@ -33,102 +33,109 @@ android:background="#f4f4f4"
             android:scaleX="1"
             android:scaleY="1"
             android:src="@mipmap/web_hi_res"
-            android:layout_width="150dp"
-            android:layout_height="150dp"/>
-<LinearLayout
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-        <LinearLayout
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginBottom="7dp"
-            android:background="@color/white"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:layout_margin="2dp"
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/ic_account_box_black_24dp"
-                android:layout_weight="0"
-                android:layout_width="30dp"
-                android:layout_height="30dp" />
-    <AutoCompleteTextView
-        android:layout_gravity="center_vertical"
-        android:background="@color/white"
-        android:layout_weight="1"
-        android:elevation="0dp"
-        android:layout_marginTop="0dp"
-        android:text=""
-        android:fontFamily="sans-serif-thin"
-        android:textColorHint="#d1d1d1"
-        android:textColor="@color/colorPrimary"
-        android:id="@+id/id"
-        android:textAllCaps="true"
-        android:layout_width="0dp"
-        android:layout_height="45dp"
-        android:ems="7"
-        android:textSize="20dp"
-        android:inputType="textPersonName"
-        android:hint="STUDENT ID"
-         />
-        </LinearLayout>
+            android:layout_width="120dp"
+            android:layout_height="130dp"/>
 
         <LinearLayout
-            android:layout_marginLeft="20dp"
-            android:layout_marginBottom="0dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="0dp"
-            android:background="@color/white"
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="45dp">
-            <ImageView
-                android:layout_margin="2dp"
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/ic_lock_black_24dp"
-                android:layout_weight="0"
-                android:layout_width="30dp"
-                android:layout_height="25dp" />
-    <EditText
-        android:layout_weight="1"
-        android:layout_margin="0dp"
-        android:elevation="0dp"
-        android:text=""
-        android:fontFamily="sans-serif-thin"
-        android:textColorHint="#d1d1d1"
-        android:textColor="@color/colorAccent"
-        android:textAllCaps="true"
-        android:background="@color/white"
-        android:id="@+id/pass"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:ems="7"
-        android:hint="PASSWORD"
-        android:textSize="20dp"
-        android:inputType="textPassword"
-        />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="7dp"
+                android:layout_marginLeft="60dp"
+                android:layout_marginRight="60dp"
+                android:layout_marginTop="0dp"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="2dp"
+                    android:layout_weight="0"
+                    android:src="@drawable/ic_account_box_black_24dp" />
+
+                <AutoCompleteTextView
+                    android:id="@+id/id"
+                    android:layout_width="0dp"
+                    android:paddingLeft="30sp"
+                    android:layout_height="45dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginTop="0dp"
+                    android:layout_weight="0.92"
+                    android:background="@color/white"
+                    android:elevation="0dp"
+                    android:ems="7"
+                    android:fontFamily="sans-serif-thin"
+                    android:hint="STUDENT ID"
+                    android:inputType="textPersonName"
+                    android:text=""
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorPrimary"
+                    android:textColorHint="#d1d1d1"
+                    android:textSize="20dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginBottom="0dp"
+                android:layout_marginLeft="60dp"
+                android:layout_marginRight="60dp"
+                android:layout_marginTop="0dp"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="2dp"
+                    android:layout_weight="0"
+                    android:src="@drawable/ic_lock_black_24dp" />
+
+                <EditText
+                    android:id="@+id/pass"
+                    android:paddingLeft="30sp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="0dp"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:elevation="0dp"
+
+                    android:ems="7"
+                    android:fontFamily="sans-serif-thin"
+                    android:hint="PASSWORD"
+                    android:inputType="numberPassword"
+                    android:text=""
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorAccent"
+                    android:textColorHint="#d1d1d1"
+                    android:textSize="20dp" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/Login"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="0dp"
+                android:layout_marginLeft="60dp"
+                android:layout_marginRight="60dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/login"
+                android:elevation="3dp"
+                android:fontFamily="sans-serif-condensed"
+                android:onClick="LoginOnClick"
+                android:text="SIGN IN"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
         </LinearLayout>
-    <Button
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginBottom="0dp"
-        android:layout_marginTop="10dp"
-        android:elevation="3dp"
-        android:textSize="18sp"
-        android:textColor="@color/white"
-        android:fontFamily="sans-serif-condensed"
-        android:background="@drawable/login"
-        android:id="@+id/Login"
-        android:layout_width="match_parent"
-        android:layout_gravity="center_horizontal"
-        android:layout_height="48dp"
-        android:text="SIGN IN"
-        android:onClick="LoginOnClick"
-        />
-</LinearLayout>
     </LinearLayout>
 </RelativeLayout>

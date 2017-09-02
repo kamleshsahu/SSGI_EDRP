@@ -33,6 +33,7 @@ DatePicker simpleDatePicker;
         String myDate =attend_shower.todays_date +" 00:00:00";
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
         Date date = null;
+
         try {
             date = sdf.parse(myDate);
         } catch (ParseException e) {
@@ -87,6 +88,9 @@ DatePicker simpleDatePicker;
                     Thread t = new Thread(new Users_Data_Saver(attend_shower.sd, obj));
                     t.start();
 
+                attend_shower.have_users_infos=false;
+                attend_shower.cookie_generated=false;
+                attend_shower.logged_in=false;
 
                 Intent i = new Intent(sem_startday_setter.this ,attend_shower.class);
                 i.putExtra("sem_startday_set",true);

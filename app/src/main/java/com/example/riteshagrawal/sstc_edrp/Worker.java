@@ -310,8 +310,8 @@ public class Worker implements Runnable {
                     E.setRequestProperty("Method", "POST");
                     E.setRequestProperty("Content-Length", Integer.toString(postDataLength));
                     E.setUseCaches(false);
-                    E.setConnectTimeout(10000);
-                    E.setReadTimeout(5000);
+                    E.setConnectTimeout(30000);
+                    E.setReadTimeout(10000);
                     E.setDoInput(true);
                     E.setDoOutput(true);
 
@@ -380,6 +380,7 @@ public class Worker implements Runnable {
         String result = "";
         String sendTaskName = task_name;
         URL url;
+        System.out.println("here is urlParameters :"+"\n"+urlParameters);
       //  String urlParameters  = "sub_mit=&holdme=0&txtrollinfo=90&txtbatchinfo=2&cmbcollegename=FET&BranchF=CSE&SemesterF=3&SectionF=B&extsec='B','.'&reporttype=Attendance Report&dc1=17-JUL-2017&dc2=14-AUG-2017&apercent=ALL";
         byte[] postData = urlParameters.getBytes( StandardCharsets.UTF_8 );
         int postDataLength = postData.length;
@@ -405,8 +406,8 @@ public class Worker implements Runnable {
                 E.setRequestProperty("Method", "POST");
                 E.setRequestProperty("Content-Length", Integer.toString(postDataLength));
                 E.setUseCaches(false);
-                E.setConnectTimeout(10000);
-                E.setReadTimeout(5000);
+                E.setConnectTimeout(30000);
+                E.setReadTimeout(10000);
                 E.setDoInput(true);
                 E.setDoOutput(true);
 

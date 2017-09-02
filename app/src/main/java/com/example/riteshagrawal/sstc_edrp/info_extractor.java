@@ -66,6 +66,9 @@ String dnld_data;
             handler.sendMessage(message);
         }catch (Exception e){
             e.fillInStackTrace();
+            Message message = Message.obtain();
+            message.obj = new customObject("","error" ,"info_extrator error :"+e.toString());
+            handler.sendMessage(message);
             System.out.println("here is the bug : "+e.toString());
         }
 
