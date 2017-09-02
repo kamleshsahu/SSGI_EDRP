@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
         if(!sd.getString("Users_Data_Saver", "").equals("")) {
             String json1 = sd.getString("Users_Data_Saver", "");
-            System.out.println("here is json 1" + json1);
+            //system.out.println("here is json 1" + json1);
             UserDataSaverObject obj1 = gson.fromJson(json1, UserDataSaverObject.class);
             countryList = obj1.getList();
         }
@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         if(getIntent().hasExtra("error_msg")){
-            System.out.println("yehh it error id pass is working ........");
+            //system.out.println("yehh it error id pass is working ........");
             Toast.makeText(MainActivity.this,getIntent().getStringExtra("error_msg"),Toast.LENGTH_LONG).show();
             sd.edit().putString("loginParams", "").apply();
             sd.edit().putString("c_uname", "").apply();

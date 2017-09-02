@@ -38,19 +38,19 @@ static void getkeyval()
     {
         try {
             if((new Date()).getTime() - Long.parseLong(sd.getString("lastcall","")) >= 240000 ) {
-           //System.out.println("calling keypass url.........");
+           ////system.out.println("calling keypass url.........");
                 DownloadTask task = new DownloadTask();
                 task.seturl("http://182.71.130.11/x%40%40%401%40%40%4011/default1.asp");
                 task.doInBackground();
             }else{
-           //System.out.println("no need to call keypass");
+           ////system.out.println("no need to call keypass");
 
                 Message message = Message.obtain();
                 message.obj =new customObject("cookie_generator","success","already having..no need to call keypass");
                 handler.sendMessage(message);
             }
         } catch (Exception e) {
-       //System.out.println("error inside cookie_generator :"+e.fillInStackTrace());
+       ////system.out.println("error inside cookie_generator :"+e.fillInStackTrace());
             String msgSend ="error inside cookie_generator :"+e.fillInStackTrace();
             Message message = Message.obtain();
             message.obj =new customObject("cookie_generator","error","Pls Check Your Internet Connection");
@@ -79,7 +79,7 @@ static void getkeyval()
             HttpURLConnection urlConnection = null;
 
             try {
-            //System.out.println("under downloading function \ncalling url "+uRl);
+            ////system.out.println("under downloading function \ncalling url "+uRl);
                 url = new URL(uRl);
 
                 urlConnection = (HttpURLConnection) url.openConnection();
@@ -88,7 +88,7 @@ static void getkeyval()
                 urlConnection.connect();
                 Object localObject2;
                 if (urlConnection.getResponseCode() == 200) {
-                 //System.out.println("connnection url is 200......");
+                 ////system.out.println("connnection url is 200......");
                     Object localObject3 = new CookieManager();
                     Object localObject1;
                     localObject1 = (List) urlConnection.getHeaderFields().get("Set-Cookie");
@@ -98,7 +98,7 @@ static void getkeyval()
 
 
                     List<String> k=urlConnection.getHeaderFields().get("Set-Cookie");
-                    System.out.println("array to string :"+k.get(0).split(";")[0]);
+                    //system.out.println("array to string :"+k.get(0).split(";")[0]);
 
                     localObject3 = urlConnection.getHeaderFields().get("Set-Cookie");
                                     localObject3 = urlConnection.getHeaderFields().get("Set-Cookie").get(0);
@@ -130,7 +130,7 @@ static void getkeyval()
 
 
             }catch (SocketTimeoutException e){
-           //System.out.println("Socket Timeout Exception:"+e.fillInStackTrace());
+           ////system.out.println("Socket Timeout Exception:"+e.fillInStackTrace());
 
                 Message message = Message.obtain();
                 message.obj =new customObject("cookie_generator","error","Server Timeout .Pls Retry");
@@ -138,7 +138,7 @@ static void getkeyval()
             }
             catch (Exception e) {
 
-          //System.out.println("Error inside key pass generator 2:"+e.fillInStackTrace());
+          ////system.out.println("Error inside key pass generator 2:"+e.fillInStackTrace());
                 String msgSend="Error inside key pass generator 2:"+e.fillInStackTrace();
                 Message message = Message.obtain();
                 message.obj =new customObject("cookie_generator","error","Pls Check Your Internet Connection");

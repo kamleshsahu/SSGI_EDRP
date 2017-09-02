@@ -31,7 +31,7 @@ String dnld_data;
             int k = 0;
             for (k = 0; k < m.size(); k++) {
                 if (m.get(k).attr("type").equals("hidden")) {
-                    System.out.println(m.get(k).attr("name") + "=" + m.get(k).attr("value"));
+                    //system.out.println(m.get(k).attr("name") + "=" + m.get(k).attr("value"));
                     list.add(new Users_info_Object(m.get(k).attr("name"),m.get(k).attr("value")));
                     urlParams += m.get(k).attr("name") + "=" + m.get(k).attr("value") + "&";
                 }
@@ -39,10 +39,10 @@ String dnld_data;
             Elements select = form.get(0).getElementsByTag("select");
             int l = 0;
             for (l = 0; l < select.size() - 1; l++) {
-                System.out.print(select.get(l).attr("name"));
-                System.out.print("=");
+                //system.out.print(select.get(l).attr("name"));
+                //system.out.print("=");
                 Element option = select.get(l).getElementsByTag("option").get(0);
-                System.out.println(option.attr("value"));
+                //system.out.println(option.attr("value"));
                 list.add(new Users_info_Object(select.get(l).attr("name"),option.attr("value")));
                 urlParams += select.get(l).attr("name") + "=" + option.attr("value") + "&";
             }
@@ -57,7 +57,7 @@ String dnld_data;
             urlParams += "dc2="+attend_shower.toDate+"&";
             urlParams += "apercent=ALL&";
             urlParams += "reporttype=Attendance Report";
-            System.out.println("here is url params : " + urlParams);
+            //system.out.println("here is url params : " + urlParams);
 
 
             attend_shower.list=list;
@@ -69,7 +69,7 @@ String dnld_data;
             Message message = Message.obtain();
             message.obj = new customObject("","error" ,"info_extrator error :"+e.toString());
             handler.sendMessage(message);
-            System.out.println("here is the bug : "+e.toString());
+            //system.out.println("here is the bug : "+e.toString());
         }
 
 

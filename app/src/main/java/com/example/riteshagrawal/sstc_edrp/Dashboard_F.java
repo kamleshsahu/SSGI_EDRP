@@ -65,7 +65,7 @@ try{
 }catch (Exception e){
     e.fillInStackTrace();
     val=0;
-    System.out.println("attendence value changing error ...");
+    //system.out.println("attendence value changing error ...");
 }
 
         final com.example.riteshagrawal.sstc_edrp.CircularProgressBar attendence =(com.example.riteshagrawal.sstc_edrp.CircularProgressBar)rootView.findViewById(R.id.attendence_p);
@@ -95,7 +95,7 @@ try{
         TextView bw_dates=(TextView)rootView.findViewById(R.id.bw_dates);
 
        //attendence.setText(attend_shower.attend_val);
-        System.out.println("here is attendence percent : "+attend_shower.attend_val);
+        //system.out.println("here is attendence percent : "+attend_shower.attend_val);
         attended_Lectures.setText(attend_shower.Attended_lectures);
         total_Lectures.setText(attend_shower.Total_lectures);
         bw_dates.setText(attend_shower.fromdate.getText() +" - "+ attend_shower.todate.getText());
