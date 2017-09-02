@@ -180,8 +180,7 @@ public class attend_shower extends AppCompatActivity {
                     logged_in=false;
 
                     sem_start_date="";
-                    main_layout.setVisibility(View.GONE);
-                    first_login.setVisibility(View.VISIBLE);
+
 
                     attend_shower.this.finish();
 
@@ -448,8 +447,9 @@ public class attend_shower extends AppCompatActivity {
         }else if(sd.getString("Users_Data_Saver", "").equals("")){
             System.out.println("else if part ........user data daver not created yet....");
 
-            first_login.setVisibility(View.VISIBLE);
             main_layout.setVisibility(View.GONE);
+            first_login.setVisibility(View.VISIBLE);
+
             if(getIntent().getBooleanExtra("sem_startday_set",false)){
                 fromDate=sem_start_date;
                 fromdate.setText(sem_start_date);

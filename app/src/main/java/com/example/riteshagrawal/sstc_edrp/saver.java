@@ -17,15 +17,15 @@ import java.util.ArrayList;
  class ObjectAdapter extends BaseAdapter implements Filterable {
 
     private Context context;
-    private ArrayList<saver_class> originalList;
-    private ArrayList<saver_class> suggestions = new ArrayList<>();
+    private ArrayList<Users_info_Object> originalList;
+    private ArrayList<Users_info_Object> suggestions = new ArrayList<>();
     private Filter filter = new CustomFilter();
 
     /**
      * @param context      Context
      * @param originalList Original list used to compare in constraints.
      */
-    public ObjectAdapter(Context context, ArrayList<saver_class> originalList) {
+    public ObjectAdapter(Context context, ArrayList<Users_info_Object> originalList) {
         this.context = context;
         this.originalList = originalList;
     }
@@ -37,7 +37,7 @@ import java.util.ArrayList;
 
     @Override
     public Object getItem(int position) {
-        return suggestions.get(position).getId();
+        return suggestions.get(position).getSem_start_date();
     }
 
 
@@ -67,7 +67,7 @@ import java.util.ArrayList;
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.autoText.setText(suggestions.get(position).getId());
+        holder.autoText.setText(suggestions.get(position).getSem_start_date());
 
         return convertView;
     }
@@ -92,7 +92,7 @@ import java.util.ArrayList;
 
             if (originalList != null && constraint != null) { // Check if the Original List and Constraint aren't null.
                 for (int i = 0; i < originalList.size(); i++) {
-                    if (originalList.get(i).getId().toLowerCase().contains(constraint)) { // Compare item in original list if it contains constraints.
+                    if (originalList.get(i).getSem_start_date().toLowerCase().contains(constraint)) { // Compare item in original list if it contains constraints.
                         suggestions.add(originalList.get(i)); // If TRUE add item in Suggestions.
                     }
                 }

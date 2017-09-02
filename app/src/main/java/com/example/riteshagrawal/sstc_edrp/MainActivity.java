@@ -17,18 +17,20 @@ import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-Handler handler,handler2;
+
    static SharedPreferences sd;
-    String LoginParams="",c_uname,c_pass;
+    String LoginParams="";
     AutoCompleteTextView id;
     EditText pass;
     static Context appContext;
 
-    private saver_class countryAdapter;
-    private ArrayList<saver_class> countryList= new ArrayList<>();
+
+    private ArrayList<Users_info_Object> countryList= new ArrayList<>();
     private ObjectAdapter obj;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,10 +43,13 @@ Handler handler,handler2;
    //     id = (EditText) findViewById(R.id.id);
         id.requestFocus();
         pass = (EditText) findViewById(R.id.pass);
-//       countryList.add(new saver_class("BE20160467","9644790733","Kamlesh Sahu"));
-//        countryList.add(new saver_class("BE20160826","9617340924","Somnath Trivedi"));
-//        countryList.add(new saver_class("BE20170287","9982313173","Mohhamaad"));
-
+       countryList.add(new Users_info_Object("BE20160467","9644790733","kamlesh "));
+        countryList.add(new Users_info_Object("BE20160826","9617340924","somnath "));
+        countryList.add(new Users_info_Object("BE20170287","9982313173","asif"));
+        countryList.add(new Users_info_Object("BE20160236","9165150404","puspraj"));
+        countryList.add(new Users_info_Object("0201150185","9977645873","shivam "));
+        countryList.add(new Users_info_Object("0201150185","9977645873","vashudha "));
+        countryList.add(new Users_info_Object("BE20160706","8120822235","mukesh "));
 
 
 
@@ -66,22 +71,20 @@ Handler handler,handler2;
 
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        //        LoginParams="uname="+countryList.get(i).getId()+"&"+"password="+countryList.get(0).getPass()+"&cmbsession=JUL-17";
-       //         sd.edit().putString("loginParams", LoginParams).apply();
-       //         Intent i1 = new Intent(MainActivity.this, attend_shower.class);
-         //       startActivity(i1);
-
-                id.setText(countryList.get(i).getId());
-                pass.requestFocus();
 
 
-                pass.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                        inputMethodManager.showSoftInput(id, InputMethodManager.SHOW_IMPLICIT);
-                    }
-                }, 200);
+                id.setText(countryList.get(i).getUname());
+                pass.setText(countryList.get(i).getPass());
+//                pass.requestFocus();
+//
+//
+//                pass.postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+//                        inputMethodManager.showSoftInput(id, InputMethodManager.SHOW_IMPLICIT);
+//                    }
+//                }, 200);
             }
         });
 
