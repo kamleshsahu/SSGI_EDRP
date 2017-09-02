@@ -27,7 +27,7 @@
             android:label="Set SEM Start Date"
             android:screenOrientation="portrait"/>
         <activity android:name=".about_us"
-            android:label="About Us"
+            android:label="About App"
             android:screenOrientation="portrait"/>
     </application>
 

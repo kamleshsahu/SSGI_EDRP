@@ -230,14 +230,16 @@
                 android:visibility="visible" />
 
             <TextView
+                android:fontFamily="sans-serif-condensed"
+                android:textSize="12sp"
+                android:layout_marginBottom="10dp"
                 android:id="@+id/disp_msg"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="60sp"
-                android:layout_weight="1"
                 android:gravity="center"
-                android:text="TextView"
+                android:text="RETRY"
                 android:visibility="gone" />
 
             <Button
@@ -266,9 +268,13 @@
                 android:layout_height="40dp"
                 android:visibility="visible"
                 app:tabBackground="@color/colorPrimary"
-                app:tabIndicatorColor="#f4f4f4"
+                app:tabIndicatorColor="#ffffff"
                 app:tabSelectedTextColor="@color/white"
                 app:tabTextColor="@color/white" />
+            <LinearLayout
+                android:background="@color/colorPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"></LinearLayout>
 
             <android.support.v4.view.ViewPager
                 android:id="@+id/simpleViewPager"
@@ -280,9 +286,10 @@
 
     </LinearLayout>
 <LinearLayout
+    android:layout_marginTop="200dp"
     android:layout_width="match_parent"
     android:id="@+id/first_login"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:visibility="gone"
     android:orientation="horizontal">
     <ProgressBar
