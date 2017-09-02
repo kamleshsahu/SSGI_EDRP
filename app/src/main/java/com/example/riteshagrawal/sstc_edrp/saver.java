@@ -37,7 +37,7 @@ import java.util.ArrayList;
 
     @Override
     public Object getItem(int position) {
-        return suggestions.get(position).getSem_start_date();
+        return suggestions.get(position).getName();
     }
 
 
@@ -67,7 +67,7 @@ import java.util.ArrayList;
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.autoText.setText(suggestions.get(position).getSem_start_date());
+        holder.autoText.setText(suggestions.get(position).getName());
 
         return convertView;
     }
@@ -92,7 +92,7 @@ import java.util.ArrayList;
 
             if (originalList != null && constraint != null) { // Check if the Original List and Constraint aren't null.
                 for (int i = 0; i < originalList.size(); i++) {
-                    if (originalList.get(i).getSem_start_date().toLowerCase().contains(constraint)) { // Compare item in original list if it contains constraints.
+                    if (originalList.get(i).getName().toLowerCase().contains(constraint)) { // Compare item in original list if it contains constraints.
                         suggestions.add(originalList.get(i)); // If TRUE add item in Suggestions.
                     }
                 }

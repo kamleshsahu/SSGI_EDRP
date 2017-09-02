@@ -22,6 +22,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.gson.Gson;
 
 import java.text.DateFormat;
@@ -70,7 +71,7 @@ public class attend_shower extends AppCompatActivity {
     LinearLayout firstlogin;
 
 
-//   static String months[] = {"JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"};
+
    static String months[] = {"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
     static String fromDate="",toDate="";
     @Override
@@ -94,6 +95,10 @@ public class attend_shower extends AppCompatActivity {
                 Intent i = new Intent( attend_shower.this,sem_startday_setter.class);
                 startActivity(i);
                 attend_shower.this.finish();
+                Bundle bundle = new Bundle();
+                bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "8");
+                bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "change sem startdate");
+                MainActivity.mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
                 return false;
             }
         });
@@ -103,6 +108,10 @@ public class attend_shower extends AppCompatActivity {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 recreate();
+                Bundle bundle = new Bundle();
+                bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "11");
+                bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "recreate attend_shower");
+                MainActivity.mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
                 return false;
             }
 
@@ -118,6 +127,10 @@ public class attend_shower extends AppCompatActivity {
                 sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,"Subject here");
                 sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBodyText);
                 startActivity(Intent.createChooser(sharingIntent, "Share GooglePlay link"));
+                Bundle bundle = new Bundle();
+                bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "9");
+                bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "app share");
+                MainActivity.mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
                 return true;
             }
 
@@ -129,6 +142,10 @@ public class attend_shower extends AppCompatActivity {
                 Intent intent=new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse("http://play.google.com/store/apps/details?id=com.SahuAppsPvtLtd.myTrainEnquiryApp"));
                 startActivity(intent);
+                Bundle bundle = new Bundle();
+                bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "10");
+                bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "app rate");
+                MainActivity.mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
                 return true;
             }
         });
@@ -138,6 +155,10 @@ public class attend_shower extends AppCompatActivity {
             public boolean onMenuItemClick(MenuItem item) {
                 Intent o=new Intent(attend_shower.this,about_us.class);
                 startActivity(o);
+                Bundle bundle = new Bundle();
+                bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "10");
+                bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "about us");
+                MainActivity.mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
                 return true;
             }
         });
@@ -193,11 +214,19 @@ public class attend_shower extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 datePicker(1);
+                Bundle bundle = new Bundle();
+                bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "6");
+                bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "fromDate clicked");
+                MainActivity.mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
             }
         });
         todate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {datePicker(2);
+                Bundle bundle = new Bundle();
+                bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "7");
+                bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "toDate clicked");
+                MainActivity.mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
             }
         });
 
@@ -218,7 +247,10 @@ public class attend_shower extends AppCompatActivity {
                     logged_in=false;
 
                     sem_start_date="";
-
+                    Bundle bundle = new Bundle();
+                    bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "4");
+                    bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "logout");
+                    MainActivity.mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
 
                     attend_shower.this.finish();
 
@@ -297,7 +329,10 @@ public class attend_shower extends AppCompatActivity {
                             retryButton.setVisibility(View.VISIBLE);
                         }
                     }
-
+                        Bundle bundle = new Bundle();
+                        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "5");
+                        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "Attendence fetched");
+                        MainActivity.mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
                         name.setText(StudentName);
                         attend_val=data.getMsg();
                     adapter = new PagerAdapter
@@ -606,5 +641,9 @@ public class attend_shower extends AppCompatActivity {
           error_msg_disp.setVisibility(View.GONE);
           retryButton.setVisibility(View.GONE);
         new Thread(new Worker(getApplicationContext(), "generate_cookie", sd, after_gotCookies)).start();
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "7");
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "Retry clked");
+        MainActivity.mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
     }
 }

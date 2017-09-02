@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "270648059074",
+    "firebase_url": "https://sstc-attendance.firebaseio.com",
+    "project_id": "sstc-attendance",
+    "storage_bucket": "sstc-attendance.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:270648059074:android:c5be18a83aad1c06",
+        "android_client_info": {
+          "package_name": "com.example.riteshagrawal.sstc_edrp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "270648059074-tks2cggqak5vnuo4i3eko61p95741omq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.riteshagrawal.sstc_edrp",
+            "certificate_hash": "7f9a4c00f3f009c7bb00fedd65a023cfd1a05eaf"
+          }
+        },
+        {
+          "client_id": "270648059074-k88do872hmahn61ke51toh5mgrvq8e55.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-W9eH5NosDHqvsAfq2NNAE94WVugH6oQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "270648059074-k88do872hmahn61ke51toh5mgrvq8e55.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
