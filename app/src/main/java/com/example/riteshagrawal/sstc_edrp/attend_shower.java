@@ -3,10 +3,10 @@ package com.example.riteshagrawal.sstc_edrp;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.provider.LiveFolders;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -105,8 +105,42 @@ public class attend_shower extends AppCompatActivity {
                 recreate();
                 return false;
             }
+
         });
 
+        MenuItem share =menu.findItem(R.id.share);
+        share.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                sharingIntent.setType("text/plain");
+                String shareBodyText = "http://play.google.com/store/apps/details?id=com.SahuAppsPvtLtd.myTrainEnquiryApp";
+                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,"Subject here");
+                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBodyText);
+                startActivity(Intent.createChooser(sharingIntent, "Share GooglePlay link"));
+                return true;
+            }
+
+        });
+        MenuItem rate = menu.findItem(R.id.rate);
+        rate.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Intent intent=new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("http://play.google.com/store/apps/details?id=com.SahuAppsPvtLtd.myTrainEnquiryApp"));
+                startActivity(intent);
+                return true;
+            }
+        });
+        MenuItem about_us = menu.findItem(R.id.about_us);
+        about_us.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Intent o=new Intent(attend_shower.this,about_us.class);
+                startActivity(o);
+                return true;
+            }
+        });
         return super.onCreateOptionsMenu(menu);
     }
 
