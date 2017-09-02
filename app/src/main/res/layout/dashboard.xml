@@ -75,7 +75,7 @@
                     android:id="@+id/attended_lectures"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="45"
+                    android:text="0"
                     android:textSize="30sp" />
 
 
@@ -96,7 +96,7 @@
                     android:id="@+id/total_lectures"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="60"
+                    android:text="0"
                     android:textSize="30sp" />
 
             </LinearLayout>
@@ -113,7 +113,7 @@
         style="@style/Widget.ProgressBar.Holo.CircularProgressBar"
         android:layout_width="130dp"
         android:layout_height="130dp"
-        circular:cpb_title="75%"
+        circular:cpb_title="0 %"
         />
     </LinearLayout>
 
