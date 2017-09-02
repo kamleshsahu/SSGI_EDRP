@@ -160,6 +160,11 @@ Handler handler,handler2;
                 startActivity(intent);
                 return true;
 
+            case R.id.about_us:
+                Intent o=new Intent(MainActivity.this,about_us.class);
+                startActivity(o);
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
