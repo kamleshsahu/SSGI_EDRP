@@ -98,7 +98,7 @@ try{
         System.out.println("here is attendence percent : "+attend_shower.attend_val);
         attended_Lectures.setText(attend_shower.Attended_lectures);
         total_Lectures.setText(attend_shower.Total_lectures);
-        bw_dates.setText(attend_shower.fromdate.getText() +" - "+ attend_shower.todate.getText()+",17");
+        bw_dates.setText(attend_shower.fromdate.getText() +" - "+ attend_shower.todate.getText());
         return rootView;
     }
 }
