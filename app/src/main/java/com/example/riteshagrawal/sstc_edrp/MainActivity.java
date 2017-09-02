@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -72,13 +73,15 @@ Handler handler,handler2;
 
                 id.setText(countryList.get(i).getId());
                 pass.requestFocus();
+
+
                 pass.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                         inputMethodManager.showSoftInput(id, InputMethodManager.SHOW_IMPLICIT);
                     }
-                }, 500);
+                }, 200);
             }
         });
 

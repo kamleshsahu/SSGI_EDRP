@@ -13,13 +13,14 @@
         android:layout_marginBottom="4dp"
         android:textSize="13sp"
         android:fontFamily="sans-serif-condensed"
-        android:textColor="#d0d0d0"
+        android:textColor="@color/colorPrimary"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
         android:paddingLeft="10sp"
         android:paddingRight="10sp"
-        android:text="Please set your 'SEMESTER START DATE'\nThis date will be used as 'DEFAULT DATE' to calculate your attendence"/>
+        android:text="Please Set your 'SEMESTER START DATE'\nThis date will be used as 'DEFAULT DATE' to fetch your Attendance"/>
+
 </LinearLayout>
     <ScrollView
         android:background="@color/white"

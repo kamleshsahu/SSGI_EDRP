@@ -28,6 +28,7 @@ import java.nio.charset.StandardCharsets;
 public class Worker implements Runnable {
     private Context context;
     private String task_name;
+    private String urlParameters;
     ConnectivityManager mgr = (ConnectivityManager)MainActivity.appContext.getSystemService(Context.CONNECTIVITY_SERVICE);
     NetworkInfo netInfo = mgr.getActiveNetworkInfo();
     private Handler handler;
@@ -43,6 +44,10 @@ public class Worker implements Runnable {
         this.task_name = task_name;
         this.sd=sd;
         this.handler=handlermain;
+    }
+
+    public void setUrlParams(String urlParams){
+        this.urlParameters=urlParams;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -141,7 +146,7 @@ public class Worker implements Runnable {
                 break;
 
             case "fetch_attendence":
-                finalCall_via_POST(after_attendencedata_dnld,"",final_call,attend_shower.users_info_url);
+                finalCall_via_POST(after_attendencedata_dnld,"",final_call,urlParameters);
                 break;
 
             case "fetch_users_info":
@@ -164,8 +169,9 @@ public class Worker implements Runnable {
         String result = "";
         String sendTaskName = task_name;
         URL url;
-     //   String urlParameters  = "uname=0201160139&password=9981140217&cmbsession=JUL-17";
-        String urlParameters  = sd.getString("loginParams","");
+      //  String urlParameters  = "uname=0201160139&password=9981140217&cmbsession=JUL-17";
+    //    String urlParameters  = "uname=BE20160467&password=9644790733&cmbsession=JUL-17";
+         String urlParameters  = sd.getString("loginParams","");
         byte[] postData = urlParameters.getBytes( StandardCharsets.UTF_8 );
     //    int postDataLength = postData.length;
         try {
@@ -201,7 +207,10 @@ public class Worker implements Runnable {
 
                      System.out.println("redirect url is :"+E.getHeaderField("Location"));
         //                Data_Downloader(dnld_handler, task_name,E.getHeaderField("Location"));
-
+                        System.out.println("here is the error :"+E.getResponseCode());
+                        Message message = Message.obtain();
+                        message.obj = new customObject("", "error response code is not 200,it is :",String.valueOf(E.getResponseCode()));
+                        dnld_handler.sendMessage(message);
                     }
                         else {
                      System.out.println("Jai hind : " + E.getResponseCode());
@@ -326,7 +335,10 @@ public class Worker implements Runnable {
 
                         System.out.println("redirect url is :" + E.getHeaderField("Location"));
                         //                Data_Downloader(dnld_handler, task_name,E.getHeaderField("Location"));
-
+                        System.out.println("here is the error :"+E.getResponseCode());
+                        Message message = Message.obtain();
+                        message.obj = new customObject("", "error response code is not 200,it is :",String.valueOf(E.getResponseCode()));
+                        dnld_handler.sendMessage(message);
                     } else {
                         System.out.println("Jai hind : " + E.getResponseCode());
 
@@ -380,8 +392,11 @@ public class Worker implements Runnable {
         String result = "";
         String sendTaskName = task_name;
         URL url;
+
+     //   String urlParameters  = "sub_mit=&holdme=0&txtrollinfo=90&txtbatchinfo=2&cmbcollegename=FET&BranchF=CSE&SemesterF=3&SectionF=B&extsec='B','.'&reporttype=Attendance Report&dc1=17-JUL-2017&dc2=14-AUG-2017&apercent=ALL";
+  //   String urlParameters=   "sub_mit&holdme0=&txtrollinfo=46&txtbatchinfo=2&cmbcollegename=SSEC&BranchF=CSE&SemesterF=3&SectionF=A&extsec='A','.'&reporttype=AttendanceReport&dc1=02-SEP-2017=&dc2=02-SEP-2017&apercent=ALL";
+
         System.out.println("here is urlParameters :"+"\n"+urlParameters);
-      //  String urlParameters  = "sub_mit=&holdme=0&txtrollinfo=90&txtbatchinfo=2&cmbcollegename=FET&BranchF=CSE&SemesterF=3&SectionF=B&extsec='B','.'&reporttype=Attendance Report&dc1=17-JUL-2017&dc2=14-AUG-2017&apercent=ALL";
         byte[] postData = urlParameters.getBytes( StandardCharsets.UTF_8 );
         int postDataLength = postData.length;
         DataOutputStream wr=null;
@@ -422,7 +437,10 @@ public class Worker implements Runnable {
 
                     System.out.println("redirect url is :" + E.getHeaderField("Location"));
                     //                Data_Downloader(dnld_handler, task_name,E.getHeaderField("Location"));
-
+                    System.out.println("here is the error :"+E.getResponseCode());
+                    Message message = Message.obtain();
+                    message.obj = new customObject("", "error response code is not 200,it is :",String.valueOf(E.getResponseCode()));
+                    dnld_handler.sendMessage(message);
                 } else {
                     System.out.println("Jai hind : " + E.getResponseCode());
 
@@ -512,7 +530,10 @@ public class Worker implements Runnable {
 
                 System.out.println("redirect url is :"+E.getHeaderField("Location"));
                 //                Data_Downloader(dnld_handler, task_name,E.getHeaderField("Location"));
-
+                System.out.println("here is the error :"+E.getResponseCode());
+                Message message = Message.obtain();
+                message.obj = new customObject("", "error response code is not 200,it is :",String.valueOf(E.getResponseCode()));
+                dnld_handler.sendMessage(message);
             }
             else {
                 System.out.println("Jai hind : " + E.getResponseCode());

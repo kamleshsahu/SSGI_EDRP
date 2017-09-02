@@ -88,7 +88,7 @@ DatePicker simpleDatePicker;
                     Thread t = new Thread(new Users_Data_Saver(attend_shower.sd, obj));
                     t.start();
 
-                attend_shower.have_users_infos=false;
+
                 attend_shower.cookie_generated=false;
                 attend_shower.logged_in=false;
 
@@ -114,5 +114,5 @@ DatePicker simpleDatePicker;
 //        startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //        startActivity(startMain);
 //    }
-//
+
 }

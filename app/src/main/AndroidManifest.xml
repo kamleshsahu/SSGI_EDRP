@@ -12,6 +12,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity"
             android:screenOrientation="portrait">
+            android:label="SSTC ATTENDANCE"
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,10 +21,10 @@
 
         </activity>
         <activity android:name=".attend_shower"
-            android:label="Attendence"
+            android:label="SSTC ATTENDANCE"
             android:screenOrientation="portrait"/>
         <activity android:name=".sem_startday_setter"
-            android:label="SET Sem Start Date"
+            android:label="Set SEM Start Date"
             android:screenOrientation="portrait"/>
     </application>
 

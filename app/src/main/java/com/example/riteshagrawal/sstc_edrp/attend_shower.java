@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.LiveFolders;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -46,13 +47,13 @@ public class attend_shower extends AppCompatActivity {
     static ArrayList<Users_info_Object> list = new ArrayList<>();
    static String sem_start_date="";
    static String todays_date="";
-    static String users_info_url="";
-   static boolean have_users_infos=false;
+
+
    static int flag =0;
     static Boolean logged_in=false;
     static Boolean cookie_generated=false;
     TextView error_msg_disp;
-    Users_info_Object users_info_object=null;
+
 
     ArrayList<Users_info_Object> saver_list =new ArrayList();
 
@@ -64,7 +65,10 @@ public class attend_shower extends AppCompatActivity {
      static String Total_lectures="";
      static String Attended_lectures="";
     Button retryButton;
-    ProgressBar progressBar;
+    ProgressBar progressBar,progressBar_first;
+
+    LinearLayout firstlogin;
+
 
    static String months[] = {"JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"};
    static String monthsD[] = {"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
@@ -118,6 +122,9 @@ public class attend_shower extends AppCompatActivity {
         final TextView rollno=(TextView)findViewById(R.id.roll_no);
         final TextView batch=(TextView)findViewById(R.id.batch);
         progressBar=(ProgressBar)findViewById(R.id.progressBar);
+        final LinearLayout main_layout=(LinearLayout)findViewById(R.id.mainlayout);
+        final LinearLayout first_login=(LinearLayout)findViewById(R.id.first_login);
+
 
         retryButton =(Button)findViewById(R.id.retryButton);
         maindisplay = (LinearLayout) findViewById(R.id.maindisplay);
@@ -143,7 +150,6 @@ public class attend_shower extends AppCompatActivity {
         System.out.println("here is todays date :"+dateFormat.format(date));
 
 
-  //     ="sub_mit=&holdme	0=&txtrollinfo	46=&txtbatchinfo	2=&cmbcollegename	SSEC=&BranchF	CSE=&SemesterF	3=&SectionF	A=&extsec	'A','.'=&reporttype	Attendance=Report&dc1	02-SEP-2017=&dc2	02-SEP-2017=&apercent	ALL";
 
         fromdate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -172,8 +178,10 @@ public class attend_shower extends AppCompatActivity {
                     startActivity(i);
                     cookie_generated=false;
                     logged_in=false;
-                    have_users_infos=false;
+
                     sem_start_date="";
+                    main_layout.setVisibility(View.GONE);
+                    first_login.setVisibility(View.VISIBLE);
 
                     attend_shower.this.finish();
 
@@ -197,13 +205,14 @@ public class attend_shower extends AppCompatActivity {
                 System.out.println("attend_shower,after_fetchAttendence handler");
                 customObject data = (customObject) msg.obj;
                 System.out.println(data.getResult());
-
+                first_login.setVisibility(View.GONE);
+                main_layout.setVisibility(View.VISIBLE);
                     if(data.getResult().equals("success")){
                     loading.setVisibility(View.GONE);
                     maindisplay.setVisibility(View.VISIBLE);
 
-                    if(list != null && !have_users_infos){
-                        have_users_infos=true;
+                    if(list != null ){
+
                         try {
                         Users_info_Object obj = new Users_info_Object(
 
@@ -303,42 +312,19 @@ public class attend_shower extends AppCompatActivity {
         after_gotUsersInfo = new Handler() {
             @Override
             public void handleMessage(Message msg) {
+
                 super.handleMessage(msg);
                 System.out.println("after_gotUserinfo handler");
                 customObject data = (customObject) msg.obj;
                 System.out.println("here is result :"+data.getResult());
                 System.out.println("here is msg : "+data.getMsg());
                 if(data.getResult().equals("success")){
+                   Worker w=new Worker(getApplicationContext(), "fetch_attendence", sd, after_fetchAttendence);
+                    w.setUrlParams(data.getMsg());
+                    new Thread(w).start();
 
-                    if(!sem_start_date.equals( "")) {
-                        users_info_object = new Users_info_Object(sd.getString("c_uname", ""),
-                                sd.getString("c_pass", ""),
-                                StudentName,
-                                list.get(6).getValue(),
-                                list.get(7).getValue(),
-                                list.get(8).getValue(),
-                                list.get(2).getValue(),
-                                list.get(3).getValue(),
-                                list.get(5).getValue());
-
-                        users_info_url = "sub_mit=&holdme=0&" +
-                                "txtrollinfo=" + users_info_object.getRollno() + "&" +
-                                "txtbatchinfo=" + users_info_object.getBatch() + "&" +
-                                "cmbcollegename=" + users_info_object.getClgname() + "&" +
-                                "BranchF=" + users_info_object.getBranch() + "&" +
-                                "SemesterF=" + users_info_object.getSem() + "&" +
-                                "SectionF=B&extsec='" + users_info_object.getSec() + "','.'&" +
-                                "reporttype=Attendance Report&" +
-                                "apercent=ALL&" +
-                                "dc1=" + fromDate + "&" +
-                                "dc2=" + toDate;
-                        new Thread(new Worker(getApplicationContext(), "fetch_attendence", sd, after_fetchAttendence)).start();
-                    }else{
-                        Intent i = new Intent( attend_shower.this,sem_startday_setter.class);
-                        startActivity(i);
-                        attend_shower.this.finish();
-                    }
                 }else{
+
                     System.out.println("here is error msg :"+data.getErrorMsg());
                     progressBar.setVisibility(View.GONE);
                     error_msg_disp.setVisibility(View.VISIBLE);
@@ -351,33 +337,26 @@ public class attend_shower extends AppCompatActivity {
         after_login = new Handler() {
             @Override
             public void handleMessage(Message msg) {
+
                 super.handleMessage(msg);
                 System.out.println("after_login handler");
                 customObject data = (customObject) msg.obj;
                 System.out.println(data.getResult());
                 if(data.getResult().equals("success")){
-                    if(have_users_infos) {
-                        users_info_url="sub_mit=&holdme=0&"+
-                                "txtrollinfo="+users_info_object.getRollno()+"&"+
-                                "txtbatchinfo="+users_info_object.getBatch()+"&"+
-                                "cmbcollegename="+users_info_object.getClgname()+"&"+
-                                "BranchF="+users_info_object.getBranch()+"&"+
-                                "SemesterF="+users_info_object.getSem()+"&"+
-                                "SectionF=B&extsec='"+users_info_object.getSec()+"','.'&"+
-                                "reporttype=Attendance Report&"+
-                                "apercent=ALL&"+
-                                "dc1="+fromDate+"&"+
-                                "dc2="+toDate;
-                        Toast.makeText(attend_shower.this, "already have user_info", Toast.LENGTH_SHORT).show();
-                        System.out.println("after login handler, having user_info url");
-                        new Thread(new Worker(getApplicationContext(),"fetch_attendence",sd,after_fetchAttendence)).start();
-                    }else {
-                        Toast.makeText(attend_shower.this, "not have user_info", Toast.LENGTH_SHORT).show();
+
+
+                    if(!sem_start_date.equals("")) {
+//                        Toast.makeText(attend_shower.this, "not have user_info", Toast.LENGTH_SHORT).show();
                         System.out.println("after login handler,Not having user_info url");
                         new Thread(new Worker(getApplicationContext(),"fetch_users_info",sd,after_gotUsersInfo)).start();
+                    }else{
+                        Intent i = new Intent( attend_shower.this,sem_startday_setter.class);
+                        startActivity(i);
+                        attend_shower.this.finish();
                     }
+
                 }else{
-                    Toast.makeText(getApplicationContext()," Error ",Toast.LENGTH_LONG).show();
+//                    Toast.makeText(getApplicationContext()," Error ",Toast.LENGTH_LONG).show();
                     System.out.println("after got cookies error :"+data.getResult());
                     Intent i = new Intent(attend_shower.this,MainActivity.class);
                     i.putExtra("error_msg",data.getErrorMsg());
@@ -391,37 +370,24 @@ public class attend_shower extends AppCompatActivity {
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
+
                 System.out.println("after_gotCookies handler");
                 customObject data = (customObject) msg.obj;
                 System.out.println(data.getResult());
                 if(data.getResult().equals("success")){
-                    if(logged_in && have_users_infos) {
-                        users_info_url="sub_mit=&holdme=0&"+
-                                "txtrollinfo="+users_info_object.getRollno()+"&"+
-                                "txtbatchinfo="+users_info_object.getBatch()+"&"+
-                                "cmbcollegename="+users_info_object.getClgname()+"&"+
-                                "BranchF="+users_info_object.getBranch()+"&"+
-                                "SemesterF="+users_info_object.getSem()+"&"+
-                                "SectionF=B&extsec='"+users_info_object.getSec()+"','.'&"+
-                                "reporttype=Attendance Report&"+
-                                "apercent=ALL&"+
-                                "dc1="+fromDate+"&"+
-                                "dc2="+toDate;
 
-                        Toast.makeText(attend_shower.this, "already logged in", Toast.LENGTH_SHORT).show();
-                        System.out.println("after gotCookies, already logged in");
-                        new Thread(new Worker(getApplicationContext(),"fetch_attendence",sd,after_fetchAttendence)).start();
-                    }else if(logged_in) {
-                        Toast.makeText(attend_shower.this, "logged in,no usr infos", Toast.LENGTH_SHORT).show();
+                        if(logged_in) {
+ //                       Toast.makeText(attend_shower.this, "logged in,no usr infos", Toast.LENGTH_SHORT).show();
                         System.out.println("after gotCookies,logged in,no usr infos");
                         new Thread(new Worker(getApplicationContext(),"fetch_users_info",sd,after_gotUsersInfo)).start();
                     }else {
-                        Toast.makeText(attend_shower.this, "not logged in", Toast.LENGTH_SHORT).show();
+ //                       Toast.makeText(attend_shower.this, "not logged in", Toast.LENGTH_SHORT).show();
                         System.out.println("after gotCookies,not logged in");
                         new Thread(new Worker(getApplicationContext(), "login", sd, after_login)).start();
                     }
                 }else{
-
+                    first_login.setVisibility(View.GONE);
+                    main_layout.setVisibility(View.VISIBLE);
                     progressBar.setVisibility(View.GONE);
                     error_msg_disp.setVisibility(View.VISIBLE);
                     error_msg_disp.setText(data.getErrorMsg());
@@ -451,8 +417,6 @@ public class attend_shower extends AppCompatActivity {
                         sec.setText("Sec :" + item0.getSec() + "");
                         name.setText(item0.getName());
                         sem_start_date = item0.getSem_start_date();
-                        users_info_object = item0;
-                        have_users_infos = true;
 
                         flag = 1;
                         break;
@@ -467,12 +431,15 @@ public class attend_shower extends AppCompatActivity {
                 todate.setText(todays_date);
 
             }else if(flag==0){
-
+                main_layout.setVisibility(View.GONE);
+                first_login.setVisibility(View.VISIBLE);
                 if(getIntent().getBooleanExtra("sem_startday_set",false)){
                     fromDate=sem_start_date;
                     fromdate.setText(sem_start_date);
                     toDate=todays_date;
                     todate.setText(todays_date);
+
+
                 }
 
             }
@@ -481,12 +448,14 @@ public class attend_shower extends AppCompatActivity {
         }else if(sd.getString("Users_Data_Saver", "").equals("")){
             System.out.println("else if part ........user data daver not created yet....");
 
-
+            first_login.setVisibility(View.VISIBLE);
+            main_layout.setVisibility(View.GONE);
             if(getIntent().getBooleanExtra("sem_startday_set",false)){
                 fromDate=sem_start_date;
                 fromdate.setText(sem_start_date);
                 toDate=todays_date;
                 todate.setText(todays_date);
+
             }
 
 
@@ -544,8 +513,7 @@ public class attend_shower extends AppCompatActivity {
                             if(todate != null){
                                 loading.setVisibility(View.VISIBLE);
                                 maindisplay.setVisibility(View.GONE);
-//                                cookie_generator cookie_generator = new cookie_generator(after_gotCookies,sd);
-//                                cookie_generator.start();
+
                                 new Thread(new Worker(getApplicationContext(), "generate_cookie", sd, after_gotCookies)).start();
                             }
 
