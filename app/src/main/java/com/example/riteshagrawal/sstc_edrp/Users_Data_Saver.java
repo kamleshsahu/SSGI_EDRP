@@ -32,7 +32,7 @@ public class Users_Data_Saver implements Runnable {
                 prefsEditor.commit();
             }else if(!sd.getString("Users_Data_Saver", "").equals("")){
                 String json1 = sd.getString("Users_Data_Saver", "");
-           //system.out.println("here is json 1" + json1);
+           System.out.println("here is json 1" + json1);
                 UserDataSaverObject obj = gson.fromJson(json1, UserDataSaverObject.class);
                 list=obj.getList();
 
@@ -65,7 +65,7 @@ public class Users_Data_Saver implements Runnable {
                 String json = gson.toJson(new UserDataSaverObject(list));
                 prefsEditor.putString("Users_Data_Saver", json);
                 prefsEditor.commit();
-                //system.out.println("here is json 2" + json);
+               System.out.println("here is json 2" + json);
            //system.out.println("creating Users_Data_Saver in sd");
             }else{
            //system.out.println("dont know what to do....");
