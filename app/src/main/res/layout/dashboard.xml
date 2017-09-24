@@ -107,14 +107,14 @@
         android:gravity="center_horizontal"
         android:layout_width="0dp"
         android:layout_height="wrap_content">
-    <com.example.riteshagrawal.sstc_edrp.CircularProgressBar
-        android:background="@drawable/circle"
-        android:id="@+id/attendence_p"
-        style="@style/Widget.ProgressBar.Holo.CircularProgressBar"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
-        circular:cpb_title="0 %"
-        />
+
+        <com.example.riteshagrawal.sstc_edrp.CircularProgressBar
+            android:id="@+id/attendence_p"
+            style="@style/Widget.ProgressBar.Holo.CircularProgressBar"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:background="@drawable/circle"
+            circular:cpb_title="0 %" />
     </LinearLayout>
 
         </LinearLayout>

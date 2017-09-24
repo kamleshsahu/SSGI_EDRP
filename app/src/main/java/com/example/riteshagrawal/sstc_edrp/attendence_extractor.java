@@ -28,7 +28,7 @@ String dnld_data;
 
             ArrayList<attend_info_class> datalist = new ArrayList<>();
             Document doc = Jsoup.parse(dnld_data, "utf-8");
-            ////system.out.println(doc);
+            //System.out.println(doc);
 
             Elements tables = doc.getElementsByTag("table");
             Elements tr = tables.get(1).getElementsByTag("tr");
@@ -42,7 +42,7 @@ String dnld_data;
                 Element value = td2.get(k);
 
                 String[] kk = key.text().split(" ");
-                //  //system.out.println(kk.length);
+                //  System.out.println(kk.length);
                 if (kk.length == 4) {
                     datalist.add(new attend_info_class(kk[0], kk[1], kk[2], kk[3], value.text()));
                 } else if (kk.length == 2) {
@@ -58,15 +58,15 @@ String dnld_data;
                         attend_shower.StudentName = value.text();
                     } else if (kk[0].startsWith("%")) {
                         Attancence = value.text();
-                        //system.out.println("yipeee got the attendence % :" + Attancence);
+                        System.out.println("yipeee got the attendence % :" + Attancence);
                     }
                 }
             }
 
 
-            //   //system.out.println(datalist);
+            //   System.out.println(datalist);
             for (int k = 0; k < datalist.size(); k++) {
-                //system.out.println(datalist.get(k).getSubject() + " " + datalist.get(k).getOutOf() + ":" + datalist.get(k).getValue());
+                System.out.println(datalist.get(k).getSubject() + " " + datalist.get(k).getOutOf() + ":" + datalist.get(k).getValue());
             }
 
             attend_shower.datalist = datalist;
@@ -75,7 +75,7 @@ String dnld_data;
             handler.sendMessage(message);
         } catch (Exception e) {
                e.fillInStackTrace();
-            //system.out.println("attendence_extractor , attendence_extractor");
+            System.out.println("attendence_extractor , attendence_extractor");
             Message message = Message.obtain();
             message.obj = new customObject("", "error", "attendence_extractor error:"+e.toString());
             handler.sendMessage(message);

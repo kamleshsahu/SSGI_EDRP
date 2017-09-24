@@ -80,6 +80,7 @@ public class attend_shower extends AppCompatActivity {
         inflater.inflate(R.menu.menuitems,menu);
         MenuItem logout =menu.findItem(R.id.logout);
         MenuItem change_sem_startdate =menu.findItem(R.id.change_sem_startdate);
+        MenuItem rc =menu.findItem(R.id.rc);
          logout.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
              @Override
              public boolean onMenuItemClick(MenuItem menuItem) {
@@ -96,6 +97,16 @@ public class attend_shower extends AppCompatActivity {
                 startActivity(i);
                 attend_shower.this.finish();
 
+                return false;
+            }
+        });
+
+        rc.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                Intent i = new Intent( attend_shower.this,testmarks.class);
+                startActivity(i);
+                attend_shower.this.finish();
                 return false;
             }
         });
@@ -191,7 +202,7 @@ public class attend_shower extends AppCompatActivity {
         Date date1 = new Date();
 
         todays_Date = dateFormat1.format(date1);
-        //system.out.println("here is todays date :"+dateFormat.format(date));
+        System.out.println("here is todays date :"+dateFormat.format(date));
 
 
 
@@ -219,9 +230,9 @@ public class attend_shower extends AppCompatActivity {
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
-                //system.out.println("attend_shower,under logout handler");
+                System.out.println("attend_shower,under logout handler");
                 customObject data = (customObject) msg.obj;
-                //system.out.println(data.getResult());
+                System.out.println(data.getResult());
                 if(data.getResult().equals("success")){
 
                     Intent i = new Intent( attend_shower.this,MainActivity.class);
@@ -251,9 +262,9 @@ public class attend_shower extends AppCompatActivity {
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
-                //system.out.println("attend_shower,after_fetchAttendence handler");
+                System.out.println("attend_shower,after_fetchAttendence handler");
                 customObject data = (customObject) msg.obj;
-                //system.out.println(data.getResult());
+                System.out.println(data.getResult());
                 first_login.setVisibility(View.GONE);
                 main_layout.setVisibility(View.VISIBLE);
                     if(data.getResult().equals("success")){
@@ -280,7 +291,7 @@ public class attend_shower extends AppCompatActivity {
                             t.start();
                         }catch (Exception e){
                             e.fillInStackTrace();
-                            //system.out.println("saving user data error ");
+                            System.out.println("saving user data error ");
                         maindisplay.setVisibility(View.GONE);
                         loading.setVisibility(View.VISIBLE);
 
@@ -299,7 +310,7 @@ public class attend_shower extends AppCompatActivity {
 
                         }catch (Exception e){
                             e.fillInStackTrace();
-                            //system.out.println("here is the error :"+e.toString());
+                            System.out.println("here is the error :"+e.toString());
                             maindisplay.setVisibility(View.GONE);
                             loading.setVisibility(View.VISIBLE);
 
@@ -323,7 +334,7 @@ public class attend_shower extends AppCompatActivity {
                         @Override
                         public void onTabSelected(TabLayout.Tab tab) {
 
-                            ////system.out.println("selected tab :"+tab.getPosition());
+                            //System.out.println("selected tab :"+tab.getPosition());
                             tabindex=tab.getPosition();
                             simpleViewPager.setCurrentItem(tab.getPosition());
                         }
@@ -335,7 +346,7 @@ public class attend_shower extends AppCompatActivity {
 
                         @Override
                         public void onTabReselected(TabLayout.Tab tab) {
-                            ////system.out.println("Reselected tab :"+tab.getPosition());
+                            //System.out.println("Reselected tab :"+tab.getPosition());
                             tabindex=tab.getPosition();
                             simpleViewPager.setCurrentItem(tab.getPosition());
                         }
@@ -343,7 +354,7 @@ public class attend_shower extends AppCompatActivity {
 
 
                 }else if(data.getResult().equals("error")){
-                    //system.out.println("here is error msg :"+data.getErrorMsg());
+                    System.out.println("here is error msg :"+data.getErrorMsg());
                         progressBar.setVisibility(View.GONE);
                         error_msg_disp.setVisibility(View.VISIBLE);
                         error_msg_disp.setText(data.getErrorMsg());
@@ -359,10 +370,10 @@ public class attend_shower extends AppCompatActivity {
             public void handleMessage(Message msg) {
 
                 super.handleMessage(msg);
-                //system.out.println("after_gotUserinfo handler");
+                System.out.println("after_gotUserinfo handler");
                 customObject data = (customObject) msg.obj;
-                //system.out.println("here is result :"+data.getResult());
-                //system.out.println("here is msg : "+data.getMsg());
+                System.out.println("here is result :"+data.getResult());
+                System.out.println("here is msg : "+data.getMsg());
                 if(data.getResult().equals("success")){
                    Worker w=new Worker(getApplicationContext(), "fetch_attendence", sd, after_fetchAttendence);
                     w.setUrlParams(data.getMsg());
@@ -370,7 +381,7 @@ public class attend_shower extends AppCompatActivity {
 
                 }else{
 
-                    //system.out.println("here is error msg :"+data.getErrorMsg());
+                    System.out.println("here is error msg :"+data.getErrorMsg());
                     progressBar.setVisibility(View.GONE);
                     error_msg_disp.setVisibility(View.VISIBLE);
                     error_msg_disp.setText(data.getErrorMsg());
@@ -384,15 +395,15 @@ public class attend_shower extends AppCompatActivity {
             public void handleMessage(Message msg) {
 
                 super.handleMessage(msg);
-                //system.out.println("after_login handler");
+                System.out.println("after_login handler");
                 customObject data = (customObject) msg.obj;
-                //system.out.println(data.getResult());
+                System.out.println(data.getResult());
                 if(data.getResult().equals("success")){
 
 
                     if(!sem_start_date.equals("")) {
 //                        Toast.makeText(attend_shower.this, "not have user_info", Toast.LENGTH_SHORT).show();
-                        //system.out.println("after login handler,Not having user_info url");
+                        System.out.println("after login handler,Not having user_info url");
                         new Thread(new Worker(getApplicationContext(),"fetch_users_info",sd,after_gotUsersInfo)).start();
                     }else{
                         Intent i = new Intent( attend_shower.this,sem_startday_setter.class);
@@ -402,7 +413,7 @@ public class attend_shower extends AppCompatActivity {
 
                 }else{
 //                    Toast.makeText(getApplicationContext()," Error ",Toast.LENGTH_LONG).show();
-                    //system.out.println("after got cookies error :"+data.getResult());
+                    System.out.println("after got cookies error :"+data.getResult());
                     Intent i = new Intent(attend_shower.this,MainActivity.class);
                     i.putExtra("error_msg",data.getErrorMsg());
                     startActivity(i);
@@ -416,18 +427,18 @@ public class attend_shower extends AppCompatActivity {
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
 
-                //system.out.println("after_gotCookies handler");
+                System.out.println("after_gotCookies handler");
                 customObject data = (customObject) msg.obj;
-                //system.out.println(data.getResult());
+                System.out.println(data.getResult());
                 if(data.getResult().equals("success")){
 
                         if(logged_in) {
  //                       Toast.makeText(attend_shower.this, "logged in,no usr infos", Toast.LENGTH_SHORT).show();
-                        //system.out.println("after gotCookies,logged in,no usr infos");
+                        System.out.println("after gotCookies,logged in,no usr infos");
                         new Thread(new Worker(getApplicationContext(),"fetch_users_info",sd,after_gotUsersInfo)).start();
                     }else {
  //                       Toast.makeText(attend_shower.this, "not logged in", Toast.LENGTH_SHORT).show();
-                        //system.out.println("after gotCookies,not logged in");
+                        System.out.println("after gotCookies,not logged in");
                         new Thread(new Worker(getApplicationContext(), "login", sd, after_login)).start();
                     }
                 }else{
@@ -447,7 +458,7 @@ public class attend_shower extends AppCompatActivity {
 
         if(!sd.getString("Users_Data_Saver", "").equals("")) {
             String json1 = sd.getString("Users_Data_Saver", "");
-            //system.out.println("yeh user data reading ..........");
+            System.out.println("yeh user data reading ..........");
 
             UserDataSaverObject obj = gson.fromJson(json1, UserDataSaverObject.class);
 
@@ -491,7 +502,7 @@ public class attend_shower extends AppCompatActivity {
 
 
         }else if(sd.getString("Users_Data_Saver", "").equals("")){
-            //system.out.println("else if part ........user data daver not created yet....");
+            System.out.println("else if part ........user data daver not created yet....");
 
             main_layout.setVisibility(View.GONE);
             first_login.setVisibility(View.VISIBLE);
@@ -540,7 +551,7 @@ public class attend_shower extends AppCompatActivity {
 
                         if(tag==1) {
                             fromdate.setText(dayOfMonth+ " "+months[(monthOfYear)]+","+ String.valueOf(year).substring(2));
-                            //system.out.println("to date : "+dayOfMonth + "-" + months[(monthOfYear)] + "-" + year);
+                            System.out.println("to date : "+dayOfMonth + "-" + months[(monthOfYear)] + "-" + year);
                             fromDate=dayOfMonth + "-" + months[(monthOfYear)] + "-" + year;
 
                             String myDate =fromDate +" 00:00:00";
@@ -550,11 +561,11 @@ public class attend_shower extends AppCompatActivity {
                                 date = sdf.parse(myDate);
                             } catch (ParseException e) {
                                 e.printStackTrace();
-                                //system.out.println("bug in the  simple date format >>"+e.toString());
+                                System.out.println("bug in the  simple date format >>"+e.toString());
                             }
 
                             millis = date.getTime();
-                            //system.out.println("here is millis baby : "+millis);
+                            System.out.println("here is millis baby : "+millis);
 
                             if(todate != null){
                                 loading.setVisibility(View.VISIBLE);
@@ -566,7 +577,7 @@ public class attend_shower extends AppCompatActivity {
                         }else if(tag==2){
                             todate.setText(dayOfMonth + " " + months[(monthOfYear)]+","+ String.valueOf(year).substring(2));
                             toDate = dayOfMonth + "-" + months[(monthOfYear)] + "-" + year;
-                            //system.out.println("to date : " + dayOfMonth + "-" + months[(monthOfYear)] + "-" + year);
+                            System.out.println("to date : " + dayOfMonth + "-" + months[(monthOfYear)] + "-" + year);
 
                             loading.setVisibility(View.VISIBLE);
                             maindisplay.setVisibility(View.GONE);
@@ -591,7 +602,7 @@ public class attend_shower extends AppCompatActivity {
                     date = sdf.parse(myDate);
                 } catch (ParseException e) {
                     e.printStackTrace();
-                    //system.out.println("bug in the  simple date format " + e.toString());
+                    System.out.println("bug in the  simple date format " + e.toString());
                 }
 
                 millis = date.getTime();

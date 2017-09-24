@@ -14,7 +14,7 @@ public class customObject {
     private String dnlddata;
     private String[]RunDaysInt;
 
-
+    private ArrayList<reportcard> rclist;
 
     private ArrayList<Users_info_Object> infoList;
 
@@ -29,7 +29,13 @@ public class customObject {
     }
 
 
+    public ArrayList<reportcard> getRclist() {
+        return rclist;
+    }
 
+    public void setRclist(ArrayList<reportcard> rclist) {
+        this.rclist = rclist;
+    }
 
     public customObject(String senderId, String result, String msg) {
         this.senderId=senderId;

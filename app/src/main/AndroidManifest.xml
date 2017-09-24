@@ -23,6 +23,9 @@
         <activity android:name=".attend_shower"
             android:label="SSTC ATTENDANCE"
             android:screenOrientation="portrait"/>
+        <activity android:name=".testmarks"
+            android:label="Test Report"
+            android:screenOrientation="portrait"/>
         <activity android:name=".sem_startday_setter"
             android:label="Set SEM Start Date"
             android:screenOrientation="portrait"/>

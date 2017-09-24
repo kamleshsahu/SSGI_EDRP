@@ -37,7 +37,7 @@ DatePicker simpleDatePicker;
             date = sdf.parse(myDate);
         } catch (ParseException e) {
             e.printStackTrace();
-            //system.out.println("bug in the  simple date format >>"+e.toString());
+            System.out.println("bug in the  simple date format >>"+e.toString());
         }
 
         simpleDatePicker.setMaxDate(date.getTime());
@@ -49,12 +49,12 @@ DatePicker simpleDatePicker;
                 String year = "" + simpleDatePicker.getYear();
 
                 attend_shower.fromdate.setText(day+ " "+attend_shower.months[Integer.parseInt(month)]+","+ year.substring(2));
-                //system.out.println("to date : "+day + "-" + attend_shower.months[Integer.parseInt(month)] + "-" + year);
+                System.out.println("to date : "+day + "-" + attend_shower.months[Integer.parseInt(month)] + "-" + year);
                 attend_shower.fromDate=day + "-" + attend_shower.months[Integer.parseInt(month)] + "-" + year;
 
                 Toast.makeText(getApplicationContext(), day + "-" + month + "-" + year, Toast.LENGTH_LONG).show();
 
-                //system.out.println("date picked : "+day + "-" + month + "-" + year);
+                System.out.println("date picked : "+day + "-" + month + "-" + year);
 
                 String myDate =day+"-"+month+"-"+year +" 00:00:00";
                 SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
@@ -63,13 +63,13 @@ DatePicker simpleDatePicker;
                     date = sdf.parse(myDate);
                 } catch (ParseException e) {
                     e.printStackTrace();
-                    //system.out.println("bug in the  simple date format >>"+e.toString());
+                    System.out.println("bug in the  simple date format >>"+e.toString());
                 }
                 attend_shower.millis = date.getTime();
-                //system.out.println("here is millis baby : "+attend_shower.millis);
-                //system.out.println("here is sem start day before change :"+attend_shower.sem_start_date);
+                System.out.println("here is millis baby : "+attend_shower.millis);
+                System.out.println("here is sem start day before change :"+attend_shower.sem_start_date);
                 attend_shower.sem_start_date=day +"-"+attend_shower.months[Integer.parseInt(month)]+"-"+year;
-                //system.out.println("here is sem start day after change :"+attend_shower.sem_start_date);
+                System.out.println("here is sem start day after change :"+attend_shower.sem_start_date);
                 final Calendar c = Calendar.getInstance();
                 int mYear = c.get(Calendar.YEAR); // current year
                 int mMonth = c.get(Calendar.MONTH); // current month
@@ -77,7 +77,7 @@ DatePicker simpleDatePicker;
 
                 attend_shower.todate.setText(attend_shower.todays_date.split("-")[0]+" "+attend_shower.todays_date.split("-")[1]+","+attend_shower.todays_date.split("-")[1].substring(2));
                 attend_shower.toDate = attend_shower.todays_date;
-                //system.out.println("to date : " +attend_shower.todays_date);
+                System.out.println("to date : " +attend_shower.todays_date);
 
                     Users_info_Object obj = new Users_info_Object(
                             attend_shower.sd.getString("c_uname", ""),

@@ -22,10 +22,10 @@ public class Users_Data_Saver implements Runnable {
         Boolean elementRemoved=false;
         Gson gson = new Gson();
             if(sd.getString("Users_Data_Saver", "").equals("")) {
-              //system.out.println("Trains Saver is not there so creating Users_Data_Saver and then adding");
+              System.out.println("Trains Saver is not there so creating Users_Data_Saver and then adding");
              //   item.setSem_start_date(attend_shower.sem_start_date);
                 list.add(item);
-           //system.out.println("element added :"+item);
+           System.out.println("element added :"+item);
                 SharedPreferences.Editor prefsEditor = sd.edit();
                 String json = gson.toJson(new UserDataSaverObject(list));
                 prefsEditor.putString("Users_Data_Saver", json);
@@ -37,7 +37,7 @@ public class Users_Data_Saver implements Runnable {
                 list=obj.getList();
 
                int flag =0;
-               //system.out.println("list iterator on job...");
+               System.out.println("list iterator on job...");
                     for(Users_info_Object item0:list){
                         if(item0.getUname().equals(item.getUname()) && item0.getPass().equals(item.getPass())){
                             if(attend_shower.sem_start_date.equals("")) {
@@ -47,9 +47,9 @@ public class Users_Data_Saver implements Runnable {
                             }
                             list.remove(item0);
                             elementRemoved=true;
-                       ////system.out.println("element removed :"+item.getTrnNo());
+                       //System.out.println("element removed :"+item.getTrnNo());
                             list.add(item);
-                      //      //system.out.println("element added :"+item);
+                      //      System.out.println("element added :"+item);
                             flag=1;
                             break;
                         }
@@ -66,9 +66,9 @@ public class Users_Data_Saver implements Runnable {
                 prefsEditor.putString("Users_Data_Saver", json);
                 prefsEditor.commit();
                System.out.println("here is json 2" + json);
-           //system.out.println("creating Users_Data_Saver in sd");
+           System.out.println("creating Users_Data_Saver in sd");
             }else{
-           //system.out.println("dont know what to do....");
+           System.out.println("dont know what to do....");
             }
 
     }
