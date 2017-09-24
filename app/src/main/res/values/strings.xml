@@ -1,8 +1,14 @@
 <resources>
     <string name="app_name">SSTC Attendance</string>
-    <string name="about_us">People tend to think that "About Us" pages have to sound formal to gain credibility and trust. But most people find it easier to trust real human beings, rather than a description that sounds like it came from an automaton. Trying to sound too professional on your "About Us" page results in stiff, “safe” copy and design -- the perfect way to make sure your company blends in with the masses.
-
-Instead, Eight Hour Day showcases the people behind the company and humanizes its brand. Introducing the founders by name and featuring the photos of them on the "About Us" page drives home the point that Nathan and Katie are -- as they so astutely put it -- "two individuals with a passion for creativity -- creativity makes us happy."</string>
+    <string name="about_us">
+    Whether it’s coding, user interface design, graphic design, writing, or organizing,
+        if you’re looking for practice, there’s a task for you on an open source project.
+    Open source projects with warm, welcoming communities keep people coming back for years.
+        Many people form lifelong friendships through their participation in open source, whether it’s running into each other at conferences or late night online chats about burritos.
+    Working with others on a shared project means you’ll have to explain how you do things, as well as ask other people for help.
+        The acts of learning and teaching can be a fulfilling activity for everyone involved.
+     all of our open source work is public,
+        which means you can modify the project as well as help us for making our app better.</string>
     <string name="about_rishabh"></string>
     <string name="about_kamlesh"></string>
 </resources>
