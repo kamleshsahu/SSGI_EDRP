@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
 android:background="#f4f4f4"
+
     >
     
     <LinearLayout
@@ -73,7 +74,7 @@ android:background="#f4f4f4"
                     android:fontFamily="sans-serif-thin"
                     android:hint="STUDENT ID"
                     android:inputType="text"
-                    android:text=""
+                    android:text="BE20160467"
                     android:textAllCaps="true"
                     android:textColor="@color/colorPrimary"
                     android:textColorHint="#d1d1d1"
@@ -112,7 +113,7 @@ android:background="#f4f4f4"
                     android:fontFamily="sans-serif-thin"
                     android:hint="PASSWORD"
                     android:inputType="textPassword"
-                    android:text=""
+                    android:text="9644790733"
                     android:textColor="@color/colorAccent"
                     android:textColorHint="#d1d1d1"
                     android:textSize="20dp" />
@@ -134,6 +135,9 @@ android:background="#f4f4f4"
                 android:text="SIGN IN"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
+
+
         </LinearLayout>
+
     </LinearLayout>
 </RelativeLayout>

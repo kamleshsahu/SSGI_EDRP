@@ -7,34 +7,32 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 
 
 public class testmarks extends AppCompatActivity {
+
+//details.............
+//    boolean showingDetails = false;
+//    TextView lessMore;
+//    View v;
+
     final static Gson gson = new Gson();
+
+
 
     Handler logout_handler,after_login,after_gotCookies,after_gotUsersInfo,after_fetchRCdetails;
     static SharedPreferences sd=MainActivity.sd;
@@ -147,6 +145,27 @@ public class testmarks extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.testmarks);
+
+//Details................
+//        final TextView lessMore = (TextView) findViewById(R.id.less_more);
+//        RelativeLayout rootView = (RelativeLayout) findViewById(R.id.root_view);
+//        LayoutTransition layoutTransition = rootView.getLayoutTransition();
+//        layoutTransition.setDuration(300);
+//        layoutTransition.enableTransitionType(LayoutTransition.CHANGING);
+//        lessMore.findViewById(R.id.less_more).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if (showingDetails) {
+//                    findViewById(R.id.details).setVisibility(View.GONE);
+//                    lessMore.setText("More Details");
+//                } else {
+//                    findViewById(R.id.details).setVisibility(View.VISIBLE);
+//                    lessMore.setText("Less Details");
+//                }
+//                showingDetails = !showingDetails;
+//            }
+//        });
+
 
         final TextView name = (TextView) findViewById(R.id.name);
         final TextView branch = (TextView) findViewById(R.id.branch);
