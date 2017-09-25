@@ -32,10 +32,11 @@
         android:title="About App"
         app:showAsAction="never" />
     <item
+
         android:id="@+id/rc"
 
         android:title="Marks"
-        app:showAsAction="always" />
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/logout"

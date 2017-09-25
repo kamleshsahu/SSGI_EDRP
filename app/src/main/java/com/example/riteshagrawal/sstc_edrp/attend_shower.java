@@ -3,14 +3,15 @@ package com.example.riteshagrawal.sstc_edrp;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.PopupMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -21,7 +22,6 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 
 import com.google.gson.Gson;
 
@@ -164,7 +164,41 @@ public class attend_shower extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.attend_shower);
+        setContentView(R.layout.popup_float);
+
+
+//floating button popup menu
+        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PopupMenu popup = new PopupMenu(attend_shower.this,fab);
+                popup.getMenuInflater().inflate(R.menu.popup_menu, popup.getMenu());
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener(){
+                    public boolean onMenuItemClick(MenuItem item){
+
+                        switch (item.getItemId()) {
+                            case R.id.one:
+                                Toast.makeText(attend_shower.this, "one", Toast.LENGTH_SHORT).show();
+                                return true;
+                            case R.id.two:
+                                Toast.makeText(attend_shower.this, "two", Toast.LENGTH_SHORT).show();
+                                return true;
+                            case R.id.rc:
+                                Intent i = new Intent( attend_shower.this,testmarks.class);
+                                startActivity(i);
+                                attend_shower.this.finish();
+                                return true;
+                            default:
+                                return true;
+                        }
+                    }
+                });
+                popup.show();
+            }
+        });
+
+
 
         final TextView name =(TextView)findViewById(R.id.name);
         final TextView branch=(TextView)findViewById(R.id.branch);
