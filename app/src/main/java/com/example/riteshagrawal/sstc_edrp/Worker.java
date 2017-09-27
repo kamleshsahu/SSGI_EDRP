@@ -39,6 +39,9 @@ public class Worker implements Runnable {
     String final_call="http://182.71.130.11/x%40%40%401%40%40%4011/stud@_1276@@@@_@@@@@@/2@@@@@@@@@@att/s__att@@@@@@@@@@__s@@@all.asp";
     String logout_url="http://182.71.130.11/x%40%40%401%40%40%4011/logout.asp";
     String test_m1_url="http://182.71.130.11/x%40%40%401%40%40%4011/stud@_1276@@@@_@@@@@@/ct12@xcvbnm/marksofmondayexam1.asp";
+    String test_m2_url="http://182.71.130.11/x%40%40%401%40%40%4011/stud@_1276@@@@_@@@@@@/ct12@xcvbnm/marksofmondayexam2.asp";
+    String test_ct1_url="http://182.71.130.11/x%40%40%401%40%40%4011/stud@_1276@@@@_@@@@@@/ct12@xcvbnm/marksofctexam1.asp";
+    String test_ct2_url="http://182.71.130.11/x%40%40%401%40%40%4011/stud@_1276@@@@_@@@@@@/ct12@xcvbnm/marksofctexam2.asp";
 
     public Worker(Context context, String task_name,SharedPreferences sd,Handler handlermain) {
         this.context = context;
@@ -167,8 +170,17 @@ public class Worker implements Runnable {
                 get_Details_via_POST(after_UserInfo_dnld,"poster2",getDetails_url);
                 break;
 
-            case "fetch_RCdetails":
+            case "fetch_RCdetails_m1":
                 testreport_via_POST(after_reportcarddata_dnld,"",test_m1_url,urlParameters);
+                break;
+            case "fetch_RCdetails_m2":
+                testreport_via_POST(after_reportcarddata_dnld,"",test_m2_url,urlParameters);
+                break;
+            case "fetch_RCdetails_ct1":
+                testreport_via_POST(after_reportcarddata_dnld,"",test_ct1_url,urlParameters);
+                break;
+            case "fetch_RCdetails_ct2":
+                testreport_via_POST(after_reportcarddata_dnld,"",test_ct2_url,urlParameters);
                 break;
 
             case "logout":

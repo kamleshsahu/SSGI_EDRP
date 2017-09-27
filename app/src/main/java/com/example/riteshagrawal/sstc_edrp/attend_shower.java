@@ -172,7 +172,7 @@ public class attend_shower extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent i = new Intent( attend_shower.this,testmarks.class);
+                Intent i = new Intent( attend_shower.this,testreports.class);
                 startActivity(i);
                 attend_shower.this.finish();
 

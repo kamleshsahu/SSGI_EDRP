@@ -32,6 +32,9 @@
         <activity android:name=".about_us"
             android:label="About App"
             android:screenOrientation="portrait"/>
+        <activity android:name=".testreports"
+            android:label="ReportCard"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
