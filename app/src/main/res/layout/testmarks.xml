@@ -140,24 +140,22 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@drawable/tap"
                 android:orientation="vertical"
                 android:padding="2dp">
 
 
                 <TextView
+                    android:padding="1dp"
+                    android:background="#bfae16"
                     android:id="@+id/ReportCard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="-3dp"
-                    android:fontFamily="sans-serif-condensed"
+                    android:layout_marginTop="0dp"
+                    android:fontFamily="sans-serif-thin"
                     android:gravity="center_horizontal"
-                    android:hint="Report Card"
-                    android:onClick="datePicker"
-                    android:paddingBottom="1dp"
+                    android:text="REPORT CARD"
                     android:textColor="@color/white"
-                    android:textColorHint="@color/white"
-                    android:textSize="15sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -210,24 +208,23 @@
 
 
         <LinearLayout
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="8dp"
+            android:background="@color/white"
             android:id="@+id/maindisplay"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:visibility="visible">
 
-
-
-
             <ListView
+                android:layout_marginTop="7dp"
+                android:dividerHeight="10dp"
+                android:divider="#fff"
                 android:id="@+id/rc_listview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
             </ListView>
-
-
-
         </LinearLayout>
 
     </LinearLayout>

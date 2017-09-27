@@ -11,7 +11,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.PopupMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -172,29 +171,37 @@ public class attend_shower extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PopupMenu popup = new PopupMenu(attend_shower.this,fab);
-                popup.getMenuInflater().inflate(R.menu.popup_menu, popup.getMenu());
-                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener(){
-                    public boolean onMenuItemClick(MenuItem item){
 
-                        switch (item.getItemId()) {
-                            case R.id.one:
-                                Toast.makeText(attend_shower.this, "one", Toast.LENGTH_SHORT).show();
-                                return true;
-                            case R.id.two:
-                                Toast.makeText(attend_shower.this, "two", Toast.LENGTH_SHORT).show();
-                                return true;
-                            case R.id.rc:
-                                Intent i = new Intent( attend_shower.this,testmarks.class);
-                                startActivity(i);
-                                attend_shower.this.finish();
-                                return true;
-                            default:
-                                return true;
-                        }
-                    }
-                });
-                popup.show();
+                Intent i = new Intent( attend_shower.this,testmarks.class);
+                startActivity(i);
+                attend_shower.this.finish();
+
+
+//                PopupMenu popup = new PopupMenu(attend_shower.this,fab);
+//                popup.getMenuInflater().inflate(R.menu.popup_menu, popup.getMenu());
+//                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener(){
+//                    public boolean onMenuItemClick(MenuItem item){
+//
+//                        switch (item.getItemId()) {
+//                            case R.id.one:
+//                                Toast.makeText(attend_shower.this, "one", Toast.LENGTH_SHORT).show();
+//                                return true;
+//                            case R.id.two:
+//                                Toast.makeText(attend_shower.this, "two", Toast.LENGTH_SHORT).show();
+//                                return true;
+//                            case R.id.rc:
+//                                Intent i = new Intent( attend_shower.this,testmarks.class);
+//                                startActivity(i);
+//                                attend_shower.this.finish();
+//                                return true;
+//                            default:
+//                                return true;
+//                        }
+//                    }
+//                });
+//                popup.show();
+
+
             }
         });
 

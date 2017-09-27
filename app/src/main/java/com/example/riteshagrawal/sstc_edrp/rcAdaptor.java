@@ -38,7 +38,7 @@ class rcAdaptor extends BaseAdapter  {
         TextView subject;
         TextView percent;
         TextView maxmarks;
-        TextView minmarks;
+        //TextView minmarks;
 
         TextView value;
         TextView status;
@@ -70,7 +70,7 @@ class rcAdaptor extends BaseAdapter  {
 
            holder.subject= (TextView) view.findViewById(R.id.subject);
            holder.maxmarks= (TextView) view.findViewById(R.id.max_marks);
-           holder.minmarks= (TextView) view.findViewById(R.id.min_marks);
+          // holder.minmarks= (TextView) view.findViewById(R.id.min_marks);
            holder.value= (TextView) view.findViewById(R.id.value);
            holder.percent= (TextView) view.findViewById(R.id.percent);
            holder.status= (TextView) view.findViewById(R.id.status);
@@ -86,7 +86,7 @@ class rcAdaptor extends BaseAdapter  {
 
        holder.subject.setText(animalNamesList.get(position).getSubject());
        holder.maxmarks.setText(animalNamesList.get(position).getMaxmarks());
-       holder.minmarks.setText(animalNamesList.get(position).getMinmarks());
+     //  holder.minmarks.setText(animalNamesList.get(position).getMinmarks());
        holder.value.setText(animalNamesList.get(position).getValue());
        holder.status.setText(animalNamesList.get(position).getStatus());
        holder.percent.setText(animalNamesList.get(position).getPercent());
