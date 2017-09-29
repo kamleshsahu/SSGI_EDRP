@@ -64,6 +64,10 @@ public class M1 extends Fragment {
 
         rootView = inflater.inflate(R.layout.listholder, container, false);
         listview = (ListView)rootView.findViewById(R.id.rc_listview);
+        loading =(LinearLayout)rootView.findViewById(R.id.loading);
+        progressbar =(ProgressBar)rootView.findViewById(R.id.progressBar);
+        disp_msg=(TextView)rootView.findViewById(R.id.disp_msg);
+        retryButton=(Button)rootView.findViewById(R.id.retryButton);
         after_fetchRCdetails = new Handler() {
             @Override
             public void handleMessage(Message msg) {
@@ -72,10 +76,10 @@ public class M1 extends Fragment {
                 customObject data = (customObject) msg.obj;
                 System.out.println(data.getResult());
 
-             //   main_layout.setVisibility(View.VISIBLE);
+
                 if (data.getResult().equals("success")) {
-             //       loading.setVisibility(View.GONE);
-           //         maindisplay.setVisibility(View.VISIBLE);
+                    loading.setVisibility(View.GONE);
+                    listview.setVisibility(View.VISIBLE);
 
                     try {
                         System.out.println("here is the first subject :" + data.getRclist().get(0).getSubject());
@@ -110,10 +114,10 @@ public class M1 extends Fragment {
 //                    }
                 } else if (data.getResult().equals("error")) {
                     System.out.println("here is error msg :" + data.getErrorMsg());
-//                    progressBar.setVisibility(View.GONE);
-//                    error_msg_disp.setVisibility(View.VISIBLE);
-//                    error_msg_disp.setText(data.getErrorMsg());
-       //             retryButton.setVisibility(View.VISIBLE);
+                    progressbar.setVisibility(View.GONE);
+                   disp_msg.setVisibility(View.VISIBLE);
+                    disp_msg.setText(data.getErrorMsg());
+                   retryButton.setVisibility(View.VISIBLE);
 
                 }
             }
@@ -137,10 +141,10 @@ public class M1 extends Fragment {
                 } else {
 
                     System.out.println("here is error msg :" + data.getErrorMsg());
-//                    progressBar.setVisibility(View.GONE);
-//                    error_msg_disp.setVisibility(View.VISIBLE);
-//                    error_msg_disp.setText(data.getErrorMsg());
-          //          retryButton.setVisibility(View.VISIBLE);
+                    progressbar.setVisibility(View.GONE);
+                    disp_msg.setVisibility(View.VISIBLE);
+                    disp_msg.setText(data.getErrorMsg());
+                    retryButton.setVisibility(View.VISIBLE);
                 }
             }
         };
@@ -159,7 +163,10 @@ public class M1 extends Fragment {
 
 
                 } else {
-
+                    progressbar.setVisibility(View.GONE);
+                    disp_msg.setVisibility(View.VISIBLE);
+                    disp_msg.setText(data.getErrorMsg());
+                    retryButton.setVisibility(View.VISIBLE);
                 }
             }
         };
@@ -185,11 +192,10 @@ public class M1 extends Fragment {
                     }
                 } else {
 
-//                    main_layout.setVisibility(View.VISIBLE);
-//                    progressBar.setVisibility(View.GONE);
-//                    error_msg_disp.setVisibility(View.VISIBLE);
-//                    error_msg_disp.setText(data.getErrorMsg());
-       //            retryButton.setVisibility(View.VISIBLE);
+                    progressbar.setVisibility(View.GONE);
+                    disp_msg.setVisibility(View.VISIBLE);
+                    disp_msg.setText(data.getErrorMsg());
+                    retryButton.setVisibility(View.VISIBLE);
                 }
             }
         };

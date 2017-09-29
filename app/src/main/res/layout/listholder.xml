@@ -10,10 +10,53 @@
         android:layout_marginTop="7dp"
         android:dividerHeight="10dp"
         android:divider="#fff"
+        android:visibility="gone"
         android:id="@+id/rc_listview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     </ListView>
+    <LinearLayout
+        android:id="@+id/loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="100sp"
+            android:progressDrawable="@drawable/circular_progress_bar"
+            android:visibility="visible" />
+
+        <TextView
+            android:fontFamily="sans-serif-condensed"
+            android:textSize="12sp"
+            android:layout_marginBottom="10dp"
+            android:id="@+id/disp_msg"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="60sp"
+            android:gravity="center"
+            android:text="RETRY"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/retryButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="220sp"
+            android:background="@drawable/retry"
+            android:onClick="RetryTask"
+            android:textColor="#fff"
+            android:visibility="gone" />
+    </LinearLayout>
 
 
 </LinearLayout>

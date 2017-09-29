@@ -6,6 +6,10 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -20,6 +24,21 @@ public class testreports extends AppCompatActivity{
     static SharedPreferences sd=MainActivity.sd;
     final static Gson gson = new Gson();
     static int tabindex=-1;
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater=getMenuInflater();
+        inflater.inflate(R.menu.menuitems,menu);
+        MenuItem item =menu.findItem(R.id.refresh);
+        item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                recreate();
+                return false;
+            }
+        });
+        return super.onCreateOptionsMenu(menu);
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,5 +129,7 @@ public class testreports extends AppCompatActivity{
     }
 
 
-
+    public void RetryTask(View view) {
+        recreate();
+    }
 }

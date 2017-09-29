@@ -30,31 +30,35 @@ String dnld_data;
 
 
             Elements tables =doc.getElementsByTag("table");
-            Elements tr=tables.get(1).getElementsByTag("tr");
 
 
-            Elements td2= tr.get(2).getElementsByTag("td");
+               Elements tr = tables.get(1).getElementsByTag("tr");
+            if(tr.size()>1) {
+                for (int m = 1; m < tr.size(); m++) {
+                    Elements td1 = tr.get(m).getElementsByTag("td");
+                    datalist.add(new reportcard(td1.get(0).text(), td1.get(1).text(), td1.get(2).text(), td1.get(3).text(), td1.get(4).text(), td1.get(5).text()));
+                }
 
 
-            for(int m=1;m<tr.size();m++) {
-                Elements td1= tr.get(m).getElementsByTag("td");
-                datalist.add(new reportcard(td1.get(0).text(),td1.get(1).text(),td1.get(2).text(),td1.get(3).text(),td1.get(4).text(),td1.get(5).text()));
+                for (int k = 0; k < datalist.size(); k++) {
+                    reportcard r = (reportcard) datalist.get(k);
+                    System.out.println(r.getSubject() + "\n" + r.getMaxmarks() + "\n" + r.getMaxmarks() + "\n" + r.getMinmarks() + "\n" + r.getValue() + "\n" + r.getPercent() + "\n" + r.getStatus());
+                    System.out.println("\n");
+                }
+
+                // attend_shower.datalist = datalist;
+                Message message = Message.obtain();
+                customObject obj = new customObject("", "success", "");
+                obj.setRclist(datalist);
+                message.obj = obj;
+                handler.sendMessage(message);
+            }else {
+                Message message = Message.obtain();
+                customObject obj = new customObject("", "error", "result not yet published");
+            //    obj.setRclist(datalist);
+                message.obj = obj;
+                handler.sendMessage(message);
             }
-
-
-
-            for(int k=0;k<datalist.size();k++){
-                reportcard r=(reportcard)datalist.get(k);
-                System.out.println(r.getSubject()+"\n"+r.getMaxmarks()+"\n"+r.getMaxmarks()+"\n"+r.getMinmarks()+"\n"+r.getValue()+"\n"+r.getPercent()+"\n"+r.getStatus());
-                System.out.println("\n");
-            }
-
-           // attend_shower.datalist = datalist;
-            Message message = Message.obtain();
-            customObject obj = new customObject("", "success","");
-            obj.setRclist(datalist);
-            message.obj=obj;
-            handler.sendMessage(message);
         } catch (Exception e) {
                e.fillInStackTrace();
             System.out.println("attendence_extractor , attendence_extractor");
