@@ -36,7 +36,7 @@ public class Details_F extends Fragment {
     View rootView;
     GridView listView;
     detailsAdaptor adaptor =null;
-    ArrayList<attend_info_class> datalist=attend_shower.datalist;
+    ArrayList<attend_info_class> datalist=MatchingActivity.datalist;
 
 
     public Details_F() {

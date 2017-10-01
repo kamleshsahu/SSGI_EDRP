@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:weightSum="1">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="0.5dp"
+        android:elevation="0dp"
+        android:paddingBottom="0dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:padding="2dp">
+
+
+            <TextView
+                android:padding="1dp"
+                android:background="#bfae16"
+                android:id="@+id/ReportCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:fontFamily="sans-serif-thin"
+                android:gravity="center_horizontal"
+                android:text="REPORT CARD"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/sTabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:visibility="visible"
+                app:tabBackground="@color/colorPrimary"
+                app:tabIndicatorColor="#ffffff"
+                app:tabSelectedTextColor="@color/white"
+                app:tabTextColor="@color/white" />
+            <LinearLayout
+                android:background="@color/colorPrimary"
+                android:layout_below="@id/sTabLayout"
+                android:id="@+id/blueline"
+                android:layout_width="match_parent"
+                android:layout_height="1.5dp"
+                android:orientation="horizontal"></LinearLayout>
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/simpleViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+</LinearLayout>

@@ -48,14 +48,14 @@ String dnld_data;
                 } else if (kk.length == 2) {
                     // datalist.add(new attend_info_class("","",kk[0],kk[1],value.text()));
                     if (kk[0].startsWith("Tot")) {
-                        attend_shower.Total_lectures = kk[1];
-                        attend_shower.Attended_lectures = value.text();
+                        MatchingActivity.Total_lectures = kk[1];
+                        MatchingActivity.Attended_lectures = value.text();
                     }
 
                 } else {
                     // datalist.add(new attend_info_class("","",kk[0],"",value.text()));
                     if (kk[0].startsWith("studentname")) {
-                        attend_shower.StudentName = value.text();
+                        MatchingActivity.StudentName = value.text();
                     } else if (kk[0].startsWith("%")) {
                         Attancence = value.text();
                         System.out.println("yipeee got the attendence % :" + Attancence);
@@ -69,7 +69,7 @@ String dnld_data;
                 System.out.println(datalist.get(k).getSubject() + " " + datalist.get(k).getOutOf() + ":" + datalist.get(k).getValue());
             }
 
-            attend_shower.datalist = datalist;
+            MatchingActivity.datalist = datalist;
             Message message = Message.obtain();
             message.obj = new customObject("", "success", Attancence);
             handler.sendMessage(message);

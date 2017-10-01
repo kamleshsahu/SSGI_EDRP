@@ -12,7 +12,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity"
             android:screenOrientation="portrait"
-            android:label="SSTC ATTENDANCE">
+            android:label="SSTC EDRP">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,21 +20,20 @@
             </intent-filter>
 
         </activity>
-        <activity android:name=".attend_shower"
-            android:label="SSTC ATTENDANCE"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".testmarks"
-            android:label="Test Report"
-            android:screenOrientation="portrait"/>
         <activity android:name=".sem_startday_setter"
             android:label="Set SEM Start Date"
             android:screenOrientation="portrait"/>
         <activity android:name=".about_us"
             android:label="About App"
             android:screenOrientation="portrait"/>
-        <activity android:name=".testreports"
-            android:label="ReportCard"
+        <activity android:name=".MatchingActivity"
+            android:label="SSTC EDRP"
             android:screenOrientation="portrait"/>
+
+        <activity android:name=".WatchlistActivity"
+            android:label="SSTC EDRP"
+            android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>

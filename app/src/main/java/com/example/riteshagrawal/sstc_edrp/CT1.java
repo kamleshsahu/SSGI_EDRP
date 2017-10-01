@@ -20,24 +20,20 @@ import android.widget.TextView;
 
 public class CT1 extends Fragment {
 
-    LinearLayout disp_content,loading;
-    Handler OnCreateHandler;
-    String dnlddata=null;
+    LinearLayout loading;
+
     ProgressBar progressbar;
     TextView disp_msg;
     Button retryButton;
-    Thread thread0 = null;
+
     View rootView;
     Handler handler;
     private boolean isViewShown = false;
-    String data1;
+
     TabLayout tabLayout;
-    private Context mContext;
-    private PopupWindow mPopupWindow;
-    Handler logout_handler,after_login,after_gotCookies,after_gotUsersInfo,after_fetchRCdetails;
-    public void setTabLayout(TabLayout tabLayout) {
-        this.tabLayout = tabLayout;
-    }
+
+    Handler after_login,after_gotCookies,after_gotUsersInfo,after_fetchRCdetails;
+
     static SharedPreferences sd=MainActivity.sd;
     ListView listview;
     rcAdaptor adaptor =null;
@@ -90,27 +86,26 @@ public class CT1 extends Fragment {
                         e.fillInStackTrace();
                         System.out.println("here is the bug :" + e.toString());
                     }
-//
-//                    try {
-//                        rollno.setText("" + list.get(2).getValue() + "");
-//                        batch.setText("Batch :" + list.get(3).getValue() + "");
-//                        branch.setText("Branch :" + list.get(6).getValue() + "");
-//                        sem.setText("Sem :" + list.get(7).getValue() + "");
-//                        sec.setText("Sec :" + list.get(8).getValue() + "");
-//                        //   name.setText(StudentName);
-//
-//
-//                    } catch (Exception e) {
-//                        e.fillInStackTrace();
-//                        System.out.println("here is the error :" + e.toString());
-//                        maindisplay.setVisibility(View.GONE);
-//                        loading.setVisibility(View.VISIBLE);
-//
-//                        progressBar.setVisibility(View.GONE);
-//                        error_msg_disp.setVisibility(View.VISIBLE);
-//                        error_msg_disp.setText("putting value in display error :" + e.toString());
-//                        retryButton.setVisibility(View.VISIBLE);
-//                    }
+
+                    try {baseactivity.rollno.setText("" + baseactivity.list.get(2).getValue() + "");
+                        baseactivity.batch.setText("Batch :" + baseactivity.list.get(3).getValue() + "");
+                        baseactivity.branch.setText("Branch :" + baseactivity.list.get(6).getValue() + "");
+                        baseactivity.sem.setText("Sem :" + baseactivity.list.get(7).getValue() + "");
+                        baseactivity.sec.setText("Sec :" + baseactivity.list.get(8).getValue() + "");
+                        baseactivity.name.setText(baseactivity.StudentName);
+
+
+                    } catch (Exception e) {
+                        e.fillInStackTrace();
+                        System.out.println("here is the error :" + e.toString());
+
+                        loading.setVisibility(View.VISIBLE);
+                        listview.setVisibility(View.GONE);
+                        progressbar.setVisibility(View.GONE);
+                        disp_msg.setVisibility(View.VISIBLE);
+                        disp_msg.setText("putting value in display error :" + e.toString());
+                        retryButton.setVisibility(View.VISIBLE);
+                    }
                 } else if (data.getResult().equals("error")) {
                     System.out.println("here is error msg :" + data.getErrorMsg());
                     progressbar.setVisibility(View.GONE);
@@ -204,8 +199,8 @@ public class CT1 extends Fragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        System.out.println("SetUserVisible,isVisibleToUser :"+isVisibleToUser+",current tab :"+ testreports.tabindex);
-        if (isVisibleToUser && testreports.tabindex == 1) {
+        System.out.println("SetUserVisible,isVisibleToUser :"+isVisibleToUser+",current tab :"+ WatchlistActivity.tabindex);
+        if (isVisibleToUser && WatchlistActivity.tabindex == 1) {
 
             System.out.println("first if ..........");
             Thread cheaker= new Thread("threadT1"){
@@ -249,7 +244,7 @@ public class CT1 extends Fragment {
 //
             cheaker.start();
         }else{
-            System.out.println("else part of isVisibleToUser && tbts_test.tabindex :"+ testreports.tabindex);
+            System.out.println("else part of isVisibleToUser && tbts_test.tabindex :"+ WatchlistActivity.tabindex);
         }
     }
 

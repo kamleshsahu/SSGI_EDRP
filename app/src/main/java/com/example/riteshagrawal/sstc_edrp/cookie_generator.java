@@ -108,7 +108,7 @@ static void getkeyval()
                     result= localObject1.toString();
 
                                     gotthekey=true;
-                                    attend_shower.cookie_generated=true;
+                                    baseactivity.cookie_generated=true;
 
 
 

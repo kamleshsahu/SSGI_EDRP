@@ -53,14 +53,14 @@ String dnld_data;
             list.add(new Users_info_Object("toDate","14-AUG-2017"));
 //            urlParams += "dc1=01-AUG-2017&";
 //            urlParams += "dc2=14-AUG-2017&";
-            urlParams += "dc1="+attend_shower.fromDate+"&";
-            urlParams += "dc2="+attend_shower.toDate+"&";
+            urlParams += "dc1="+MatchingActivity.fromDate+"&";
+            urlParams += "dc2="+MatchingActivity.toDate+"&";
             urlParams += "apercent=ALL&";
             urlParams += "reporttype=Attendance Report";
             System.out.println("here is url params : " + urlParams);
 
 
-            attend_shower.list=list;
+            baseactivity.list=list;
             Message message = Message.obtain();
             message.obj = new customObject("","success" ,urlParams);
             handler.sendMessage(message);

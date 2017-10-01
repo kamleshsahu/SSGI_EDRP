@@ -29,7 +29,7 @@ public class Worker implements Runnable {
     private Context context;
     private String task_name;
     private String urlParameters;
-    ConnectivityManager mgr = (ConnectivityManager)MainActivity.appContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+    ConnectivityManager mgr = (ConnectivityManager)baseactivity.appContext.getSystemService(Context.CONNECTIVITY_SERVICE);
     NetworkInfo netInfo = mgr.getActiveNetworkInfo();
     private Handler handler;
     Handler dnld_handler,after_UserInfo_dnld, after_attendencedata_dnld,after_reportcarddata_dnld;
@@ -148,7 +148,7 @@ public class Worker implements Runnable {
     private void task_identifier(String task_name){
         switch (task_name){
             case "generate_cookie":
-                if(attend_shower.cookie_generated){
+                if(baseactivity.cookie_generated){
                     System.out.println(" task identifier, cookie is already available !!! ");
                     Message message = Message.obtain();
                     message.obj = new customObject("", "success", "");
@@ -272,7 +272,7 @@ public class Worker implements Runnable {
                                 Message message = Message.obtain();
                                 message.obj = new customObject(task_name,"success" ,result);
                                 dnld_handler.sendMessage(message);
-                                attend_shower.logged_in=true;
+                               baseactivity.logged_in=true;
 
 //                                if(in !=null){
 //                                    try {

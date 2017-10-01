@@ -40,10 +40,10 @@ public class Users_Data_Saver implements Runnable {
                System.out.println("list iterator on job...");
                     for(Users_info_Object item0:list){
                         if(item0.getUname().equals(item.getUname()) && item0.getPass().equals(item.getPass())){
-                            if(attend_shower.sem_start_date.equals("")) {
+                            if(baseactivity.sem_start_date.equals("")) {
                                 item.setSem_start_date(item0.getSem_start_date());
                             }else{
-                                item.setSem_start_date(attend_shower.sem_start_date);
+                                item.setSem_start_date(baseactivity.sem_start_date);
                             }
                             list.remove(item0);
                             elementRemoved=true;
