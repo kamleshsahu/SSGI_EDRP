@@ -77,7 +77,6 @@ public class baseactivity extends AppCompatActivity {
         inflater.inflate(R.menu.menuitems,menu);
         MenuItem logout =menu.findItem(R.id.logout);
         MenuItem change_sem_startdate =menu.findItem(R.id.change_sem_startdate);
-        MenuItem rc =menu.findItem(R.id.rc);
         logout.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {

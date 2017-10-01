@@ -23,7 +23,7 @@
 
             <TextView
                 android:padding="1dp"
-                android:background="#bfae16"
+                android:background="@color/colorPrimary"
                 android:id="@+id/ReportCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

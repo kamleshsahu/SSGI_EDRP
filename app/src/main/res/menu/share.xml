@@ -13,7 +13,6 @@
     <item
         android:id="@+id/share"
         android:actionProviderClass="android.widget.ShareActionProvider"
-        android:icon="@android:drawable/ic_menu_share"
         android:title="Share"
         app:showAsAction="never" />
     <item
