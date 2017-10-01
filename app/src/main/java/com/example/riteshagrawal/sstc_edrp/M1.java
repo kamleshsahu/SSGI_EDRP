@@ -13,12 +13,13 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
 public class M1 extends Fragment {
 
-    LinearLayout loading;
+    RelativeLayout loading;
 
 
     ProgressBar progressbar;
@@ -58,7 +59,7 @@ public class M1 extends Fragment {
 
         rootView = inflater.inflate(R.layout.listholder, container, false);
         listview = (ListView)rootView.findViewById(R.id.rc_listview);
-        loading =(LinearLayout)rootView.findViewById(R.id.loading);
+        loading =(RelativeLayout) rootView.findViewById(R.id.loading);
         progressbar =(ProgressBar)rootView.findViewById(R.id.progressBar);
         disp_msg=(TextView)rootView.findViewById(R.id.disp_msg);
         retryButton=(Button)rootView.findViewById(R.id.retryButton);
