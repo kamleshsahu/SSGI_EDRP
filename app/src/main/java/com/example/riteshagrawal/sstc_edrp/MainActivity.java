@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         }else {
            // LoginParams="uname="+"BE20160467"+"&"+"password="+"9644790733"+"&cmbsession=JUL-17";
             //sd.edit().putString("loginParams", LoginParams).apply();
-            Intent i = new Intent(MainActivity.this, MatchingActivity.class);
+            Intent i = new Intent(MainActivity.this, AttendenceActivity.class);
             startActivity(i);
         }
        // sd.edit().putString("uname=0201160139&password=9981140217&cmbsession=JUL-17")
@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
             sd.edit().putString("c_uname", id.getText().toString().toUpperCase()).apply();
             sd.edit().putString("c_pass", pass.getText().toString()).apply();
             sd.edit().putString("loginParams", LoginParams).apply();
-            Intent i = new Intent(MainActivity.this, MatchingActivity.class);
+            Intent i = new Intent(MainActivity.this, AttendenceActivity.class);
             startActivity(i);
             MainActivity.this.finish();
 

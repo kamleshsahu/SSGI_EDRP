@@ -14,10 +14,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -52,7 +50,7 @@ public class baseactivity extends AppCompatActivity {
                 case R.id.navigation_home:
 
 
-                    in=new Intent(getApplicationContext(),MatchingActivity.class);
+                    in=new Intent(getApplicationContext(),AttendenceActivity.class);
                     startActivity(in);
                     finish();
                     overridePendingTransition(0, 0);
@@ -60,7 +58,7 @@ public class baseactivity extends AppCompatActivity {
                     return true;
                 case R.id.navigation_dashboard:
 
-                    in = new Intent(getApplicationContext(), WatchlistActivity.class);
+                    in = new Intent(getApplicationContext(), ReportCardActivity.class);
                     startActivity(in);
                     finish();
                     overridePendingTransition(0, 0);

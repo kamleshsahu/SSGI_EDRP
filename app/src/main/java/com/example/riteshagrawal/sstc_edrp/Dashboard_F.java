@@ -60,8 +60,8 @@ public class Dashboard_F extends Fragment {
 
         int val=0;
 try{
-   // val = Integer.parseInt(MatchingActivity.attend_val.split("\\.")[0]);
-    val =(int)Float.parseFloat(MatchingActivity.attend_val);
+   // val = Integer.parseInt(AttendenceActivity.attend_val.split("\\.")[0]);
+    val =(int)Float.parseFloat(AttendenceActivity.attend_val);
 }catch (Exception e){
     e.fillInStackTrace();
     val=0;
@@ -78,7 +78,7 @@ try{
 
             @Override
             public void onAnimationProgress(int progress) {
-                attendence.setTitle(MatchingActivity.attend_val+" %");
+                attendence.setTitle(AttendenceActivity.attend_val+" %");
             }
 
             @Override
@@ -94,11 +94,11 @@ try{
         TextView attended_Lectures=(TextView)rootView.findViewById(R.id.attended_lectures);
         TextView bw_dates=(TextView)rootView.findViewById(R.id.bw_dates);
 
-       //attendence.setText(MatchingActivity.attend_val);
-        System.out.println("here is attendence percent : "+MatchingActivity.attend_val);
-        attended_Lectures.setText(MatchingActivity.Attended_lectures);
-        total_Lectures.setText(MatchingActivity.Total_lectures);
-        bw_dates.setText(MatchingActivity.fromdate.getText() +" - "+ MatchingActivity.todate.getText());
+       //attendence.setText(AttendenceActivity.attend_val);
+        System.out.println("here is attendence percent : "+ AttendenceActivity.attend_val);
+        attended_Lectures.setText(AttendenceActivity.Attended_lectures);
+        total_Lectures.setText(AttendenceActivity.Total_lectures);
+        bw_dates.setText(AttendenceActivity.fromdate.getText() +" - "+ AttendenceActivity.todate.getText());
         return rootView;
     }
 }

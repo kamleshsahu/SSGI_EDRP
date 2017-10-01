@@ -21,7 +21,7 @@ DatePicker simpleDatePicker;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sem_startday_setter);
-        MatchingActivity.flag=0;
+        AttendenceActivity.flag=0;
 
         //back button
        // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -29,7 +29,7 @@ DatePicker simpleDatePicker;
 
         submit =(Button)findViewById(R.id.submitButton);
         simpleDatePicker = (DatePicker)findViewById(R.id.simpleDatePicker);
-        String myDate =MatchingActivity.todays_date +" 00:00:00";
+        String myDate = AttendenceActivity.todays_date +" 00:00:00";
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
         Date date = null;
 
@@ -48,9 +48,9 @@ DatePicker simpleDatePicker;
                 String month = "" + (simpleDatePicker.getMonth() );
                 String year = "" + simpleDatePicker.getYear();
 
-                MatchingActivity.fromdate.setText(day+ " "+MatchingActivity.months[Integer.parseInt(month)]+","+ year.substring(2));
-                System.out.println("to date : "+day + "-" + MatchingActivity.months[Integer.parseInt(month)] + "-" + year);
-                MatchingActivity.fromDate=day + "-" + MatchingActivity.months[Integer.parseInt(month)] + "-" + year;
+                AttendenceActivity.fromdate.setText(day+ " "+ AttendenceActivity.months[Integer.parseInt(month)]+","+ year.substring(2));
+                System.out.println("to date : "+day + "-" + AttendenceActivity.months[Integer.parseInt(month)] + "-" + year);
+                AttendenceActivity.fromDate=day + "-" + AttendenceActivity.months[Integer.parseInt(month)] + "-" + year;
 
                 Toast.makeText(getApplicationContext(), day + "-" + month + "-" + year, Toast.LENGTH_LONG).show();
 
@@ -65,33 +65,33 @@ DatePicker simpleDatePicker;
                     e.printStackTrace();
                     System.out.println("bug in the  simple date format >>"+e.toString());
                 }
-                MatchingActivity.millis = date.getTime();
-                System.out.println("here is millis baby : "+MatchingActivity.millis);
-                System.out.println("here is sem start day before change :"+MatchingActivity.sem_start_date);
-                MatchingActivity.sem_start_date=day +"-"+MatchingActivity.months[Integer.parseInt(month)]+"-"+year;
-                System.out.println("here is sem start day after change :"+MatchingActivity.sem_start_date);
+                AttendenceActivity.millis = date.getTime();
+                System.out.println("here is millis baby : "+ AttendenceActivity.millis);
+                System.out.println("here is sem start day before change :"+ AttendenceActivity.sem_start_date);
+                AttendenceActivity.sem_start_date=day +"-"+ AttendenceActivity.months[Integer.parseInt(month)]+"-"+year;
+                System.out.println("here is sem start day after change :"+ AttendenceActivity.sem_start_date);
                 final Calendar c = Calendar.getInstance();
                 int mYear = c.get(Calendar.YEAR); // current year
                 int mMonth = c.get(Calendar.MONTH); // current month
                 int mDay = c.get(Calendar.DAY_OF_MONTH); // current day
 
-                MatchingActivity.todate.setText(MatchingActivity.todays_date.split("-")[0]+" "+MatchingActivity.todays_date.split("-")[1]+","+MatchingActivity.todays_date.split("-")[1].substring(2));
-                MatchingActivity.toDate = MatchingActivity.todays_date;
-                System.out.println("to date : " +MatchingActivity.todays_date);
+                AttendenceActivity.todate.setText(AttendenceActivity.todays_date.split("-")[0]+" "+ AttendenceActivity.todays_date.split("-")[1]+","+ AttendenceActivity.todays_date.split("-")[1].substring(2));
+                AttendenceActivity.toDate = AttendenceActivity.todays_date;
+                System.out.println("to date : " + AttendenceActivity.todays_date);
 
                     Users_info_Object obj = new Users_info_Object(
-                            MatchingActivity.sd.getString("c_uname", ""),
-                            MatchingActivity.sd.getString("c_pass", ""),
-                            day +"-"+MatchingActivity.months[Integer.parseInt(month)]+"-"+year
+                            AttendenceActivity.sd.getString("c_uname", ""),
+                            AttendenceActivity.sd.getString("c_pass", ""),
+                            day +"-"+ AttendenceActivity.months[Integer.parseInt(month)]+"-"+year
                     );
-                    Thread t = new Thread(new Users_Data_Saver(MatchingActivity.sd, obj));
+                    Thread t = new Thread(new Users_Data_Saver(AttendenceActivity.sd, obj));
                     t.start();
 
 
-                MatchingActivity.cookie_generated=false;
-                MatchingActivity.logged_in=false;
+                AttendenceActivity.cookie_generated=false;
+                AttendenceActivity.logged_in=false;
 
-                Intent i = new Intent(sem_startday_setter.this ,MatchingActivity.class);
+                Intent i = new Intent(sem_startday_setter.this ,AttendenceActivity.class);
                 i.putExtra("sem_startday_set",true);
                 startActivity(i);
                 sem_startday_setter.this.finish();

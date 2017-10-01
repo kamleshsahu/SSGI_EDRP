@@ -8,7 +8,6 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.io.File;
 import java.util.ArrayList;
 
 
@@ -48,14 +47,14 @@ String dnld_data;
                 } else if (kk.length == 2) {
                     // datalist.add(new attend_info_class("","",kk[0],kk[1],value.text()));
                     if (kk[0].startsWith("Tot")) {
-                        MatchingActivity.Total_lectures = kk[1];
-                        MatchingActivity.Attended_lectures = value.text();
+                        AttendenceActivity.Total_lectures = kk[1];
+                        AttendenceActivity.Attended_lectures = value.text();
                     }
 
                 } else {
                     // datalist.add(new attend_info_class("","",kk[0],"",value.text()));
                     if (kk[0].startsWith("studentname")) {
-                        MatchingActivity.StudentName = value.text();
+                        AttendenceActivity.StudentName = value.text();
                     } else if (kk[0].startsWith("%")) {
                         Attancence = value.text();
                         System.out.println("yipeee got the attendence % :" + Attancence);
@@ -69,7 +68,7 @@ String dnld_data;
                 System.out.println(datalist.get(k).getSubject() + " " + datalist.get(k).getOutOf() + ":" + datalist.get(k).getValue());
             }
 
-            MatchingActivity.datalist = datalist;
+            AttendenceActivity.datalist = datalist;
             Message message = Message.obtain();
             message.obj = new customObject("", "success", Attancence);
             handler.sendMessage(message);

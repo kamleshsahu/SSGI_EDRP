@@ -13,7 +13,7 @@ import android.widget.FrameLayout;
 
 
 
-public class WatchlistActivity extends baseactivity {
+public class ReportCardActivity extends baseactivity {
     FrameLayout dynamicContent;
     static int tabindex=-1;
     PagerTestReportAdapter adapter;
@@ -26,7 +26,7 @@ public class WatchlistActivity extends baseactivity {
 
         navigation.getMenu().getItem(1).setChecked(true);
         dynamicContent = (FrameLayout) findViewById(R.id.content);
-        View wizard = getLayoutInflater().inflate(R.layout.activity_watchlist1, null);
+        View wizard = getLayoutInflater().inflate(R.layout.activity_reportcard, null);
         dynamicContent.addView(wizard);
 
         tabLayout = (TabLayout) findViewById(R.id.sTabLayout);

@@ -28,7 +28,7 @@ import java.util.Date;
 
 
 //extends our custom BaseActivity
-public class MatchingActivity extends baseactivity {
+public class AttendenceActivity extends baseactivity {
     FrameLayout dynamicContent;
     static ArrayList<attend_info_class> datalist = new ArrayList<>();
     DatePickerDialog datePickerDialog;
@@ -59,7 +59,7 @@ public class MatchingActivity extends baseactivity {
         super.onCreate(savedInstanceState);
 
         dynamicContent = (FrameLayout)  findViewById(R.id.content);
-        View root = getLayoutInflater().inflate(R.layout.activity_matching, null);
+        View root = getLayoutInflater().inflate(R.layout.activity_attendance, null);
         dynamicContent.addView(root);
 
         progressBar=(ProgressBar)findViewById(R.id.progressBar);
@@ -265,18 +265,18 @@ public class MatchingActivity extends baseactivity {
                         System.out.println("after login handler,Not having user_info url");
                         new Thread(new Worker(getApplicationContext(),"fetch_users_info",sd,after_gotUsersInfo)).start();
                     }else{
-                        Intent i = new Intent( MatchingActivity.this,sem_startday_setter.class);
+                        Intent i = new Intent( AttendenceActivity.this,sem_startday_setter.class);
                         startActivity(i);
-                        MatchingActivity.this.finish();
+                        AttendenceActivity.this.finish();
                     }
 
                 }else{
 //                    Toast.makeText(getApplicationContext()," Error ",Toast.LENGTH_LONG).show();
                     System.out.println("after got cookies error :"+data.getResult());
-                    Intent i = new Intent(MatchingActivity.this,MainActivity.class);
+                    Intent i = new Intent(AttendenceActivity.this,MainActivity.class);
                     i.putExtra("error_msg",data.getErrorMsg());
                     startActivity(i);
-                    MatchingActivity.this.finish();
+                    AttendenceActivity.this.finish();
                 }
             }
         };
@@ -362,7 +362,7 @@ public class MatchingActivity extends baseactivity {
         int mMonth = c.get(Calendar.MONTH); // current month
         int mDay = c.get(Calendar.DAY_OF_MONTH); // current day
         // date picker dialog
-        datePickerDialog = new DatePickerDialog(MatchingActivity.this,
+        datePickerDialog = new DatePickerDialog(AttendenceActivity.this,
                 new DatePickerDialog.OnDateSetListener() {
 
                     @Override

@@ -6,7 +6,7 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="SSTC EDRP"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -26,11 +26,11 @@
         <activity android:name=".about_us"
             android:label="About App"
             android:screenOrientation="portrait"/>
-        <activity android:name=".MatchingActivity"
+        <activity android:name=".AttendenceActivity"
             android:label="SSTC EDRP"
             android:screenOrientation="portrait"/>
 
-        <activity android:name=".WatchlistActivity"
+        <activity android:name=".ReportCardActivity"
             android:label="SSTC EDRP"
             android:screenOrientation="portrait"/>
 

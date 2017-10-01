@@ -1,6 +1,5 @@
 package com.example.riteshagrawal.sstc_edrp;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.PopupWindow;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -199,8 +197,8 @@ public class CT1 extends Fragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        System.out.println("SetUserVisible,isVisibleToUser :"+isVisibleToUser+",current tab :"+ WatchlistActivity.tabindex);
-        if (isVisibleToUser && WatchlistActivity.tabindex == 1) {
+        System.out.println("SetUserVisible,isVisibleToUser :"+isVisibleToUser+",current tab :"+ ReportCardActivity.tabindex);
+        if (isVisibleToUser && ReportCardActivity.tabindex == 1) {
 
             System.out.println("first if ..........");
             Thread cheaker= new Thread("threadT1"){
@@ -244,7 +242,7 @@ public class CT1 extends Fragment {
 //
             cheaker.start();
         }else{
-            System.out.println("else part of isVisibleToUser && tbts_test.tabindex :"+ WatchlistActivity.tabindex);
+            System.out.println("else part of isVisibleToUser && tbts_test.tabindex :"+ ReportCardActivity.tabindex);
         }
     }
 
