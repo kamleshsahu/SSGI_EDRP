@@ -99,7 +99,7 @@
         <android.support.design.widget.TabLayout
             android:id="@+id/sTabLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:layout_below="@+id/dates"
             android:visibility="visible"
             app:tabBackground="@color/colorPrimary"
