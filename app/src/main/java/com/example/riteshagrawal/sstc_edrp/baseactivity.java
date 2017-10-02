@@ -134,6 +134,25 @@ public class baseactivity extends AppCompatActivity {
                 return true;
             }
         });
+
+
+        MenuItem reportbug = menu.findItem(R.id.reportbug);
+        reportbug.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                String msg="hii developers at SSTC EDRP ,Pls Checkout the error\n(pls send the screenshots manually)";
+                Intent sendIntent = new Intent("android.intent.action.MAIN");
+                sendIntent.putExtra("jid", "919644790733@s.whatsapp.net");
+                sendIntent.putExtra(Intent.EXTRA_TEXT,msg);
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.setPackage("com.whatsapp");
+                sendIntent.setType("text/plain");
+                startActivity(sendIntent);
+                return true;
+            }
+        });
+
+
         MenuItem about_us = menu.findItem(R.id.about_us);
         about_us.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
@@ -145,6 +164,7 @@ public class baseactivity extends AppCompatActivity {
             }
         });
         return super.onCreateOptionsMenu(menu);
+
     }
 
     @Override
