@@ -99,6 +99,21 @@ public class about_us extends AppCompatActivity {
             }
         });
 
+        ImageView  wa = (ImageView) findViewById(R.id.whatsapp);
+        wa.setOnClickListener(new View.OnClickListener() {
+            // Start new list activity
+            public void onClick(View v) {
+                String msg="hii developers at SSTC EDRP ,Pls Checkout the error\n(pls send the screenshots manually)";
+                Intent sendIntent = new Intent("android.intent.action.MAIN");
+                sendIntent.putExtra("jid", "919644790733@s.whatsapp.net");
+                sendIntent.putExtra(Intent.EXTRA_TEXT,msg);
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.setPackage("com.whatsapp");
+                sendIntent.setType("text/plain");
+                startActivity(sendIntent);
+            }
+        });
+
         TextView intro1 = (TextView) findViewById(R.id.intro1);
         intro1.setText(Html.fromHtml("SSTC EDRP Android App is an" +"<b>"+" Open Source Project "+"</b>"+"meant Exclusively and Only for SSTC,Bhilai(S1,S2 and S3 Students).Someone Interested to work on this project,can download the source code,edit,modify and Publish There Modified App.Ideas to improve the App are always Welcome."));
 

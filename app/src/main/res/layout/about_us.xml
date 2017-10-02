@@ -213,7 +213,7 @@
                 android:text="Contact Us : "/>
 <LinearLayout
     android:orientation="horizontal"
-    android:layout_marginLeft="10dp"
+    android:layout_marginLeft="11dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
             <TextView
@@ -241,6 +241,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content">
     <ImageView
+        android:id="@+id/whatsapp"
         android:layout_gravity="center_vertical"
         android:src="@drawable/wa"
         android:layout_width="35dp"
