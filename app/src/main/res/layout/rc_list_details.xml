@@ -45,6 +45,8 @@
         android:layout_height="wrap_content">
 
 <LinearLayout
+    android:id="@+id/marks"
+    android:visibility="visible"
     android:layout_gravity="center_vertical"
     android:gravity="center_horizontal"
     android:layout_weight="1"
@@ -99,6 +101,8 @@ android:textColor="@color/gray"
 </LinearLayout>
 </LinearLayout>
         <LinearLayout
+            android:id="@+id/percentage"
+            android:visibility="visible"
             android:layout_gravity="center_vertical"
             android:gravity="center_horizontal"
             android:layout_weight="1"
@@ -136,6 +140,7 @@ android:textColor="@color/gray"
             </LinearLayout>
         </LinearLayout>
   <LinearLayout
+      android:id="@+id/remarks"
       android:gravity="center_horizontal"
       android:layout_gravity="center_vertical"
       android:layout_weight="1"
@@ -143,6 +148,7 @@ android:textColor="@color/gray"
       android:layout_height="wrap_content">
 
       <ImageView
+          android:id="@+id/smiley"
           android:layout_gravity="center_vertical"
           android:layout_width="36dp"
           android:layout_height="36dp"

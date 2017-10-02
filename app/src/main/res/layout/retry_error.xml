@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+
 <RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <ProgressBar
@@ -13,20 +12,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:progressDrawable="@drawable/circular_progress_bar"
-        android:visibility="gone" />
-
-    <TextView
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:layout_centerHorizontal="true"
-        android:layout_width="wrap_content"
-        android:layout_above="@id/progressBar"
-        android:fontFamily="sans-serif-thin"
-        android:textSize="15sp"
-        android:layout_marginBottom="10dp"
-        android:id="@+id/disp_msg"
-        android:layout_height="wrap_content"
-        android:text=""
         android:visibility="visible" />
 
     <Button
@@ -39,6 +24,22 @@
         android:background="@drawable/retry"
         android:onClick="RetryTask"
         android:textColor="#fff"
-        android:visibility="visible" />
+        android:visibility="gone" />
+
+    <TextView
+        android:textAllCaps="true"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_above="@id/retryButton"
+        android:fontFamily="sans-serif-thin"
+        android:textSize="15sp"
+        android:layout_marginBottom="10dp"
+        android:id="@+id/disp_msg"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:visibility="gone" />
+
+
 </RelativeLayout>
-</LinearLayout>

@@ -145,7 +145,7 @@
                 android:textSize="10sp"
                 android:textColor="@color/black"
                 android:fontFamily="sans-serif-condensed"
-                android:text="Backend Devloper"
+                android:text="Backend Developer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
@@ -182,7 +182,7 @@
                 android:textSize="10sp"
                 android:textColor="@color/black"
                 android:fontFamily="sans-serif-condensed"
-                android:text="Frontend Devloper"
+                android:text="Frontend Developer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
