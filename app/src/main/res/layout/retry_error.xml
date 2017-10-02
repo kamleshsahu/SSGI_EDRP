@@ -1,45 +1,51 @@
-<?xml version="1.0" encoding="utf-8"?>
-
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <ProgressBar
-        android:layout_centerVertical="true"
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:progressDrawable="@drawable/circular_progress_bar"
-        android:visibility="visible" />
 
-    <Button
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/retryButton"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center"
-        android:background="@drawable/retry"
-        android:onClick="RetryTask"
-        android:textColor="#fff"
-        android:visibility="gone" />
+        <ProgressBar
+            android:layout_marginTop="145dp"
+            android:id="@+id/progressBar"
+            android:onClick="loaderror"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:progressDrawable="@drawable/circular_progress_bar"
+            android:visibility="visible" />
+        <RelativeLayout
+            android:layout_marginTop="145dp"
+            android:id="@+id/error_retry"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:fontFamily="sans-serif-thin"
+                android:textSize="15sp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="10dp"
+                android:id="@+id/disp_msg"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="visible" />
 
-    <TextView
-        android:textAllCaps="true"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:layout_centerHorizontal="true"
-        android:layout_width="wrap_content"
-        android:layout_above="@id/retryButton"
-        android:fontFamily="sans-serif-thin"
-        android:textSize="15sp"
-        android:layout_marginBottom="10dp"
-        android:id="@+id/disp_msg"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:visibility="gone" />
-
+            <Button
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/retryButton"
+                android:layout_below="@+id/disp_msg"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:background="@drawable/retry"
+                android:onClick="RetryTask"
+                android:textColor="#fff"
+                android:visibility="visible" />
+        </RelativeLayout>
 
 </RelativeLayout>

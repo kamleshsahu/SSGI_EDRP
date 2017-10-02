@@ -33,8 +33,8 @@ public class baseactivity extends AppCompatActivity {
     static String sem_start_date="";
     static int flag =0;
    static FrameLayout content;
-    RelativeLayout hide_all;
-    LinearLayout first_login;
+
+
   static  BottomNavigationView navigation;
     static String StudentName ="";
     static Context appContext;
@@ -166,8 +166,8 @@ public class baseactivity extends AppCompatActivity {
 
         //  main_layout = (LinearLayout)findViewById(R.id.mainlayout);
         content=(FrameLayout)findViewById(R.id.content);
-        first_login = (LinearLayout)findViewById(R.id.first_login);
-        hide_all =(RelativeLayout)findViewById(R.id.hide_all);
+
+
         sd = this.getSharedPreferences("com.example.riteshagrawal.sstc_edrp", Context.MODE_APPEND);
         appContext=getApplicationContext();
         navigation = (BottomNavigationView) findViewById(R.id.navigation);

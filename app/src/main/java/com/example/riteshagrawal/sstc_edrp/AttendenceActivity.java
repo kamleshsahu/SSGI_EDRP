@@ -33,12 +33,12 @@ public class AttendenceActivity extends baseactivity {
     static ArrayList<attend_info_class> datalist = new ArrayList<>();
     DatePickerDialog datePickerDialog;
     static  TextView fromdate,todate;
-    RelativeLayout maindisplay;
-    RelativeLayout loading,error_disp;
+    RelativeLayout attendence_report_display;
+    RelativeLayout loading_error_retry;
     static String Total_lectures="";
     static String Attended_lectures="";
     Button retryButton;
-    ProgressBar progressBar,progressBar_first;
+    ProgressBar progressBar;
     TextView error_msg_disp;
     static String attend_val="";
     static TabLayout.Tab secondTab;
@@ -51,8 +51,8 @@ public class AttendenceActivity extends baseactivity {
     static String todays_date="", todays_Date="";
     static String months[] = {"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
     static String fromDate="",toDate="";
-    LinearLayout firstlogin;
-
+    RelativeLayout error_retry;
+    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,13 +60,17 @@ public class AttendenceActivity extends baseactivity {
 
         dynamicContent = (FrameLayout)  findViewById(R.id.content);
         View root = getLayoutInflater().inflate(R.layout.activity_attendance, null);
+        
         dynamicContent.addView(root);
-
+        attendence_report_display = (RelativeLayout) findViewById(R.id.attendence_report_display);
+        
+         RelativeLayout attendance_activity= (RelativeLayout) findViewById(R.id.activity_attendance);
+        loading_error_retry =(RelativeLayout)findViewById(R.id.loading_error_retry);
+       View inflate_retryerror =(RelativeLayout) getLayoutInflater().inflate(R.layout.retry_error, null);
+        loading_error_retry.addView(inflate_retryerror);
+        error_retry=(RelativeLayout)findViewById(R.id.error_retry);
         progressBar=(ProgressBar)findViewById(R.id.progressBar);
         retryButton =(Button)findViewById(R.id.retryButton);
-        maindisplay = (RelativeLayout) findViewById(R.id.maindisplay);
-        loading = (RelativeLayout) findViewById(R.id.loading);
-
         error_msg_disp=(TextView)findViewById(R.id.disp_msg);
         fromdate = (TextView) findViewById(R.id .fromDate);
         todate = (TextView) findViewById(R.id .toDate);
@@ -121,12 +125,12 @@ public class AttendenceActivity extends baseactivity {
                 System.out.println("attend_shower,after_fetchAttendence handler");
                 customObject data = (customObject) msg.obj;
                 System.out.println(data.getResult());
-                first_login.setVisibility(View.GONE);
-                hide_all.setVisibility(View.VISIBLE);
+
+
                 if(data.getResult().equals("success")){
 
-                    loading.setVisibility(View.GONE);
-                    maindisplay.setVisibility(View.VISIBLE);
+                    loading_error_retry.setVisibility(View.GONE);
+                    attendence_report_display.setVisibility(View.VISIBLE);
 
                     if(list != null ){
 
@@ -149,13 +153,13 @@ public class AttendenceActivity extends baseactivity {
                         }catch (Exception e){
                             e.fillInStackTrace();
                             System.out.println("saving user data error ");
-                            maindisplay.setVisibility(View.GONE);
-                            loading.setVisibility(View.VISIBLE);
+                            attendence_report_display.setVisibility(View.GONE);
+                            loading_error_retry.setVisibility(View.VISIBLE);
 
                             progressBar.setVisibility(View.GONE);
-                            error_msg_disp.setVisibility(View.VISIBLE);
+                            error_retry.setVisibility(View.VISIBLE);
                             error_msg_disp.setText("saving user data error :"+e.toString());
-                            retryButton.setVisibility(View.VISIBLE);
+
                         }
                         try {
                             rollno.setText(""+list.get(2).getValue()+"");
@@ -168,17 +172,24 @@ public class AttendenceActivity extends baseactivity {
                         }catch (Exception e){
                             e.fillInStackTrace();
                             System.out.println("here is the error :"+e.toString());
-                            maindisplay.setVisibility(View.GONE);
-                            loading.setVisibility(View.VISIBLE);
+                            attendence_report_display.setVisibility(View.GONE);
+                            loading_error_retry.setVisibility(View.VISIBLE);
 
                             progressBar.setVisibility(View.GONE);
-                            error_msg_disp.setVisibility(View.VISIBLE);
-                            error_msg_disp.setText("putting value in display error :"+e.toString());
-                            retryButton.setVisibility(View.VISIBLE);
+                            error_retry.setVisibility(View.VISIBLE);
+                            error_msg_disp.setText("saving user data error :"+e.toString());
                         }
+                    }else{
+                        attendence_report_display.setVisibility(View.GONE);
+                        loading_error_retry.setVisibility(View.VISIBLE);
+
+                        progressBar.setVisibility(View.GONE);
+                        error_retry.setVisibility(View.VISIBLE);
+                        error_msg_disp.setText("AttendenceActivity.java,afterfetchAttendance,datalist is null");
+
                     }
 
-                   // name.setText(StudentName);
+
                     attend_val=data.getMsg();
 
 
@@ -212,11 +223,13 @@ public class AttendenceActivity extends baseactivity {
 
                 }else if(data.getResult().equals("error")){
                     System.out.println("here is error msg :"+data.getErrorMsg());
-                    hide_all.setVisibility(View.VISIBLE);
+
+                    attendence_report_display.setVisibility(View.GONE);
+                    loading_error_retry.setVisibility(View.VISIBLE);
+
                     progressBar.setVisibility(View.GONE);
-                    error_msg_disp.setVisibility(View.VISIBLE);
+                    error_retry.setVisibility(View.VISIBLE);
                     error_msg_disp.setText(data.getErrorMsg());
-                    retryButton.setVisibility(View.VISIBLE);
 
                 }
             }
@@ -240,11 +253,13 @@ public class AttendenceActivity extends baseactivity {
                 }else{
 
                     System.out.println("here is error msg :"+data.getErrorMsg());
-                    hide_all.setVisibility(View.VISIBLE);
+
+                    attendence_report_display.setVisibility(View.GONE);
+                    loading_error_retry.setVisibility(View.VISIBLE);
+
                     progressBar.setVisibility(View.GONE);
-                    error_msg_disp.setVisibility(View.VISIBLE);
+                    error_retry.setVisibility(View.VISIBLE);
                     error_msg_disp.setText(data.getErrorMsg());
-                    retryButton.setVisibility(View.VISIBLE);
                 }
             }
         };
@@ -301,13 +316,13 @@ public class AttendenceActivity extends baseactivity {
                         new Thread(new Worker(getApplicationContext(), "login", sd, after_login)).start();
                     }
                 }else{
-                    first_login.setVisibility(View.GONE);
-                    hide_all.setVisibility(View.VISIBLE);
-                    maindisplay.setVisibility(View.VISIBLE);
+
+                    attendence_report_display.setVisibility(View.GONE);
+                    loading_error_retry.setVisibility(View.VISIBLE);
+
                     progressBar.setVisibility(View.GONE);
-                    error_msg_disp.setVisibility(View.VISIBLE);
+                    error_retry.setVisibility(View.VISIBLE);
                     error_msg_disp.setText(data.getErrorMsg());
-                    retryButton.setVisibility(View.VISIBLE);
                 }
             }
         };
@@ -320,8 +335,8 @@ public class AttendenceActivity extends baseactivity {
                 todate.setText(todays_Date);
 
             } else if (flag == 0) {
-                loading.setVisibility(View.GONE);
-                   first_login.setVisibility(View.VISIBLE);
+                loading_error_retry.setVisibility(View.GONE);
+
 
                     if (getIntent() != null && getIntent().getBooleanExtra("sem_startday_set", false)) {
                     fromDate = sem_start_date;
@@ -339,8 +354,7 @@ public class AttendenceActivity extends baseactivity {
         }else{
             System.out.println("else if part ........user data saver not created yet....");
 
-            hide_all.setVisibility(View.GONE);
-            first_login.setVisibility(View.VISIBLE);
+
 
             if(getIntent().getBooleanExtra("sem_startday_set",false)){
                 fromDate=sem_start_date;
@@ -389,8 +403,8 @@ public class AttendenceActivity extends baseactivity {
                             System.out.println("here is millis baby : "+millis);
 
                             if(todate != null){
-                                loading.setVisibility(View.VISIBLE);
-                                maindisplay.setVisibility(View.GONE);
+                                loading_error_retry.setVisibility(View.VISIBLE);
+                                attendence_report_display.setVisibility(View.GONE);
 
                                 new Thread(new Worker(getApplicationContext(), "generate_cookie", sd, after_gotCookies)).start();
                             }
@@ -400,8 +414,8 @@ public class AttendenceActivity extends baseactivity {
                             toDate = dayOfMonth + "-" + months[(monthOfYear)] + "-" + year;
                             System.out.println("to date : " + dayOfMonth + "-" + months[(monthOfYear)] + "-" + year);
 
-                            loading.setVisibility(View.VISIBLE);
-                            maindisplay.setVisibility(View.GONE);
+                            loading_error_retry.setVisibility(View.VISIBLE);
+                            attendence_report_display.setVisibility(View.GONE);
 
 
                             new Thread(new Worker(getApplicationContext(), "generate_cookie", sd, after_gotCookies)).start();
@@ -435,17 +449,11 @@ public class AttendenceActivity extends baseactivity {
     }
 
     public void RetryTask(View view) {
-//        cookie_generated=false;
-//        logged_in=false;
-//        maindisplay.setVisibility(View.GONE);
-//        loading.setVisibility(View.VISIBLE);
-//        progressBar.setVisibility(View.GONE);
-//        retryButton.setVisibility(View.VISIBLE);
-//        progressBar.setVisibility(View.VISIBLE);
-//        error_msg_disp.setVisibility(View.GONE);
-//        retryButton.setVisibility(View.GONE);
-//        new Thread(new Worker(getApplicationContext(), "generate_cookie", sd, after_gotCookies)).start();
-           recreate();
+        cookie_generated=false;
+        logged_in=false;
+        progressBar.setVisibility(View.VISIBLE);
+        error_retry.setVisibility(View.GONE);
+        new Thread(new Worker(getApplicationContext(), "generate_cookie", sd, after_gotCookies)).start();
     }
 
 }
