@@ -32,15 +32,16 @@
         android:title="About App"
         app:showAsAction="never" />
 
+    <item
+        android:id="@+id/reportbug"
+        android:icon="@drawable/logout"
+        android:title="Report Bug"
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/logout"
         android:icon="@drawable/logout"
         android:title="Sign Out"
         app:showAsAction="never" />
-    <item
-        android:id="@+id/reportbug"
-        android:icon="@drawable/logout"
-        android:title="Report Bug"
-        app:showAsAction="never" />
+
 </menu>
