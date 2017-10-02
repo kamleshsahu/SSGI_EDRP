@@ -115,7 +115,7 @@ public class about_us extends AppCompatActivity {
         });
 
         TextView intro1 = (TextView) findViewById(R.id.intro1);
-        intro1.setText(Html.fromHtml("SSTC EDRP Android App is an" +"<b>"+" Open Source Project "+"</b>"+"meant Exclusively and Only for SSTC,Bhilai(S1,S2 and S3 Students).Someone Interested to work on this project,can download the source code,edit,modify and Publish There Modified App.Ideas to improve the App are always Welcome."));
+        intro1.setText(Html.fromHtml("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SSTC EDRP Android app is an <b>Open Source Project</b> made exclusively for SSTC,Bhilai(S1,S2 & S3 Students). Anyone interested in working on this project can download the source code, edit, modify and publish their modified app. Ideas to improve the app are always welcome."));
 
     }
     //back menu

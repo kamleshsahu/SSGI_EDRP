@@ -14,10 +14,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -33,7 +35,7 @@ public class baseactivity extends AppCompatActivity {
     static String sem_start_date="";
     static int flag =0;
    static FrameLayout content;
-
+    ViewGroup vg;
 
   static  BottomNavigationView navigation;
     static String StudentName ="";
@@ -48,16 +50,12 @@ public class baseactivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-
-
                     in=new Intent(getApplicationContext(),AttendenceActivity.class);
                     startActivity(in);
                     finish();
                     overridePendingTransition(0, 0);
-
                     return true;
                 case R.id.navigation_dashboard:
-
                     in = new Intent(getApplicationContext(), ReportCardActivity.class);
                     startActivity(in);
                     finish();
@@ -97,16 +95,21 @@ public class baseactivity extends AppCompatActivity {
             }
         });
 
-
         MenuItem item =menu.findItem(R.id.refresh);
         item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
+
+
+                getWindow().getDecorView().findViewById(android.R.id.content).invalidate();
                 recreate();
+
                 return false;
             }
 
         });
+
+
 
         MenuItem share =menu.findItem(R.id.share);
         share.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
@@ -171,7 +174,8 @@ public class baseactivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.baseactivity);
-   
+
+        vg = (ViewGroup) findViewById(R.id.base);
         name = (TextView)findViewById(R.id.name);
        
         branch = (TextView)findViewById(R.id.branch);

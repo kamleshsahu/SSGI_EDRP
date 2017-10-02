@@ -37,7 +37,7 @@ public class reportcard {
     }
 
     public String getPercent() {
-        return percent;
+        return (percent+"%");
     }
 
     public String getStatus() {

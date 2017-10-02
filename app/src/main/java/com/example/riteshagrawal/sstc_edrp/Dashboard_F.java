@@ -16,28 +16,12 @@ import android.widget.TextView;
 
 
 public class Dashboard_F extends Fragment {
-
-    LinearLayout disp_content,loading;
-    Handler OnCreateHandler;
-    String dnlddata=null;
-    ProgressBar progressbar;
-    TextView disp_msg;
-    Button retryButton;
-    Thread thread0 = null;
     View rootView;
     Handler handler;
-    private boolean isViewShown = false;
-    String data1;
-    TabLayout tabLayout;
-    private Context mContext;
-    private PopupWindow mPopupWindow;
-
-    public void setTabLayout(TabLayout tabLayout) {
-        this.tabLayout = tabLayout;
-    }
 
 
-       Boolean oncreateCreated0=false;
+
+
 
     public Dashboard_F() {
         // Required empty public constructor
@@ -62,6 +46,7 @@ public class Dashboard_F extends Fragment {
 try{
    // val = Integer.parseInt(AttendenceActivity.attend_val.split("\\.")[0]);
     val =(int)Float.parseFloat(AttendenceActivity.attend_val);
+    System.out.println("hre is the attend val,dashboard:"+val);
 }catch (Exception e){
     e.fillInStackTrace();
     val=0;

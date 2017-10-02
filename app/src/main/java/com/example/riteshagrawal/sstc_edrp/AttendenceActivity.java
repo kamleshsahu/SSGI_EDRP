@@ -3,11 +3,15 @@ package com.example.riteshagrawal.sstc_edrp;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -52,7 +56,8 @@ public class AttendenceActivity extends baseactivity {
     static String months[] = {"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
     static String fromDate="",toDate="";
     RelativeLayout error_retry;
-    
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,7 +131,11 @@ public class AttendenceActivity extends baseactivity {
                 customObject data = (customObject) msg.obj;
                 System.out.println(data.getResult());
 
-
+                adapter = new PagerAdapter
+                        (getSupportFragmentManager(), tabLayout.getTabCount());
+                simpleViewPager.setAdapter(adapter);
+                tabLayout.getTabAt(0).setText("DashBoard ");
+                tabLayout.getTabAt(1).setText("Details");
                 if(data.getResult().equals("success")){
 
                     loading_error_retry.setVisibility(View.GONE);
@@ -190,7 +199,6 @@ public class AttendenceActivity extends baseactivity {
                     }
 
 
-                    attend_val=data.getMsg();
 
 
                     simpleViewPager.setCurrentItem(0);
@@ -335,7 +343,7 @@ public class AttendenceActivity extends baseactivity {
                 todate.setText(todays_Date);
 
             } else if (flag == 0) {
-                loading_error_retry.setVisibility(View.GONE);
+
 
 
                     if (getIntent() != null && getIntent().getBooleanExtra("sem_startday_set", false)) {
@@ -364,6 +372,8 @@ public class AttendenceActivity extends baseactivity {
 
             }
         }
+        progressBar.setVisibility(View.VISIBLE);
+        error_retry.setVisibility(View.GONE);
         new Thread(new Worker(getApplicationContext(), "generate_cookie", sd, after_gotCookies)).start();
 
     }

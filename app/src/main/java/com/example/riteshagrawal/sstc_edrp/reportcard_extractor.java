@@ -54,7 +54,7 @@ String dnld_data;
                 handler.sendMessage(message);
             }else {
                 Message message = Message.obtain();
-                customObject obj = new customObject("", "error", "result not yet published");
+                customObject obj = new customObject("", "error", "Result not yet Published");
             //    obj.setRclist(datalist);
                 message.obj = obj;
                 handler.sendMessage(message);

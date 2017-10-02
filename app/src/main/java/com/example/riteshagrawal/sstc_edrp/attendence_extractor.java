@@ -69,6 +69,7 @@ String dnld_data;
             }
 
             AttendenceActivity.datalist = datalist;
+            AttendenceActivity.attend_val=Attancence;
             Message message = Message.obtain();
             message.obj = new customObject("", "success", Attancence);
             handler.sendMessage(message);

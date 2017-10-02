@@ -8,103 +8,106 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <ImageView
-            android:id="@+id/github"
-            android:padding="5dp"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/billi"
-            android:layout_marginBottom="60dp"
-            />
-        <TextView
-            android:fontFamily="sans-serif-condensed"
-            android:textSize="11sp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginBottom="0dp"
-            android:layout_marginRight="10dp"
-            android:id="@+id/tex"
-            android:layout_below="@id/github"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Download the sourcecode from here : "/>
         <LinearLayout
-            android:elevation="2dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginBottom="0dp"
-            android:layout_marginRight="10dp"
-            android:paddingLeft="5dp"
-            android:paddingTop="0dp"
-            android:paddingRight="5dp"
-            android:paddingBottom="0dp"
-            android:background="@drawable/linkrect1"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal"
-            android:layout_below="@id/tex"
+            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-        <TextView
-            android:onClick="textOnClick"
-            android:textIsSelectable="true"
-            android:textColor="#4285f4"
-            android:paddingLeft="7dp"
-            android:paddingBottom="3dp"
-            android:paddingRight="0dp"
-            android:paddingTop="3dp"
-            android:layout_weight="1"
-            android:background="@drawable/linkrect2"
-            android:layout_gravity="center_vertical"
-            android:id="@+id/link"
-            android:textSize="13sp"
-            android:text="https://github.com/kamleshsahu/SSGI_EDRP"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            />
-      <!--<EditText-->
-          <!--android:onClick="textOnClick"-->
-          <!--android:text="rgsdfxbgdrfhdbgd\gh\sdf"-->
-          <!--android:focusableInTouchMode="true"-->
-          <!--android:cursorVisible="false"-->
-          <!--android:selectAllOnFocus="true"-->
-          <!--android:clickable="true"-->
-          <!--android:layout_width="wrap_content"-->
-          <!--android:layout_height="wrap_content" />-->
 
-        <ImageView
-            android:paddingLeft="5dp"
-            android:layout_margin="4dp"
-            android:layout_gravity="center_vertical"
-            android:layout_below="@id/github"
-            android:id="@+id/copy"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/ic_assignment_blue_200_24dp"
-            />
+            <TextView
+                android:layout_margin="10dp"
+                android:id="@+id/intro1"
+                android:fontFamily="sans-serif-condensed"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:layout_centerVertical="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""/>
+
         </LinearLayout>
-    </RelativeLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_margin="10dp"
-            android:id="@+id/intro1"
-            android:fontFamily="sans-serif-condensed"
-            android:textColor="@color/black"
-            android:textSize="15sp"
-            android:layout_centerVertical="true"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text=""/>
+            android:layout_height="wrap_content">
 
-    </LinearLayout>
+            <ImageView
+                android:id="@+id/github"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="60dp"
+                android:padding="5dp"
+                android:src="@drawable/billi" />
+
+            <TextView
+                android:id="@+id/tex"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/github"
+                android:layout_marginBottom="0dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="-50dp"
+                android:fontFamily="sans-serif-condensed"
+                android:text="Download the SourceCode from here(Github) : "
+                android:textSize="11sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tex"
+                android:layout_marginBottom="0dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="0dp"
+                android:background="@drawable/linkrect1"
+                android:elevation="2dp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:paddingBottom="0dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="0dp">
+
+                <TextView
+                    android:id="@+id/link"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:background="@drawable/linkrect2"
+                    android:onClick="textOnClick"
+                    android:paddingBottom="3dp"
+                    android:paddingLeft="7dp"
+                    android:paddingRight="0dp"
+                    android:paddingTop="3dp"
+                    android:text="https://github.com/kamleshsahu/SSGI_EDRP"
+                    android:textColor="#4285f4"
+                    android:textIsSelectable="true"
+                    android:textSize="13sp" />
+                <!--<EditText-->
+                <!--android:onClick="textOnClick"-->
+                <!--android:text="rgsdfxbgdrfhdbgd\gh\sdf"-->
+                <!--android:focusableInTouchMode="true"-->
+                <!--android:cursorVisible="false"-->
+                <!--android:selectAllOnFocus="true"-->
+                <!--android:clickable="true"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content" />-->
+
+                <ImageView
+                    android:id="@+id/copy"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_below="@id/github"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="4dp"
+                    android:paddingLeft="5dp"
+                    android:src="@drawable/ic_assignment_blue_200_24dp" />
+            </LinearLayout>
+        </RelativeLayout>
+
+
+
 
         <LinearLayout
             android:layout_marginTop="20dp"

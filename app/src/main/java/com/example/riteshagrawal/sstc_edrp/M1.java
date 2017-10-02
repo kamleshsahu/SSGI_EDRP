@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -194,7 +193,17 @@ public class M1 extends Fragment {
             }
         };
         oncreateCreated0=true;
-     //   new Thread(new Worker(getActivity(), "generate_cookie", sd, after_gotCookies)).start();
+                 retryButton.setOnClickListener(new View.OnClickListener() {
+                     @Override
+                     public void onClick(View view) {
+                         cookie_generated=false;
+                         logged_in=false;
+                         progressbar.setVisibility(View.VISIBLE);
+                         disp_msg.setVisibility(View.GONE);
+                         retryButton.setVisibility(View.GONE);
+                         new Thread(new Worker(getActivity(), "generate_cookie", sd, after_gotCookies)).start();
+                     }
+                 });
         return rootView;
     }
 
@@ -270,4 +279,7 @@ public class M1 extends Fragment {
         }
         return giveback;
     }
+
+
+
 }

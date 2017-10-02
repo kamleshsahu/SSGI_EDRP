@@ -190,6 +190,17 @@ public class CT1 extends Fragment {
         };
         oncreateCreated1=true;
        // new Thread(new Worker(getActivity(), "generate_cookie", sd, after_gotCookies)).start();
+        retryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cookie_generated=false;
+                logged_in=false;
+                progressbar.setVisibility(View.VISIBLE);
+                disp_msg.setVisibility(View.GONE);
+                retryButton.setVisibility(View.GONE);
+                new Thread(new Worker(getActivity(), "generate_cookie", sd, after_gotCookies)).start();
+            }
+        });
         return rootView;
     }
 
