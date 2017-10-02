@@ -1,14 +1,8 @@
 <resources>
     <string name="app_name">SSTC Attendance</string>
-    <string name="about_us">
-    Whether it’s coding, user interface design, graphic design, writing, or organizing,
-        if you’re looking for practice, there’s a task for you on an open source project.
-    Open source projects with warm, welcoming communities keep people coming back for years.
-        Many people form lifelong friendships through their participation in open source, whether it’s running into each other at conferences or late night online chats about burritos.
-    Working with others on a shared project means you’ll have to explain how you do things, as well as ask other people for help.
-        The acts of learning and teaching can be a fulfilling activity for everyone involved.
-     all of our open source work is public,
-        which means you can modify the project as well as help us for making our app better.</string>
-    <string name="about_rishabh"></string>
-    <string name="about_kamlesh"></string>
+    <string name="about_app">
+
+    </string>
+    <string name="about_rishabh">PIETECH,Raipur</string>
+    <string name="about_kamlesh">SSTC,Bhilai</string>
 </resources>
