@@ -46,11 +46,11 @@ public class Dashboard_F extends Fragment {
 try{
    // val = Integer.parseInt(AttendenceActivity.attend_val.split("\\.")[0]);
     val =(int)Float.parseFloat(AttendenceActivity.attend_val);
-    System.out.println("hre is the attend val,dashboard:"+val);
+    //System.out.println("hre is the attend val,dashboard:"+val);
 }catch (Exception e){
     e.fillInStackTrace();
     val=0;
-    System.out.println("attendence value changing error ...");
+    //System.out.println("attendence value changing error ...");
 }
 
         final com.example.riteshagrawal.sstc_edrp.CircularProgressBar attendence =(com.example.riteshagrawal.sstc_edrp.CircularProgressBar)rootView.findViewById(R.id.attendence_p);
@@ -80,7 +80,7 @@ try{
         TextView bw_dates=(TextView)rootView.findViewById(R.id.bw_dates);
 
        //attendence.setText(AttendenceActivity.attend_val);
-        System.out.println("here is attendence percent : "+ AttendenceActivity.attend_val);
+        //System.out.println("here is attendence percent : "+ AttendenceActivity.attend_val);
         attended_Lectures.setText(AttendenceActivity.Attended_lectures);
         total_Lectures.setText(AttendenceActivity.Total_lectures);
         bw_dates.setText(AttendenceActivity.fromdate.getText() +" - "+ AttendenceActivity.todate.getText());

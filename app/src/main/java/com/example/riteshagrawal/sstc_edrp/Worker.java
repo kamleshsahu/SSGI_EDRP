@@ -63,13 +63,13 @@ public class Worker implements Runnable {
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
-                System.out.println("worker,after attendence data download");
+                //System.out.println("worker,after attendence data download");
                 customObject data = (customObject) msg.obj;
-                System.out.println(data.getResult());
+                //System.out.println(data.getResult());
                 if(data.getResult().equals("success")){
                     new attendence_extractor(data.getMsg(),handler);
                 }else{
-                    System.out.println("here is error msg :"+data.getErrorMsg());
+                    //System.out.println("here is error msg :"+data.getErrorMsg());
                 }
             }
         };
@@ -78,13 +78,13 @@ public class Worker implements Runnable {
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
-                System.out.println("worker,after attendence data download");
+                //System.out.println("worker,after attendence data download");
                 customObject data = (customObject) msg.obj;
-                System.out.println(data.getResult());
+                //System.out.println(data.getResult());
                 if(data.getResult().equals("success")){
                     new reportcard_extractor(data.getMsg(),handler);
                 }else{
-                    System.out.println("here is error msg :"+data.getErrorMsg());
+                    //System.out.println("here is error msg :"+data.getErrorMsg());
                 }
             }
         };
@@ -93,16 +93,16 @@ public class Worker implements Runnable {
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
-                System.out.println("worker,after Userinfo data download");
+                //System.out.println("worker,after Userinfo data download");
                 customObject data = (customObject) msg.obj;
-                System.out.println(data.getResult());
+                //System.out.println(data.getResult());
                 if(data.getResult().equals("success")){
-                    System.out.println("yeh got the data :"+data.getResult());
+                    //System.out.println("yeh got the data :"+data.getResult());
 
                     new info_extractor(data.getMsg(),handler);
 
                 }else{
-                    System.out.println("here is error msg :"+data.getErrorMsg());
+                    //System.out.println("here is error msg :"+data.getErrorMsg());
                 }
             }
         };
@@ -111,18 +111,18 @@ public class Worker implements Runnable {
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
-                System.out.println("worker,under dnld handler");
+                //System.out.println("worker,under dnld handler");
                 customObject data = (customObject) msg.obj;
-                System.out.println(data.getResult());
+                //System.out.println(data.getResult());
                 if(data.getResult().equals("success")){
                     Message message = Message.obtain();
                     message.obj = new customObject("", "success", "");
                     handler.sendMessage(message);
-                    System.out.println("yeh got the data :"+data.getResult());
+                    //System.out.println("yeh got the data :"+data.getResult());
                 }else{
 
 
-                    System.out.println("here is error msg :"+data.getErrorMsg());
+                    //System.out.println("here is error msg :"+data.getErrorMsg());
 
                 }
             }
@@ -134,7 +134,7 @@ public class Worker implements Runnable {
             task_identifier(task_name);
 
         }else{
-            System.out.println("Before task identifier !!!!.....here is the error :" + "no internet connection....!!!");
+            //System.out.println("Before task identifier !!!!.....here is the error :" + "no internet connection....!!!");
             Message message = Message.obtain();
             message.obj = new customObject("", "error", "Please Connect To Internet");
             handler.sendMessage(message);
@@ -149,7 +149,7 @@ public class Worker implements Runnable {
         switch (task_name){
             case "generate_cookie":
                 if(baseactivity.cookie_generated){
-                    System.out.println(" task identifier, cookie is already available !!! ");
+                    //System.out.println(" task identifier, cookie is already available !!! ");
                     Message message = Message.obtain();
                     message.obj = new customObject("", "success", "");
                     handler.sendMessage(message);
@@ -188,7 +188,7 @@ public class Worker implements Runnable {
                 break;
 
             default:
-                System.out.println("unknown errror inside worker,task idenfier,default ");
+                //System.out.println("unknown errror inside worker,task idenfier,default ");
 
 
         }
@@ -208,9 +208,9 @@ public class Worker implements Runnable {
                     HttpURLConnection E = null;
                     url = new URL(urls);
                     E = (HttpURLConnection) url.openConnection();
-                    System.out.println("calling url :"+urls);
+                    //System.out.println("calling url :"+urls);
                     String str2 = sd.getString("cookie", "");
-            System.out.println("post login ,cookie : "+str2);
+            //System.out.println("post login ,cookie : "+str2);
                     E.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
                     E.setRequestProperty("Cookie", str2);
                     E.setRequestProperty("Referer", "http://182.71.130.11/x%40%40%401%40%40%4011/default1.asp");
@@ -231,19 +231,19 @@ public class Worker implements Runnable {
 
 
                   //  E.connect();
-                    System.out.println("response code is :"+E.getResponseCode());
+                    //System.out.println("response code is :"+E.getResponseCode());
                     if (E.getResponseCode() != 200) {
-                     System.out.println("response code is not 200");
+                     //System.out.println("response code is not 200");
 
-                     System.out.println("redirect url is :"+E.getHeaderField("Location"));
+                     //System.out.println("redirect url is :"+E.getHeaderField("Location"));
         //                Data_Downloader(dnld_handler, task_name,E.getHeaderField("Location"));
-                        System.out.println("here is the error :"+E.getResponseCode());
+                        //System.out.println("here is the error :"+E.getResponseCode());
                         Message message = Message.obtain();
                         message.obj = new customObject("", "error response code is not 200,it is :",String.valueOf(E.getResponseCode()));
                         dnld_handler.sendMessage(message);
                     }
                         else {
-                     System.out.println("Jai hind : " + E.getResponseCode());
+                     //System.out.println("Jai hind : " + E.getResponseCode());
 
 
                         BufferedReader in = new BufferedReader(
@@ -253,22 +253,22 @@ public class Worker implements Runnable {
 
                         String inputLine = null;
                         while ((inputLine = in.readLine()) != null) {
-                         //   System.out.println("hii baby "+inputLine);
+                         //   //System.out.println("hii baby "+inputLine);
                             result += inputLine;
                         }
 
-                     //   System.out.println("hii baby 2 :"+result);
+                     //   //System.out.println("hii baby 2 :"+result);
                         org.jsoup.nodes.Document doc = null;
                         try {
                             doc = Jsoup.parse(result, "utf-8");
 
                             String title_text= doc.getElementsByTag("title").text();
-                            System.out.println("here is doc : "+doc);
-                            System.out.println("here is href :"+title_text);
+                            //System.out.println("here is doc : "+doc);
+                            //System.out.println("here is href :"+title_text);
 
 
                             if(title_text.startsWith("My Home Page")){
-                                System.out.println(" downloaded data =" + result);
+                                //System.out.println(" downloaded data =" + result);
                                 Message message = Message.obtain();
                                 message.obj = new customObject(task_name,"success" ,result);
                                 dnld_handler.sendMessage(message);
@@ -311,7 +311,7 @@ public class Worker implements Runnable {
                     }
                 } catch (Exception e) {
                     e.fillInStackTrace();
-                    System.out.println("here is the error :"+e.toString());
+                    //System.out.println("here is the error :"+e.toString());
                     Message message = Message.obtain();
                     message.obj = new customObject("", "error", e.toString());
                     dnld_handler.sendMessage(message);
@@ -338,9 +338,9 @@ public class Worker implements Runnable {
                     HttpURLConnection E = null;
                     url = new URL(urls);
                     E = (HttpURLConnection) url.openConnection();
-                    System.out.println("calling url :" + urls);
+                    //System.out.println("calling url :" + urls);
                     String str2 = sd.getString("cookie", "");
-                    System.out.println("get details via post ,cookie : " + str2);
+                    //System.out.println("get details via post ,cookie : " + str2);
                     E.setRequestProperty("Cookie", str2);
                     E.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
                     E.setRequestProperty("Referer", "http://182.71.130.11/x%40%40%401%40%40%4011/home/options.asp");
@@ -359,18 +359,18 @@ public class Worker implements Runnable {
 
 
                     //     E.connect();
-                    System.out.println("response code is :" + E.getResponseCode());
+                    //System.out.println("response code is :" + E.getResponseCode());
                     if (E.getResponseCode() != 200) {
-                        System.out.println("response code is not 200");
+                        //System.out.println("response code is not 200");
 
-                        System.out.println("redirect url is :" + E.getHeaderField("Location"));
+                        //System.out.println("redirect url is :" + E.getHeaderField("Location"));
                         //                Data_Downloader(dnld_handler, task_name,E.getHeaderField("Location"));
-                        System.out.println("here is the error :"+E.getResponseCode());
+                        //System.out.println("here is the error :"+E.getResponseCode());
                         Message message = Message.obtain();
                         message.obj = new customObject("", "error response code is not 200,it is :",String.valueOf(E.getResponseCode()));
                         dnld_handler.sendMessage(message);
                     } else {
-                        System.out.println("Jai hind : " + E.getResponseCode());
+                        //System.out.println("Jai hind : " + E.getResponseCode());
 
 
                         BufferedReader in = new BufferedReader(
@@ -379,7 +379,7 @@ public class Worker implements Runnable {
 
                         String inputLine = null;
                         while ((inputLine = in.readLine()) != null) {
-                            System.out.println(inputLine);
+                            //System.out.println(inputLine);
                             result += inputLine;
                         }
                         if (in != null) {
@@ -400,14 +400,14 @@ public class Worker implements Runnable {
                             E.disconnect();
                         }
 
-                        System.out.println(" downloaded data =" + result);
+                        //System.out.println(" downloaded data =" + result);
                         Message message = Message.obtain();
                         message.obj = new customObject(task_name, "success", result);
                         dnld_handler.sendMessage(message);
                     }
                 } catch (Exception e) {
                     e.fillInStackTrace();
-                    System.out.println("here is the error :" + e.toString());
+                    //System.out.println("here is the error :" + e.toString());
                     Message message = Message.obtain();
                     message.obj = new customObject(task_name, "error", e.toString());
                     handler.sendMessage(message);
@@ -426,7 +426,7 @@ public class Worker implements Runnable {
      //   String urlParameters  = "sub_mit=&holdme=0&txtrollinfo=90&txtbatchinfo=2&cmbcollegename=FET&BranchF=CSE&SemesterF=3&SectionF=B&extsec='B','.'&reporttype=Attendance Report&dc1=17-JUL-2017&dc2=14-AUG-2017&apercent=ALL";
   //   String urlParameters=   "sub_mit&holdme0=&txtrollinfo=46&txtbatchinfo=2&cmbcollegename=SSEC&BranchF=CSE&SemesterF=3&SectionF=A&extsec='A','.'&reporttype=AttendanceReport&dc1=02-SEP-2017=&dc2=02-SEP-2017&apercent=ALL";
 
-        System.out.println("here is urlParameters :"+"\n"+urlParameters);
+        //System.out.println("here is urlParameters :"+"\n"+urlParameters);
         byte[] postData = urlParameters.getBytes( StandardCharsets.UTF_8 );
         int postDataLength = postData.length;
         DataOutputStream wr=null;
@@ -440,9 +440,9 @@ public class Worker implements Runnable {
 
                 url = new URL(urls);
                 E = (HttpURLConnection) url.openConnection();
-                System.out.println("calling url :" + urls);
+                //System.out.println("calling url :" + urls);
                 String str2 = sd.getString("cookie", "");
-                System.out.println("finalcall via post ,cookie : " + str2);
+                //System.out.println("finalcall via post ,cookie : " + str2);
                 E.setRequestProperty("Cookie", str2);
                 E.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
                 E.setRequestProperty("Referer", "http://182.71.130.11/x%40%40%401%40%40%4011/stud@_1276@@@@_@@@@@@/2@@@@@@@@@@att/default.asp");
@@ -461,18 +461,18 @@ public class Worker implements Runnable {
 
 
                 //     E.connect();
-                System.out.println("response code is :" + E.getResponseCode());
+                //System.out.println("response code is :" + E.getResponseCode());
                 if (E.getResponseCode() != 200) {
-                    System.out.println("response code is not 200");
+                    //System.out.println("response code is not 200");
 
-                    System.out.println("redirect url is :" + E.getHeaderField("Location"));
+                    //System.out.println("redirect url is :" + E.getHeaderField("Location"));
                     //                Data_Downloader(dnld_handler, task_name,E.getHeaderField("Location"));
-                    System.out.println("here is the error :"+E.getResponseCode());
+                    //System.out.println("here is the error :"+E.getResponseCode());
                     Message message = Message.obtain();
                     message.obj = new customObject("", "error response code is not 200,it is :",String.valueOf(E.getResponseCode()));
                     dnld_handler.sendMessage(message);
                 } else {
-                    System.out.println("Jai hind : " + E.getResponseCode());
+                    //System.out.println("Jai hind : " + E.getResponseCode());
 
 
                     in = new BufferedReader(
@@ -481,7 +481,7 @@ public class Worker implements Runnable {
 
                     String inputLine = null;
                     while ((inputLine = in.readLine()) != null) {
-                        System.out.println(inputLine);
+                        //System.out.println(inputLine);
                         result += inputLine;
                     }
                     if (in != null) {
@@ -501,7 +501,7 @@ public class Worker implements Runnable {
                     if (E != null) {
                         E.disconnect();
                     }
-                    System.out.println(" downloaded data =" + result);
+                    //System.out.println(" downloaded data =" + result);
                     Message message = Message.obtain();
                     message.obj = new customObject(task_name, "success", result);
                     dnld_handler2.sendMessage(message);
@@ -509,7 +509,7 @@ public class Worker implements Runnable {
             } catch
                     (Exception e) {
                 e.fillInStackTrace();
-                System.out.println("here is the error :" + e.toString());
+                //System.out.println("here is the error :" + e.toString());
                 Message message = Message.obtain();
                 message.obj = new customObject(task_name, "error", e.toString());
                 handler.sendMessage(message);
@@ -528,7 +528,7 @@ public class Worker implements Runnable {
         //   String urlParameters  = "sub_mit=&holdme=0&txtrollinfo=90&txtbatchinfo=2&cmbcollegename=FET&BranchF=CSE&SemesterF=3&SectionF=B&extsec='B','.'&reporttype=Attendance Report&dc1=17-JUL-2017&dc2=14-AUG-2017&apercent=ALL";
         //   String urlParameters=   "sub_mit&holdme0=&txtrollinfo=46&txtbatchinfo=2&cmbcollegename=SSEC&BranchF=CSE&SemesterF=3&SectionF=A&extsec='A','.'&reporttype=AttendanceReport&dc1=02-SEP-2017=&dc2=02-SEP-2017&apercent=ALL";
 
-        System.out.println("here is urlParameters :"+"\n"+urlParameters);
+        //System.out.println("here is urlParameters :"+"\n"+urlParameters);
         byte[] postData = urlParameters.getBytes( StandardCharsets.UTF_8 );
         int postDataLength = postData.length;
         DataOutputStream wr=null;
@@ -542,9 +542,9 @@ public class Worker implements Runnable {
 
             url = new URL(urls);
             E = (HttpURLConnection) url.openConnection();
-            System.out.println("calling url :" + urls);
+            //System.out.println("calling url :" + urls);
             String str2 = sd.getString("cookie", "");
-            System.out.println("result fetching ,cookie : " + str2);
+            //System.out.println("result fetching ,cookie : " + str2);
             E.setRequestProperty("Cookie", str2);
             E.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
             E.setRequestProperty("Referer", "http://182.71.130.11/x%40%40%401%40%40%4011/stud@_1276@@@@_@@@@@@/2@@@@@@@@@@att/default.asp");
@@ -563,18 +563,18 @@ public class Worker implements Runnable {
 
 
             //     E.connect();
-            System.out.println("response code is :" + E.getResponseCode());
+            //System.out.println("response code is :" + E.getResponseCode());
             if (E.getResponseCode() != 200) {
-                System.out.println("response code is not 200");
+                //System.out.println("response code is not 200");
 
-                System.out.println("redirect url is :" + E.getHeaderField("Location"));
+                //System.out.println("redirect url is :" + E.getHeaderField("Location"));
                 //                Data_Downloader(dnld_handler, task_name,E.getHeaderField("Location"));
-                System.out.println("here is the error :"+E.getResponseCode());
+                //System.out.println("here is the error :"+E.getResponseCode());
                 Message message = Message.obtain();
                 message.obj = new customObject("", "error response code is not 200,it is :",String.valueOf(E.getResponseCode()));
                 dnld_handler.sendMessage(message);
             } else {
-                System.out.println("Jai hind : " + E.getResponseCode());
+                //System.out.println("Jai hind : " + E.getResponseCode());
 
 
                 in = new BufferedReader(
@@ -583,7 +583,7 @@ public class Worker implements Runnable {
 
                 String inputLine = null;
                 while ((inputLine = in.readLine()) != null) {
-                    System.out.println(inputLine);
+                    //System.out.println(inputLine);
                     result += inputLine;
                 }
                 if (in != null) {
@@ -603,7 +603,7 @@ public class Worker implements Runnable {
                 if (E != null) {
                     E.disconnect();
                 }
-                System.out.println(" downloaded data =" + result);
+                //System.out.println(" downloaded data =" + result);
                 Message message = Message.obtain();
                 message.obj = new customObject(task_name, "success", result);
                 dnld_handler2.sendMessage(message);
@@ -611,7 +611,7 @@ public class Worker implements Runnable {
         } catch
                 (Exception e) {
             e.fillInStackTrace();
-            System.out.println("here is the error :" + e.toString());
+            //System.out.println("here is the error :" + e.toString());
             Message message = Message.obtain();
             message.obj = new customObject(task_name, "error", e.toString());
             handler.sendMessage(message);
@@ -635,7 +635,7 @@ public class Worker implements Runnable {
             HttpURLConnection E = null;
             url = new URL(urls);
             E = (HttpURLConnection) url.openConnection();
-            System.out.println("calling url :"+urls);
+            //System.out.println("calling url :"+urls);
             String str2 = sd.getString("cookie", "");
 
             E.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
@@ -658,19 +658,19 @@ public class Worker implements Runnable {
 
 
             //  E.connect();
-            System.out.println("response code is :"+E.getResponseCode());
+            //System.out.println("response code is :"+E.getResponseCode());
             if (E.getResponseCode() != 200) {
-                System.out.println("response code is not 200");
+                //System.out.println("response code is not 200");
 
-                System.out.println("redirect url is :"+E.getHeaderField("Location"));
+                //System.out.println("redirect url is :"+E.getHeaderField("Location"));
                 //                Data_Downloader(dnld_handler, task_name,E.getHeaderField("Location"));
-                System.out.println("here is the error :"+E.getResponseCode());
+                //System.out.println("here is the error :"+E.getResponseCode());
                 Message message = Message.obtain();
                 message.obj = new customObject("", "error response code is not 200,it is :",String.valueOf(E.getResponseCode()));
                 dnld_handler.sendMessage(message);
             }
             else {
-                System.out.println("Jai hind : " + E.getResponseCode());
+                //System.out.println("Jai hind : " + E.getResponseCode());
 
 
                 BufferedReader in = new BufferedReader(
@@ -680,10 +680,10 @@ public class Worker implements Runnable {
 
                 String inputLine = null;
                 while ((inputLine = in.readLine()) != null) {
-                    //   System.out.println("hii baby "+inputLine);
+                    //   //System.out.println("hii baby "+inputLine);
                     result += inputLine;
                 }
-                        System.out.println(" downloaded data =" + result);
+                        //System.out.println(" downloaded data =" + result);
                         Message message = Message.obtain();
                         message.obj = new customObject(task_name,"success", result);
                         dnld_handler.sendMessage(message);
@@ -692,7 +692,7 @@ public class Worker implements Runnable {
             }
         } catch (Exception e) {
             e.fillInStackTrace();
-            System.out.println("Calling Post_Logout :"+e.toString());
+            //System.out.println("Calling Post_Logout :"+e.toString());
             Message message = Message.obtain();
             message.obj = new customObject(task_name, "error", e.toString());
             dnld_handler.sendMessage(message);

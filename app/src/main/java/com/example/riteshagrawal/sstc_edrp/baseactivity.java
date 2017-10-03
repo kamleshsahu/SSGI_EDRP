@@ -200,10 +200,10 @@ public class baseactivity extends AppCompatActivity {
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
-                System.out.println("attend_shower,under logout handler");
+                //System.out.println("attend_shower,under logout handler");
                 customObject data = (customObject) msg.obj;
-                System.out.println(data.getResult());
-                if(data.getResult().equals("success")){
+                //System.out.println(data.getResult());
+//                if(data.getResult().equals("success")){
 
                     Intent i = new Intent( getApplicationContext(),MainActivity.class);
                     startActivity(i);
@@ -216,7 +216,7 @@ public class baseactivity extends AppCompatActivity {
                     baseactivity.this.finish();
 
 
-                }else{
+//                }else{
 //                    maindisplay.setVisibility(View.GONE);
 //                    loading.setVisibility(View.VISIBLE);
 //                    progressBar.setVisibility(View.GONE);
@@ -224,13 +224,13 @@ public class baseactivity extends AppCompatActivity {
 //                    error_msg_disp.setText(data.getErrorMsg());
 //                    retryButton.setVisibility(View.VISIBLE);
 
-                }
+//                }
             }
         };
 
         if(!sd.getString("Users_Data_Saver", "").equals("")) {
             String json1 = sd.getString("Users_Data_Saver", "");
-            System.out.println("yeh user data reading ..........");
+            //System.out.println("yeh user data reading ..........");
 
             UserDataSaverObject obj = gson.fromJson(json1, UserDataSaverObject.class);
 

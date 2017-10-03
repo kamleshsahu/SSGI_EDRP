@@ -69,9 +69,9 @@ public class M2 extends Fragment {
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
-                System.out.println("attend_shower,after_fetchRCdetails handler");
+                //System.out.println("attend_shower,after_fetchRCdetails handler");
                 customObject data = (customObject) msg.obj;
-                System.out.println(data.getResult());
+                //System.out.println(data.getResult());
 
 
                 if (data.getResult().equals("success")) {
@@ -79,14 +79,14 @@ public class M2 extends Fragment {
                    listview.setVisibility(View.VISIBLE);
 
                     try {
-                        System.out.println("here is the first subject :" + data.getRclist().get(0).getSubject());
+                        //System.out.println("here is the first subject :" + data.getRclist().get(0).getSubject());
 
                         adaptor = new rcAdaptor(getActivity(), data.getRclist());
                         listview.setAdapter(adaptor);
 
                     } catch (Exception e) {
                         e.fillInStackTrace();
-                        System.out.println("here is the bug :" + e.toString());
+                        //System.out.println("here is the bug :" + e.toString());
                         progressbar.setVisibility(View.GONE);
                         disp_msg.setVisibility(View.VISIBLE);
                         disp_msg.setText(data.getErrorMsg());
@@ -102,7 +102,7 @@ public class M2 extends Fragment {
 
                     } catch (Exception e) {
                         e.fillInStackTrace();
-                        System.out.println("here is the error :" + e.toString());
+                        //System.out.println("here is the error :" + e.toString());
 
                         loading.setVisibility(View.VISIBLE);
                         listview.setVisibility(View.GONE);
@@ -112,7 +112,7 @@ public class M2 extends Fragment {
                         retryButton.setVisibility(View.VISIBLE);
                     }
                 } else if (data.getResult().equals("error")) {
-                    System.out.println("here is error msg :" + data.getErrorMsg());
+                    //System.out.println("here is error msg :" + data.getErrorMsg());
                     progressbar.setVisibility(View.GONE);
                     disp_msg.setVisibility(View.VISIBLE);
                     disp_msg.setText(data.getErrorMsg());
@@ -128,10 +128,10 @@ public class M2 extends Fragment {
             public void handleMessage(Message msg) {
 
                 super.handleMessage(msg);
-                System.out.println("after_gotUserinfo handler");
+                //System.out.println("after_gotUserinfo handler");
                 customObject data = (customObject) msg.obj;
-                System.out.println("here is result :" + data.getResult());
-                System.out.println("here is msg : " + data.getMsg());
+                //System.out.println("here is result :" + data.getResult());
+                //System.out.println("here is msg : " + data.getMsg());
                 if (data.getResult().equals("success")) {
                     Worker w = new Worker(getActivity(), "fetch_RCdetails_m2", sd, after_fetchRCdetails);
                     w.setUrlParams(data.getMsg());
@@ -139,7 +139,7 @@ public class M2 extends Fragment {
 
                 } else {
 
-                    System.out.println("here is error msg :" + data.getErrorMsg());
+                    //System.out.println("here is error msg :" + data.getErrorMsg());
                     progressbar.setVisibility(View.GONE);
                     disp_msg.setVisibility(View.VISIBLE);
                     disp_msg.setText(data.getErrorMsg());
@@ -153,9 +153,9 @@ public class M2 extends Fragment {
             public void handleMessage(Message msg) {
 
                 super.handleMessage(msg);
-                System.out.println("after_login handler");
+                //System.out.println("after_login handler");
                 customObject data = (customObject) msg.obj;
-                System.out.println(data.getResult());
+                //System.out.println(data.getResult());
                 if (data.getResult().equals("success")) {
 
                     new Thread(new Worker(getActivity(), "fetch_users_info", sd, after_gotUsersInfo)).start();
@@ -172,18 +172,18 @@ public class M2 extends Fragment {
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
 
-                System.out.println("after_gotCookies handler");
+                //System.out.println("after_gotCookies handler");
                 customObject data = (customObject) msg.obj;
-                System.out.println(data.getResult());
+                //System.out.println(data.getResult());
                 if (data.getResult().equals("success")) {
 
                     if (logged_in) {
                         //                       Toast.makeText(attend_shower.this, "logged in,no usr infos", Toast.LENGTH_SHORT).show();
-                        System.out.println("after gotCookies,logged in,no usr infos");
+                        //System.out.println("after gotCookies,logged in,no usr infos");
                         new Thread(new Worker(getActivity(), "fetch_users_info", sd, after_gotUsersInfo)).start();
                     } else {
                         //                       Toast.makeText(attend_shower.this, "not logged in", Toast.LENGTH_SHORT).show();
-                        System.out.println("after gotCookies,not logged in");
+                        //System.out.println("after gotCookies,not logged in");
                         new Thread(new Worker(getActivity(), "login", sd, after_login)).start();
                     }
                 } else {
@@ -214,20 +214,20 @@ public class M2 extends Fragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        //System.out.println("SetUserVisible,isVisibleToUser :"+isVisibleToUser+",current tab :"+ trn_bw_2_stn.tabindex);
+        ////System.out.println("SetUserVisible,isVisibleToUser :"+isVisibleToUser+",current tab :"+ trn_bw_2_stn.tabindex);
         if (isVisibleToUser && ReportCardActivity.tabindex == 2) {
 
-            //System.out.println("first if ..........");
+            ////System.out.println("first if ..........");
             Thread cheaker= new Thread("threadT2"){
                 @Override
                 public void run() {
                     if(getviewcheck()){
-                        //System.out.println("if part(getviewcheck=true)");
+                        ////System.out.println("if part(getviewcheck=true)");
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
 
-                                //System.out.println("main thread :"+Thread.currentThread().getName());
+                                ////System.out.println("main thread :"+Thread.currentThread().getName());
                                 getActivity().runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
@@ -241,7 +241,7 @@ public class M2 extends Fragment {
 
                                             new Thread(new Worker(getActivity(), "generate_cookie", sd, after_gotCookies)).start();
 //                                            Thread threadu = new Thread(worker1);
-//                                            //System.out.println("fragment,coming,worker defined,if part(worker thread start)");
+//                                            ////System.out.println("fragment,coming,worker defined,if part(worker thread start)");
 //                                            threadu.start();
                                         }
                                     }
@@ -249,7 +249,7 @@ public class M2 extends Fragment {
                             }
                         });
                     }else{
-                        //System.out.println(" unable to understand......");
+                        ////System.out.println(" unable to understand......");
 
                     }
 
@@ -259,26 +259,26 @@ public class M2 extends Fragment {
 //
             cheaker.start();
         }else{
-            //System.out.println("else part of isVisibleToUser && tbts_test.tabindex :"+ trn_bw_2_stn.tabindex);
+            ////System.out.println("else part of isVisibleToUser && tbts_test.tabindex :"+ trn_bw_2_stn.tabindex);
         }
     }
 
     private Boolean getviewcheck() {
         Boolean giveback=false;
-        //System.out.println("under getviewcheck fn");
+        ////System.out.println("under getviewcheck fn");
         while(oncreateCreated2 !=true){
             try {
                 Thread.currentThread().sleep(200);
-                //System.out.println(Thread.currentThread().getName()+",whlie,sleep 100 ms");
+                ////System.out.println(Thread.currentThread().getName()+",whlie,sleep 100 ms");
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
         if(oncreateCreated2){
-            //System.out.println(Thread.currentThread().getName()+","+"getview() != null");
+            ////System.out.println(Thread.currentThread().getName()+","+"getview() != null");
             giveback=true;
         }else if (!oncreateCreated2){
-            //System.out.println(Thread.currentThread().getName()+","+"getview() = null");
+            ////System.out.println(Thread.currentThread().getName()+","+"getview() = null");
             giveback=false;
         }
         return giveback;

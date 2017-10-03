@@ -37,7 +37,7 @@ DatePicker simpleDatePicker;
             date = sdf.parse(myDate);
         } catch (ParseException e) {
             e.printStackTrace();
-            System.out.println("bug in the  simple date format >>"+e.toString());
+            //System.out.println("bug in the  simple date format >>"+e.toString());
         }
 
         simpleDatePicker.setMaxDate(date.getTime());
@@ -49,12 +49,12 @@ DatePicker simpleDatePicker;
                 String year = "" + simpleDatePicker.getYear();
 
                 AttendenceActivity.fromdate.setText(day+ " "+ AttendenceActivity.months[Integer.parseInt(month)]+","+ year.substring(2));
-                System.out.println("to date : "+day + "-" + AttendenceActivity.months[Integer.parseInt(month)] + "-" + year);
+                //System.out.println("to date : "+day + "-" + AttendenceActivity.months[Integer.parseInt(month)] + "-" + year);
                 AttendenceActivity.fromDate=day + "-" + AttendenceActivity.months[Integer.parseInt(month)] + "-" + year;
 
                 Toast.makeText(getApplicationContext(), day + "-" + month + "-" + year, Toast.LENGTH_LONG).show();
 
-                System.out.println("date picked : "+day + "-" + month + "-" + year);
+                //System.out.println("date picked : "+day + "-" + month + "-" + year);
 
                 String myDate =day+"-"+month+"-"+year +" 00:00:00";
                 SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
@@ -63,13 +63,13 @@ DatePicker simpleDatePicker;
                     date = sdf.parse(myDate);
                 } catch (ParseException e) {
                     e.printStackTrace();
-                    System.out.println("bug in the  simple date format >>"+e.toString());
+                    //System.out.println("bug in the  simple date format >>"+e.toString());
                 }
                 AttendenceActivity.millis = date.getTime();
-                System.out.println("here is millis baby : "+ AttendenceActivity.millis);
-                System.out.println("here is sem start day before change :"+ AttendenceActivity.sem_start_date);
+                //System.out.println("here is millis baby : "+ AttendenceActivity.millis);
+                //System.out.println("here is sem start day before change :"+ AttendenceActivity.sem_start_date);
                 AttendenceActivity.sem_start_date=day +"-"+ AttendenceActivity.months[Integer.parseInt(month)]+"-"+year;
-                System.out.println("here is sem start day after change :"+ AttendenceActivity.sem_start_date);
+                //System.out.println("here is sem start day after change :"+ AttendenceActivity.sem_start_date);
                 final Calendar c = Calendar.getInstance();
                 int mYear = c.get(Calendar.YEAR); // current year
                 int mMonth = c.get(Calendar.MONTH); // current month
@@ -77,7 +77,7 @@ DatePicker simpleDatePicker;
 
                 AttendenceActivity.todate.setText(AttendenceActivity.todays_date.split("-")[0]+" "+ AttendenceActivity.todays_date.split("-")[1]+","+ AttendenceActivity.todays_date.split("-")[1].substring(2));
                 AttendenceActivity.toDate = AttendenceActivity.todays_date;
-                System.out.println("to date : " + AttendenceActivity.todays_date);
+                //System.out.println("to date : " + AttendenceActivity.todays_date);
 
                     Users_info_Object obj = new Users_info_Object(
                             AttendenceActivity.sd.getString("c_uname", ""),

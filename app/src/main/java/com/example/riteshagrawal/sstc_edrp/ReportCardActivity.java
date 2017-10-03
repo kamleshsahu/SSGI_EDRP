@@ -64,7 +64,7 @@ public class ReportCardActivity extends baseactivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
 
-                System.out.println("selected tab :"+tab.getPosition());
+                //System.out.println("selected tab :"+tab.getPosition());
                 tabindex=tab.getPosition();
                 simpleViewPager.setCurrentItem(tab.getPosition());
             }
@@ -76,7 +76,7 @@ public class ReportCardActivity extends baseactivity {
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-                System.out.println("Reselected tab :"+tab.getPosition());
+                //System.out.println("Reselected tab :"+tab.getPosition());
                 tabindex=tab.getPosition();
                 simpleViewPager.setCurrentItem(tab.getPosition());
             }

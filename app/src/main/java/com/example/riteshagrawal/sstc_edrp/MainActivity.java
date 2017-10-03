@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
         sd.edit().putString("lastcall", "0").apply();
         if(getIntent().hasExtra("error_msg")){
-            System.out.println("yehh it error id pass is working ........");
+            //System.out.println("yehh it error id pass is working ........");
             Toast.makeText(MainActivity.this,getIntent().getStringExtra("error_msg"),Toast.LENGTH_LONG).show();
             sd.edit().putString("loginParams", "").apply();
             sd.edit().putString("c_uname", "").apply();
