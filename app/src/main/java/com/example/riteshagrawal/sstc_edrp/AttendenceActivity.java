@@ -333,43 +333,14 @@ public class AttendenceActivity extends baseactivity {
             }
         };
 
-        if(!sd.getString("Users_Data_Saver", "").equals("")) {
-            if (flag == 1) {
+
+            if (sem_start_date !=null && sem_start_date !="") {
                 fromDate = sem_start_date;
                 fromdate.setText(sem_start_date.split("-")[0] + " " + sem_start_date.split("-")[1] + "," + sem_start_date.split("-")[2].substring(2));
                 toDate = todays_date;
                 todate.setText(todays_Date);
-
-            } else if (flag == 0) {
-
-
-
-                    if (getIntent() != null && getIntent().getBooleanExtra("sem_startday_set", false)) {
-                    fromDate = sem_start_date;
-                    fromdate.setText(sem_start_date.split("-")[0] + " " + sem_start_date.split("-")[1] + "," + sem_start_date.split("-")[2].substring(2));
-                    toDate = todays_date;
-                    todate.setText(todays_Date);
-
-
-                }else{
-
-                    }
-
             }
 
-        }else{
-            //System.out.println("else if part ........user data saver not created yet....");
-
-
-
-            if(getIntent().getBooleanExtra("sem_startday_set",false)){
-                fromDate=sem_start_date;
-                fromdate.setText(sem_start_date.split("-")[0]+" "+sem_start_date.split("-")[1]+","+sem_start_date.split("-")[2].substring(2));
-                toDate=todays_date;
-                todate.setText(todays_Date);
-
-            }
-        }
         progressBar.setVisibility(View.VISIBLE);
         error_retry.setVisibility(View.GONE);
         new Thread(new Worker(getApplicationContext(), "generate_cookie", sd, after_gotCookies)).start();
@@ -448,7 +419,8 @@ public class AttendenceActivity extends baseactivity {
                     //System.out.println("bug in the  simple date format " + e.toString());
                 }
 
-                millis = date.getTime();
+
+                millis = date != null ? date.getTime() : 0;
             }
             datePickerDialog.getDatePicker().setMinDate(millis);
         }

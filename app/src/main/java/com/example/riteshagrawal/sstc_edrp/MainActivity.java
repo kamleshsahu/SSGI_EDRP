@@ -3,6 +3,7 @@ package com.example.riteshagrawal.sstc_edrp;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -141,7 +142,22 @@ public class MainActivity extends AppCompatActivity {
                 bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "rate app");
                 mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
                 return true;
-
+            case R.id.reportbug:
+                String msg="hii developers at SSTC EDRP ,Pls Checkout the error\n(pls send the screenshots manually)";
+                Intent sendIntent = new Intent("android.intent.action.MAIN");
+                sendIntent.putExtra("jid", "919644790733@s.whatsapp.net");
+                sendIntent.putExtra(Intent.EXTRA_TEXT,msg);
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.setPackage("com.whatsapp");
+                sendIntent.setType("text/plain");
+                PackageManager packageManager = getPackageManager();
+                if (sendIntent.resolveActivity(packageManager) != null) {
+                    startActivity(sendIntent);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Cannot handle this intent",Toast.LENGTH_LONG).show();
+                }
+                mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+                return true;
             case R.id.about_us:
                 Intent o=new Intent(MainActivity.this,about_us.class);
                 startActivity(o);

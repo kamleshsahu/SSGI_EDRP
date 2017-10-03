@@ -40,7 +40,11 @@ DatePicker simpleDatePicker;
             //System.out.println("bug in the  simple date format >>"+e.toString());
         }
 
-        simpleDatePicker.setMaxDate(date.getTime());
+        try {
+            simpleDatePicker.setMaxDate(date.getTime());
+        }catch (Exception e){
+            System.out.println("here is the bug :"+e.toString());
+        }
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

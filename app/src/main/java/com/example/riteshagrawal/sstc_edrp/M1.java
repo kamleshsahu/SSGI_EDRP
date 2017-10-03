@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -84,7 +85,15 @@ public class M1 extends Fragment {
                     } catch (Exception e) {
                         e.fillInStackTrace();
                         //System.out.println("here is the bug :" + e.toString());
+                        loading.setVisibility(View.VISIBLE);
+                        listview.setVisibility(View.GONE);
+                        progressbar.setVisibility(View.GONE);
+                        disp_msg.setVisibility(View.VISIBLE);
+                        disp_msg.setText(e.toString());
+                        retryButton.setVisibility(View.VISIBLE);
                     }
+
+
 
                     try {baseactivity.rollno.setText("" + baseactivity.list.get(2).getValue() + "");
                         baseactivity.batch.setText("Batch :" + baseactivity.list.get(3).getValue() + "");

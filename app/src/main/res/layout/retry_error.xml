@@ -6,7 +6,6 @@
         <ProgressBar
             android:layout_marginTop="145dp"
             android:id="@+id/progressBar"
-            android:onClick="loaderror"
             style="?android:attr/progressBarStyleLarge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

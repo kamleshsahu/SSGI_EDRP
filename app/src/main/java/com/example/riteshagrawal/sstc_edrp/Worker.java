@@ -12,6 +12,7 @@ import android.support.annotation.RequiresApi;
 
 
 import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 
 import java.io.BufferedReader;
@@ -54,7 +55,7 @@ public class Worker implements Runnable {
         this.urlParameters=urlParams;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+  
     @Override
     public void run() {
         Looper.prepare();
@@ -144,7 +145,7 @@ public class Worker implements Runnable {
     }
 
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+  
     private void task_identifier(String task_name){
         switch (task_name){
             case "generate_cookie":
@@ -194,15 +195,22 @@ public class Worker implements Runnable {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+   
     private void Post_Login(Handler dnld_handler, String task_name, String urls) {
         String result = "";
         String sendTaskName = task_name;
         URL url;
-      //  String urlParameters  = "uname=0201160139&password=9981140217&cmbsession=JUL-17";
+
     //    String urlParameters  = "uname=BE20160467&password=9644790733&cmbsession=JUL-17";
          String urlParameters  = sd.getString("loginParams","");
-        byte[] postData = urlParameters.getBytes( StandardCharsets.UTF_8 );
+        byte[] postData = new byte[0];
+        
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                postData = urlParameters.getBytes(StandardCharsets.UTF_8);
+            }else {
+                postData = urlParameters.getBytes();
+            }
+       
     //    int postDataLength = postData.length;
         try {
                     HttpURLConnection E = null;
@@ -258,7 +266,7 @@ public class Worker implements Runnable {
                         }
 
                      //   //System.out.println("hii baby 2 :"+result);
-                        org.jsoup.nodes.Document doc = null;
+                        Document doc = null;
                         try {
                             doc = Jsoup.parse(result, "utf-8");
 
@@ -273,24 +281,6 @@ public class Worker implements Runnable {
                                 message.obj = new customObject(task_name,"success" ,result);
                                 dnld_handler.sendMessage(message);
                                baseactivity.logged_in=true;
-
-//                                if(in !=null){
-//                                    try {
-//                                        in.close();
-//                                    } catch (IOException e) {
-//                                        e.printStackTrace();
-//                                    }
-//                                }
-//                                if (wr != null) {
-//                                    try {
-//                                        wr.close();
-//                                    } catch (IOException e) {
-//                                        e.fillInStackTrace();
-//                                    }
-//                                }
-//                                if (E != null) {
-//                                    E.disconnect();
-//                                }
 
                             }else  if(title_text.startsWith("SSCET-eCampus") ){
 
@@ -321,20 +311,21 @@ public class Worker implements Runnable {
     }
 
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+  
     private void get_Details_via_POST(Handler dnld_handler, String task_name, String urls) {
         String result = "";
-        String sendTaskName = task_name;
+
         URL url;
         String urlParameters  = "info1=21&infox=Attendance&e_cat=&e_id=";
-        byte[] postData = urlParameters.getBytes( StandardCharsets.UTF_8 );
+        byte[] postData = new byte[0];
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            postData = urlParameters.getBytes(StandardCharsets.UTF_8);
+        }else {
+            postData = urlParameters.getBytes();
+        }
         int postDataLength = postData.length;
-        ConnectivityManager mgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = mgr.getActiveNetworkInfo();
 
-
-
-                try {
+        try {
                     HttpURLConnection E = null;
                     url = new URL(urls);
                     E = (HttpURLConnection) url.openConnection();
@@ -417,23 +408,27 @@ public class Worker implements Runnable {
 
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+  
     private void finalCall_via_POST(Handler dnld_handler2, String task_name, String urls,String urlParameters) {
         String result = "";
-        String sendTaskName = task_name;
+
         URL url;
 
      //   String urlParameters  = "sub_mit=&holdme=0&txtrollinfo=90&txtbatchinfo=2&cmbcollegename=FET&BranchF=CSE&SemesterF=3&SectionF=B&extsec='B','.'&reporttype=Attendance Report&dc1=17-JUL-2017&dc2=14-AUG-2017&apercent=ALL";
   //   String urlParameters=   "sub_mit&holdme0=&txtrollinfo=46&txtbatchinfo=2&cmbcollegename=SSEC&BranchF=CSE&SemesterF=3&SectionF=A&extsec='A','.'&reporttype=AttendanceReport&dc1=02-SEP-2017=&dc2=02-SEP-2017&apercent=ALL";
 
         //System.out.println("here is urlParameters :"+"\n"+urlParameters);
-        byte[] postData = urlParameters.getBytes( StandardCharsets.UTF_8 );
+        byte[] postData = new byte[0];
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            postData = urlParameters.getBytes(StandardCharsets.UTF_8);
+        }else {
+            postData = urlParameters.getBytes();
+        }
         int postDataLength = postData.length;
         DataOutputStream wr=null;
         HttpURLConnection E = null;
         BufferedReader in=null;
-        ConnectivityManager mgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = mgr.getActiveNetworkInfo();
+
 
 
             try {
@@ -506,8 +501,7 @@ public class Worker implements Runnable {
                     message.obj = new customObject(task_name, "success", result);
                     dnld_handler2.sendMessage(message);
                 }
-            } catch
-                    (Exception e) {
+            } catch (Exception e) {
                 e.fillInStackTrace();
                 //System.out.println("here is the error :" + e.toString());
                 Message message = Message.obtain();
@@ -519,7 +513,7 @@ public class Worker implements Runnable {
     }
 
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+  
     private void testreport_via_POST(Handler dnld_handler2, String task_name, String urls,String urlParameters) {
         String result = "";
         String sendTaskName = task_name;
@@ -529,13 +523,18 @@ public class Worker implements Runnable {
         //   String urlParameters=   "sub_mit&holdme0=&txtrollinfo=46&txtbatchinfo=2&cmbcollegename=SSEC&BranchF=CSE&SemesterF=3&SectionF=A&extsec='A','.'&reporttype=AttendanceReport&dc1=02-SEP-2017=&dc2=02-SEP-2017&apercent=ALL";
 
         //System.out.println("here is urlParameters :"+"\n"+urlParameters);
-        byte[] postData = urlParameters.getBytes( StandardCharsets.UTF_8 );
+        byte[] postData = new byte[0];
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            postData = urlParameters.getBytes(StandardCharsets.UTF_8);
+        }else {
+            postData = urlParameters.getBytes();
+        }
         int postDataLength = postData.length;
         DataOutputStream wr=null;
         HttpURLConnection E = null;
         BufferedReader in=null;
-        ConnectivityManager mgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = mgr.getActiveNetworkInfo();
+
 
 
         try {
@@ -622,14 +621,20 @@ public class Worker implements Runnable {
 
 
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+  
     private void Post_Logout(Handler dnld_handler, String task_name, String urls) {
         String result = "";
         String sendTaskName = task_name;
         URL url;
            String urlParameters  = "info=myhome";
        // String urlParameters  = sd.getString("loginParams","");
-        byte[] postData = urlParameters.getBytes( StandardCharsets.UTF_8 );
+        byte[] postData = new byte[0];
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            postData = urlParameters.getBytes(StandardCharsets.UTF_8);
+        }else {
+            postData = urlParameters.getBytes();
+        }
         //    int postDataLength = postData.length;
         try {
             HttpURLConnection E = null;
@@ -652,9 +657,8 @@ public class Worker implements Runnable {
             E.setDoInput(true);
             E.setDoOutput(true);
 
-            try(DataOutputStream wr = new DataOutputStream(E.getOutputStream())) {
-                wr.write( postData );
-            }
+            DataOutputStream wr = new DataOutputStream(E.getOutputStream());
+                wr.write(postData);
 
 
             //  E.connect();

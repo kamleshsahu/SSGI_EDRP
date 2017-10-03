@@ -88,10 +88,9 @@ class rcAdaptor extends BaseAdapter  {
            holder = (ViewHolder) view.getTag();
        }
 
-
+//  holder.minmarks.setText(animalNamesList.get(position).getMinmarks());
        holder.subject.setText(animalNamesList.get(position).getSubject());
        holder.maxmarks.setText(animalNamesList.get(position).getMaxmarks());
-     //  holder.minmarks.setText(animalNamesList.get(position).getMinmarks());
        holder.value.setText(animalNamesList.get(position).getValue());
        holder.percent.setText(animalNamesList.get(position).getPercent());
        holder.status.setText(animalNamesList.get(position).getStatus());
@@ -99,10 +98,14 @@ class rcAdaptor extends BaseAdapter  {
        switch (test){
 
            case "PASS":
+               holder.percentage.setVisibility(View.VISIBLE);
+               holder.marks.setVisibility(View.VISIBLE);
+               holder.icon.setImageResource(R.drawable.happy);
                break;
 
            case "FAIL" :
-               //System.out.print("fail is working");
+               holder.percentage.setVisibility(View.VISIBLE);
+               holder.marks.setVisibility(View.VISIBLE);
                holder.icon.setImageResource(R.drawable.sad);
                break;
 
@@ -114,7 +117,7 @@ class rcAdaptor extends BaseAdapter  {
                break;
 
        }
-
+       notifyDataSetChanged();
        return view;
    }
 

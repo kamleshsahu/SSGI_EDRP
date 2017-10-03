@@ -3,6 +3,7 @@ package com.example.riteshagrawal.sstc_edrp;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -150,7 +151,13 @@ public class baseactivity extends AppCompatActivity {
                 sendIntent.setAction(Intent.ACTION_SEND);
                 sendIntent.setPackage("com.whatsapp");
                 sendIntent.setType("text/plain");
-                startActivity(sendIntent);
+                PackageManager packageManager = getPackageManager();
+                if (sendIntent.resolveActivity(packageManager) != null) {
+                    startActivity(sendIntent);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Cannot handle this intent",Toast.LENGTH_LONG).show();
+                }
+
                 return true;
             }
         });
@@ -202,8 +209,6 @@ public class baseactivity extends AppCompatActivity {
                 super.handleMessage(msg);
                 //System.out.println("attend_shower,under logout handler");
                 customObject data = (customObject) msg.obj;
-                //System.out.println(data.getResult());
-//                if(data.getResult().equals("success")){
 
                     Intent i = new Intent( getApplicationContext(),MainActivity.class);
                     startActivity(i);
@@ -211,20 +216,8 @@ public class baseactivity extends AppCompatActivity {
                     logged_in=false;
                     flag=0;
                     sem_start_date="";
-
-
                     baseactivity.this.finish();
 
-
-//                }else{
-//                    maindisplay.setVisibility(View.GONE);
-//                    loading.setVisibility(View.VISIBLE);
-//                    progressBar.setVisibility(View.GONE);
-//                    error_msg_disp.setVisibility(View.VISIBLE);
-//                    error_msg_disp.setText(data.getErrorMsg());
-//                    retryButton.setVisibility(View.VISIBLE);
-
-//                }
             }
         };
 

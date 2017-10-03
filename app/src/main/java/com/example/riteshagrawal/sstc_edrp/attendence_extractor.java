@@ -2,9 +2,9 @@ package com.example.riteshagrawal.sstc_edrp;
 
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 
-import com.google.firebase.crash.FirebaseCrash;
+
+
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -13,7 +13,7 @@ import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
 
-import static android.content.ContentValues.TAG;
+
 
 
 public class attendence_extractor {
