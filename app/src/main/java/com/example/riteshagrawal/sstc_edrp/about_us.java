@@ -11,6 +11,7 @@ import android.text.Html;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -64,11 +65,11 @@ public class about_us extends AppCompatActivity {
             }
         });
 
-        TextView  pit = (TextView) findViewById(R.id.pitech);
+        LinearLayout pit = (LinearLayout) findViewById(R.id.pitech);
         pit.setOnClickListener(new View.OnClickListener() {
             // Start new list activity
             public void onClick(View v) {
-                String url = "http://www.pietechraipur.org/";
+                String url = "http://www.raysitworld.com/";
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 startActivity(i);

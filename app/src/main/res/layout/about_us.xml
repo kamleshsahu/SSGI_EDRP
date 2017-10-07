@@ -180,6 +180,12 @@
                 android:text="RISHABH NAYAK"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
+           <LinearLayout
+               android:id="@+id/pitech"
+               android:gravity="center_horizontal"
+               android:orientation="vertical"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content">
             <TextView
                 android:textAlignment="center"
                 android:textSize="10sp"
@@ -189,7 +195,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
-                android:id="@+id/pitech"
                 android:textAlignment="center"
                 android:textSize="10sp"
                 android:textColor="@color/black"
@@ -197,6 +202,7 @@
                 android:text="@string/about_rishabh"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
+           </LinearLayout>
 
         </LinearLayout>
     </LinearLayout>
