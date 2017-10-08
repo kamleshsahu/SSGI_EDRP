@@ -83,7 +83,7 @@ static void getkeyval()
                 url = new URL(uRl);
 
                 urlConnection = (HttpURLConnection) url.openConnection();
-                urlConnection.setConnectTimeout(240000);
+                urlConnection.setConnectTimeout(8000);
                 urlConnection.setReadTimeout(8000);
                 urlConnection.connect();
                 Object localObject2;
@@ -133,7 +133,7 @@ static void getkeyval()
            ////System.out.println("Socket Timeout Exception:"+e.fillInStackTrace());
 
                 Message message = Message.obtain();
-                message.obj =new customObject("cookie_generator","error","Server Timeout .Pls Retry");
+                message.obj =new customObject("cookie_generator","error","Server Timeout .Pls Retry\n(If this problem persists,then possibly EDRP Website is down for maintenance.Pls try after sometime)");
                 handler.sendMessage(message);
             }
             catch (Exception e) {

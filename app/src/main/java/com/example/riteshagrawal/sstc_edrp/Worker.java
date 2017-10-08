@@ -228,7 +228,7 @@ public class Worker implements Runnable {
          //           E.setRequestProperty("Content-Length", Integer.toString(postDataLength));
                     E.setUseCaches(false);
 
-                    E.setConnectTimeout(240000);
+                    E.setConnectTimeout(8000);
                     E.setReadTimeout(20000);
                     E.setDoInput(true);
                     E.setDoOutput(true);
@@ -340,7 +340,7 @@ public class Worker implements Runnable {
                     E.setRequestProperty("Method", "POST");
                     E.setRequestProperty("Content-Length", Integer.toString(postDataLength));
                     E.setUseCaches(false);
-                    E.setConnectTimeout(30000);
+                    E.setConnectTimeout(8000);
                     E.setReadTimeout(10000);
                     E.setDoInput(true);
                     E.setDoOutput(true);
@@ -446,7 +446,7 @@ public class Worker implements Runnable {
                 E.setRequestProperty("Method", "POST");
                 E.setRequestProperty("Content-Length", Integer.toString(postDataLength));
                 E.setUseCaches(false);
-                E.setConnectTimeout(30000);
+                E.setConnectTimeout(8000);
                 E.setReadTimeout(10000);
                 E.setDoInput(true);
                 E.setDoOutput(true);
@@ -552,7 +552,7 @@ public class Worker implements Runnable {
             E.setRequestProperty("Method", "POST");
             E.setRequestProperty("Content-Length", Integer.toString(postDataLength));
             E.setUseCaches(false);
-            E.setConnectTimeout(30000);
+            E.setConnectTimeout(8000);
             E.setReadTimeout(10000);
             E.setDoInput(true);
             E.setDoOutput(true);
@@ -652,7 +652,7 @@ public class Worker implements Runnable {
             //           E.setRequestProperty("Content-Length", Integer.toString(postDataLength));
             E.setUseCaches(false);
 
-            E.setConnectTimeout(10000);
+            E.setConnectTimeout(8000);
             E.setReadTimeout(5000);
             E.setDoInput(true);
             E.setDoOutput(true);
