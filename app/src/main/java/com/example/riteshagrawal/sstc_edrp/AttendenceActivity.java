@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.FrameLayout;
 
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -34,6 +35,8 @@ public class AttendenceActivity extends baseactivity {
     FrameLayout dynamicContent;
     static ArrayList<attend_info_class> datalist = new ArrayList<>();
     DatePickerDialog datePickerDialog;
+    LinearLayout tap;
+    LinearLayout tap2;
     static  TextView fromdate,todate;
     RelativeLayout attendence_report_display;
     RelativeLayout loading_error_retry;
@@ -75,6 +78,8 @@ public class AttendenceActivity extends baseactivity {
         progressBar=(ProgressBar)findViewById(R.id.progressBar);
         retryButton =(Button)findViewById(R.id.retryButton);
         error_msg_disp=(TextView)findViewById(R.id.disp_msg);
+        tap=(LinearLayout)findViewById(R.id.tap);
+        tap2=(LinearLayout)findViewById(R.id.tap2);
         fromdate = (TextView) findViewById(R.id .fromDate);
         todate = (TextView) findViewById(R.id .toDate);
         tabLayout = (TabLayout) findViewById(R.id.sTabLayout);
@@ -99,14 +104,14 @@ public class AttendenceActivity extends baseactivity {
 
 
 
-        fromdate.setOnClickListener(new View.OnClickListener() {
+        tap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 datePicker(1);
 
             }
         });
-        todate.setOnClickListener(new View.OnClickListener() {
+        tap2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {datePicker(2);
 
