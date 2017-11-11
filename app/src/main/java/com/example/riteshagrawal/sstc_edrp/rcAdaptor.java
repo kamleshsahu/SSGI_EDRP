@@ -110,7 +110,7 @@ class rcAdaptor extends BaseAdapter  {
                break;
 
            case "ABSENT" :
-               //System.out.print("absent is working");
+               ////System.out.print("absent is working");
                holder.icon.setImageResource(R.drawable.absent);
                holder.percentage.setVisibility(View.GONE);
                holder.marks.setVisibility(View.GONE);

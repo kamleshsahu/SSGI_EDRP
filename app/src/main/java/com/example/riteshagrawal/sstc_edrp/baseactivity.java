@@ -1,6 +1,7 @@
 package com.example.riteshagrawal.sstc_edrp;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -11,7 +12,9 @@ import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -22,12 +25,18 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 
-public class baseactivity extends AppCompatActivity {
+public class baseactivity extends AppCompatActivity implements ForceUpdateChecker.OnUpdateNeededListener {
     static SharedPreferences sd;
     Handler logout_handler;
     static Boolean logged_in=false;
@@ -35,6 +44,7 @@ public class baseactivity extends AppCompatActivity {
     final static Gson gson = new Gson();
     static String sem_start_date="";
     static int flag =0;
+    private static final String TAG = MainActivity.class.getSimpleName();
    static FrameLayout content;
     ViewGroup vg;
 
@@ -198,6 +208,30 @@ public class baseactivity extends AppCompatActivity {
         //  main_layout = (LinearLayout)findViewById(R.id.mainlayout);
         content=(FrameLayout)findViewById(R.id.content);
 
+        final FirebaseRemoteConfig firebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
+
+        // set in-app defaults
+        Map<String, Object> remoteConfigDefaults = new HashMap();
+        remoteConfigDefaults.put(ForceUpdateChecker.KEY_UPDATE_REQUIRED, false);
+        remoteConfigDefaults.put(ForceUpdateChecker.KEY_CURRENT_VERSION, "1.8");
+        remoteConfigDefaults.put(ForceUpdateChecker.KEY_UPDATE_URL,
+                "https://play.google.com/store/apps/details?id=com.SSTC.EDRP");
+
+        firebaseRemoteConfig.setDefaults(remoteConfigDefaults);
+        firebaseRemoteConfig.fetch(60) // fetch every minutes
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, "remote config is fetched.");
+                            firebaseRemoteConfig.activateFetched();
+                        }
+                    }
+                });
+
+
+
+        ForceUpdateChecker.with(this).onUpdateNeeded(this).check();
 
         sd = this.getSharedPreferences("com.example.riteshagrawal.sstc_edrp", Context.MODE_APPEND);
         appContext=getApplicationContext();
@@ -207,7 +241,7 @@ public class baseactivity extends AppCompatActivity {
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
-                //System.out.println("attend_shower,under logout handler");
+                ////System.out.println("attend_shower,under logout handler");
                 customObject data = (customObject) msg.obj;
 
                     Intent i = new Intent( getApplicationContext(),MainActivity.class);
@@ -223,7 +257,7 @@ public class baseactivity extends AppCompatActivity {
 
         if(!sd.getString("Users_Data_Saver", "").equals("")) {
             String json1 = sd.getString("Users_Data_Saver", "");
-            //System.out.println("yeh user data reading ..........");
+            ////System.out.println("yeh user data reading ..........");
 
             UserDataSaverObject obj = gson.fromJson(json1, UserDataSaverObject.class);
 
@@ -255,5 +289,37 @@ public class baseactivity extends AppCompatActivity {
         startMain.addCategory(Intent.CATEGORY_HOME);
         startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(startMain);
+    }
+
+    @Override
+    public void onUpdateNeeded(final String updateUrl) {
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setTitle("New version available")
+                .setMessage("Please, update app to the latest version.")
+                .setPositiveButton("Update",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                redirectStore(updateUrl);
+                            }
+                        }).setNegativeButton("No, thanks",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                try {
+                                    // finish();
+                                    dialog.dismiss();
+                                }catch (Exception e){
+                                    e.fillInStackTrace();
+                                    System.out.println("error in the no thanks ,dont update click...");
+                                }
+                            }
+                        }).create();
+        dialog.show();
+    }
+    private void redirectStore(String updateUrl) {
+        final Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(updateUrl));
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 }

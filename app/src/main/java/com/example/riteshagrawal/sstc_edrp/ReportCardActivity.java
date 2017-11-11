@@ -24,6 +24,7 @@ public class ReportCardActivity extends baseactivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
         navigation.getMenu().getItem(1).setChecked(true);
         dynamicContent = (FrameLayout) findViewById(R.id.content);
         View wizard = getLayoutInflater().inflate(R.layout.activity_reportcard, null);
@@ -64,7 +65,7 @@ public class ReportCardActivity extends baseactivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
 
-                //System.out.println("selected tab :"+tab.getPosition());
+                ////System.out.println("selected tab :"+tab.getPosition());
                 tabindex=tab.getPosition();
                 simpleViewPager.setCurrentItem(tab.getPosition());
             }
@@ -76,7 +77,7 @@ public class ReportCardActivity extends baseactivity {
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-                //System.out.println("Reselected tab :"+tab.getPosition());
+                ////System.out.println("Reselected tab :"+tab.getPosition());
                 tabindex=tab.getPosition();
                 simpleViewPager.setCurrentItem(tab.getPosition());
             }

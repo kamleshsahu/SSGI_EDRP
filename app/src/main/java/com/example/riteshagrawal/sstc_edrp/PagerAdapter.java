@@ -49,7 +49,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
         try{
             super.finishUpdate(container);
         } catch (NullPointerException nullPointerException){
-            System.out.println("Catch the NullPointerException in FragmentPagerAdapter.finishUpdate");
+            //System.out.println("Catch the NullPointerException in FragmentPagerAdapter.finishUpdate");
         }
     }
 }

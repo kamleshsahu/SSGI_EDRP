@@ -100,7 +100,7 @@ public class AttendenceActivity extends baseactivity {
         Date date1 = new Date();
 
         todays_Date = dateFormat1.format(date1);
-        //System.out.println("here is todays date :"+dateFormat.format(date));
+        ////System.out.println("here is todays date :"+dateFormat.format(date));
 
 
 
@@ -130,9 +130,9 @@ public class AttendenceActivity extends baseactivity {
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
-                //System.out.println("attend_shower,after_fetchAttendence handler");
+                ////System.out.println("attend_shower,after_fetchAttendence handler");
                 customObject data = (customObject) msg.obj;
-                //System.out.println(data.getResult());
+                ////System.out.println(data.getResult());
 
                 adapter = new PagerAdapter
                         (getSupportFragmentManager(), tabLayout.getTabCount());
@@ -164,7 +164,7 @@ public class AttendenceActivity extends baseactivity {
                             t.start();
                         }catch (Exception e){
                             e.fillInStackTrace();
-                            //System.out.println("saving user data error ");
+                            ////System.out.println("saving user data error ");
                             attendence_report_display.setVisibility(View.GONE);
                             loading_error_retry.setVisibility(View.VISIBLE);
 
@@ -183,7 +183,7 @@ public class AttendenceActivity extends baseactivity {
 
                         }catch (Exception e){
                             e.fillInStackTrace();
-                            //System.out.println("here is the error :"+e.toString());
+                            ////System.out.println("here is the error :"+e.toString());
                             attendence_report_display.setVisibility(View.GONE);
                             loading_error_retry.setVisibility(View.VISIBLE);
 
@@ -213,7 +213,7 @@ public class AttendenceActivity extends baseactivity {
                         @Override
                         public void onTabSelected(TabLayout.Tab tab) {
 
-                            ////System.out.println("selected tab :"+tab.getPosition());
+                            System.out.println("selected tab :"+tab.getPosition());
                             tabindex=tab.getPosition();
                             simpleViewPager.setCurrentItem(tab.getPosition());
                         }
@@ -225,7 +225,7 @@ public class AttendenceActivity extends baseactivity {
 
                         @Override
                         public void onTabReselected(TabLayout.Tab tab) {
-                            ////System.out.println("Reselected tab :"+tab.getPosition());
+                            System.out.println("Reselected tab :"+tab.getPosition());
                             tabindex=tab.getPosition();
                             simpleViewPager.setCurrentItem(tab.getPosition());
                         }
@@ -233,7 +233,7 @@ public class AttendenceActivity extends baseactivity {
 
 
                 }else if(data.getResult().equals("error")){
-                    //System.out.println("here is error msg :"+data.getErrorMsg());
+                    ////System.out.println("here is error msg :"+data.getErrorMsg());
 
                     attendence_report_display.setVisibility(View.GONE);
                     loading_error_retry.setVisibility(View.VISIBLE);
@@ -252,10 +252,10 @@ public class AttendenceActivity extends baseactivity {
             public void handleMessage(Message msg) {
 
                 super.handleMessage(msg);
-                //System.out.println("after_gotUserinfo handler");
+                ////System.out.println("after_gotUserinfo handler");
                 customObject data = (customObject) msg.obj;
-                //System.out.println("here is result :"+data.getResult());
-                //System.out.println("here is msg : "+data.getMsg());
+                ////System.out.println("here is result :"+data.getResult());
+                ////System.out.println("here is msg : "+data.getMsg());
                 if(data.getResult().equals("success")){
                     Worker w=new Worker(getApplicationContext(), "fetch_attendence", sd, after_fetchAttendence);
                     w.setUrlParams(data.getMsg());
@@ -263,7 +263,7 @@ public class AttendenceActivity extends baseactivity {
 
                 }else{
 
-                    //System.out.println("here is error msg :"+data.getErrorMsg());
+                    ////System.out.println("here is error msg :"+data.getErrorMsg());
 
                     attendence_report_display.setVisibility(View.GONE);
                     loading_error_retry.setVisibility(View.VISIBLE);
@@ -280,15 +280,15 @@ public class AttendenceActivity extends baseactivity {
             public void handleMessage(Message msg) {
 
                 super.handleMessage(msg);
-                //System.out.println("after_login handler");
+                ////System.out.println("after_login handler");
                 customObject data = (customObject) msg.obj;
-                //System.out.println(data.getResult());
+                ////System.out.println(data.getResult());
                 if(data.getResult().equals("success")){
 
 
                     if(!sem_start_date.equals("")) {
 //                        Toast.makeText(attend_shower.this, "not have user_info", Toast.LENGTH_SHORT).show();
-                        //System.out.println("after login handler,Not having user_info url");
+                        ////System.out.println("after login handler,Not having user_info url");
                         new Thread(new Worker(getApplicationContext(),"fetch_users_info",sd,after_gotUsersInfo)).start();
                     }else{
                         Intent i = new Intent( AttendenceActivity.this,sem_startday_setter.class);
@@ -298,7 +298,7 @@ public class AttendenceActivity extends baseactivity {
 
                 }else{
 //                    Toast.makeText(getApplicationContext()," Error ",Toast.LENGTH_LONG).show();
-                    //System.out.println("after got cookies error :"+data.getResult());
+                    ////System.out.println("after got cookies error :"+data.getResult());
                     Intent i = new Intent(AttendenceActivity.this,MainActivity.class);
                     i.putExtra("error_msg",data.getErrorMsg());
                     startActivity(i);
@@ -312,18 +312,18 @@ public class AttendenceActivity extends baseactivity {
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
 
-                //System.out.println("after_gotCookies handler");
+                ////System.out.println("after_gotCookies handler");
                 customObject data = (customObject) msg.obj;
-                //System.out.println(data.getResult());
+                ////System.out.println(data.getResult());
                 if(data.getResult().equals("success")){
 
                     if(logged_in) {
                         //                       Toast.makeText(attend_shower.this, "logged in,no usr infos", Toast.LENGTH_SHORT).show();
-                        //System.out.println("after gotCookies,logged in,no usr infos");
+                        ////System.out.println("after gotCookies,logged in,no usr infos");
                         new Thread(new Worker(getApplicationContext(),"fetch_users_info",sd,after_gotUsersInfo)).start();
                     }else {
                         //                       Toast.makeText(attend_shower.this, "not logged in", Toast.LENGTH_SHORT).show();
-                        //System.out.println("after gotCookies,not logged in");
+                        ////System.out.println("after gotCookies,not logged in");
                         new Thread(new Worker(getApplicationContext(), "login", sd, after_login)).start();
                     }
                 }else{
@@ -370,7 +370,7 @@ public class AttendenceActivity extends baseactivity {
 
                         if(tag==1) {
                             fromdate.setText(dayOfMonth+ " "+months[(monthOfYear)]+","+ String.valueOf(year).substring(2));
-                            //System.out.println("to date : "+dayOfMonth + "-" + months[(monthOfYear)] + "-" + year);
+                            ////System.out.println("to date : "+dayOfMonth + "-" + months[(monthOfYear)] + "-" + year);
                             fromDate=dayOfMonth + "-" + months[(monthOfYear)] + "-" + year;
 
                             String myDate =fromDate +" 00:00:00";
@@ -380,11 +380,11 @@ public class AttendenceActivity extends baseactivity {
                                 date = sdf.parse(myDate);
                             } catch (ParseException e) {
                                 e.printStackTrace();
-                                //System.out.println("bug in the  simple date format >>"+e.toString());
+                                ////System.out.println("bug in the  simple date format >>"+e.toString());
                             }
 
                             millis = date.getTime();
-                            //System.out.println("here is millis baby : "+millis);
+                            ////System.out.println("here is millis baby : "+millis);
 
                             if(todate != null){
                                 loading_error_retry.setVisibility(View.VISIBLE);
@@ -396,7 +396,7 @@ public class AttendenceActivity extends baseactivity {
                         }else if(tag==2){
                             todate.setText(dayOfMonth + " " + months[(monthOfYear)]+","+ String.valueOf(year).substring(2));
                             toDate = dayOfMonth + "-" + months[(monthOfYear)] + "-" + year;
-                            //System.out.println("to date : " + dayOfMonth + "-" + months[(monthOfYear)] + "-" + year);
+                            ////System.out.println("to date : " + dayOfMonth + "-" + months[(monthOfYear)] + "-" + year);
 
                             loading_error_retry.setVisibility(View.VISIBLE);
                             attendence_report_display.setVisibility(View.GONE);
@@ -421,7 +421,7 @@ public class AttendenceActivity extends baseactivity {
                     date = sdf.parse(myDate);
                 } catch (ParseException e) {
                     e.printStackTrace();
-                    //System.out.println("bug in the  simple date format " + e.toString());
+                    ////System.out.println("bug in the  simple date format " + e.toString());
                 }
 
 

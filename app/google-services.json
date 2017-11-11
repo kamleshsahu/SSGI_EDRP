@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "270648059074-g5g0lat6nv3kq26jhend66b91o8trmv2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.SSTC.EDRP",
+            "certificate_hash": "6bd1440a611360670f50d464b78187b3b69c68ae"
+          }
+        },
+        {
           "client_id": "270648059074-bt5p5ele3fe203tvdiovncjqhmglvjak.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

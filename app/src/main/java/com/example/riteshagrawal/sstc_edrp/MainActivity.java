@@ -1,14 +1,18 @@
 package com.example.riteshagrawal.sstc_edrp;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 
+import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,13 +23,18 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
-public class MainActivity extends AppCompatActivity {
-
+public class MainActivity extends AppCompatActivity implements ForceUpdateChecker.OnUpdateNeededListener{
+    private static final String TAG = MainActivity.class.getSimpleName();
    static SharedPreferences sd;
     String LoginParams="";
     AutoCompleteTextView id;
@@ -39,7 +48,30 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        final FirebaseRemoteConfig firebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
+
+        // set in-app defaults
+        Map<String, Object> remoteConfigDefaults = new HashMap();
+        remoteConfigDefaults.put(ForceUpdateChecker.KEY_UPDATE_REQUIRED, false);
+        remoteConfigDefaults.put(ForceUpdateChecker.KEY_CURRENT_VERSION, "1.8");
+        remoteConfigDefaults.put(ForceUpdateChecker.KEY_UPDATE_URL,
+                "https://play.google.com/store/apps/details?id=com.SSTC.EDRP");
+
+        firebaseRemoteConfig.setDefaults(remoteConfigDefaults);
+        firebaseRemoteConfig.fetch(60) // fetch every minutes
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, "remote config is fetched.");
+                            firebaseRemoteConfig.activateFetched();
+                        }
+                    }
+                });
+
+
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        ForceUpdateChecker.with(this).onUpdateNeeded(this).check();
 
         sd = this.getSharedPreferences("com.example.riteshagrawal.sstc_edrp", Context.MODE_APPEND);
         id = (AutoCompleteTextView) findViewById(R.id.id);
@@ -60,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
 
         sd.edit().putString("lastcall", "0").apply();
         if(getIntent().hasExtra("error_msg")){
-            //System.out.println("yehh it error id pass is working ........");
+            ////System.out.println("yehh it error id pass is working ........");
             Toast.makeText(MainActivity.this,getIntent().getStringExtra("error_msg"),Toast.LENGTH_LONG).show();
             sd.edit().putString("loginParams", "").apply();
             sd.edit().putString("c_uname", "").apply();
@@ -172,4 +204,36 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onUpdateNeeded(final String updateUrl) {
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setTitle("New version available")
+                .setMessage("Please, update app to the latest version.")
+                .setPositiveButton("Update",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                redirectStore(updateUrl);
+                            }
+                        }).setNegativeButton("No, thanks",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                try {
+                                   // finish();
+                                    dialog.dismiss();
+                                }catch (Exception e){
+                                    e.fillInStackTrace();
+                                    System.out.println("error in the no thanks ,dont update click...");
+                                }
+                            }
+                        }).create();
+        dialog.show();
+    }
+
+    private void redirectStore(String updateUrl) {
+        final Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(updateUrl));
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
 }

@@ -42,8 +42,8 @@ String dnld_data;
 
                 for (int k = 0; k < datalist.size(); k++) {
                     reportcard r = (reportcard) datalist.get(k);
-                    //System.out.println(r.getSubject() + "\n" + r.getMaxmarks() + "\n" + r.getMaxmarks() + "\n" + r.getMinmarks() + "\n" + r.getValue() + "\n" + r.getPercent() + "\n" + r.getStatus());
-                    //System.out.println("\n");
+                    ////System.out.println(r.getSubject() + "\n" + r.getMaxmarks() + "\n" + r.getMaxmarks() + "\n" + r.getMinmarks() + "\n" + r.getValue() + "\n" + r.getPercent() + "\n" + r.getStatus());
+                    ////System.out.println("\n");
                 }
 
                 // attend_shower.datalist = datalist;
@@ -61,7 +61,7 @@ String dnld_data;
             }
         } catch (Exception e) {
                e.fillInStackTrace();
-            //System.out.println("attendence_extractor , attendence_extractor");
+            ////System.out.println("attendence_extractor , attendence_extractor");
             Message message = Message.obtain();
             message.obj = new customObject("", "error", "reportcard_extractor error:"+e.toString());
             handler.sendMessage(message);
