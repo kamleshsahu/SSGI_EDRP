@@ -1,10 +1,18 @@
-This Android Project is a MakeOver of the official Attendence Monitoring System of the "Sri Sankara Technical Campus,Bhilai,Chattisgarh".
+This Android Project is a MakeOver(A web scrapping project) of the official Attendence Monitoring System of the My College ->"Sri Sankara Technical Campus,Bhilai,Chattisgarh".
+<br>
 The App has all below features:
-1.ClassWise Attendence Report
-2.Daily Attendence Peport
-3.Class Test Marks Check
-4.College Attendence bw Selected date range
+<br>
+1.Requires only Login Once after installing,Automatically logs in on app open.
+<br>
+2.ClassWise Attendence Report
+<br>
+3.Daily Attendence Peport
+<br>
+4.Class Test Marks Check
+<br>
+5.College Attendence between Selected date range
 
+<h4>College Attendence Monitor Screenshots</h4><br>
 
 <img src="https://raw.githubusercontent.com/kamleshsahu/SSGI_EDRP/master/Readme/Login.png" width="300">
 <img src="https://raw.githubusercontent.com/kamleshsahu/SSGI_EDRP/master/Readme/Dashboard.png" width="300">
