@@ -1,4 +1,4 @@
-This Android Project is a MakeOver(A web scrapping project) of the official Attendence Monitoring System of the My College ->"Sri Sankara Technical Campus,Bhilai,Chattisgarh".
+<h3>This Android Project is a MakeOver(A web scrapping project) of the official Attendence Monitoring System of the My College ->"Sri Sankara Technical Campus,Bhilai,Chattisgarh".</h3>
 <br>
 The App has all below features:
 <br>
@@ -12,7 +12,7 @@ The App has all below features:
 <br>
 5.College Attendence between Selected date range
 
-<h4>College Attendence Monitor Screenshots</h4><br>
+<h3>College Attendence Monitor App Screenshots</h3><br>
 
 <img src="https://raw.githubusercontent.com/kamleshsahu/SSGI_EDRP/master/Readme/Login.png" width="300">
 <img src="https://raw.githubusercontent.com/kamleshsahu/SSGI_EDRP/master/Readme/Dashboard.png" width="300">
