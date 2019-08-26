@@ -1,4 +1,4 @@
-<h3>This Android Project is a MakeOver(A web scrapping project) of the official Attendence Monitoring System of the My College ->"Sri Sankara Technical Campus,Bhilai,Chattisgarh".</h3>
+<h3>This Android Project is a MakeOver(A web scrapping project) of the official Attendence Monitoring System("http://182.71.130.11/edrpsstc/") of the My College "Sri Sankara Technical Campus,Bhilai,Chattisgarh".</h3>
 <br>
 The App has all below features:
 <br>
